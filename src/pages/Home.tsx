@@ -1,3 +1,13 @@
+import MainNav from '@/components/nav/MainNav';
+import classes from '@/pages/Home.module.scss';
+
 export default function Home() {
-  return <h1>This is Home</h1>;
+  return (
+    <>
+      <MainNav />
+      <main className={classes.main}>
+        <div className={classes.overlay}></div>
+      </main>
+    </>
+  );
 }
