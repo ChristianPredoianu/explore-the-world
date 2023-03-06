@@ -4,6 +4,11 @@ import { Pagination } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import '@/components/swiper/SlidesAutoSwiper.scss';
+
+interface ICountries {
+  photos: [{ id: number; alt: string; src: { original: string } }];
+}
 
 const mostPopularCountries = [
   'england',
@@ -15,30 +20,42 @@ const mostPopularCountries = [
 ];
 
 export default function SlidesAutoSwiper() {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState<ICountries[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function fetchMostPopularCountries() {
-    const responses = await Promise.all(
-      mostPopularCountries.map(async (country) => {
-        const res = await fetch(
-          `https://api.pexels.com/v1/search?query=${country}&per_page=2`,
-          {
-            headers: {
-              Authorization: import.meta.env.VITE_PEXELS_API_KEY,
-            },
-          }
-        );
-        const json = await res.json();
+  function fetchMostPopularCountries() {
+    const baseUrl = 'https://api.pexels.com/v1/search?query=';
 
-        setCountries(json);
-      })
+    setIsLoading(true);
+
+    const countriesPromises = mostPopularCountries.map((country) =>
+      fetch(`${baseUrl}${country}&per_page=2`, {
+        headers: {
+          Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+        },
+      }).then((res) => res.json())
     );
+
+    Promise.all(countriesPromises).then((data: ICountries[]) => {
+      setCountries(data);
+      setIsLoading(false);
+    });
+  }
+
+  let mostPopularCountriesSlides;
+
+  if (countries && !isLoading) {
+    mostPopularCountriesSlides = countries.map((country) => (
+      <SwiperSlide key={country.photos[0].id}>
+        <img src={country.photos[0].src.original} alt={country.photos[0].alt} />
+      </SwiperSlide>
+    ));
   }
 
   useEffect(() => {
     fetchMostPopularCountries();
-    if (countries) console.log(countries);
-  }, []);
+  }, [mostPopularCountries]);
+
   return (
     <>
       <Swiper
@@ -50,15 +67,7 @@ export default function SlidesAutoSwiper() {
         modules={[Pagination]}
         className='mySwiper'
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {mostPopularCountriesSlides}
       </Swiper>
     </>
   );
