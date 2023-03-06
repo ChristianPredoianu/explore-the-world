@@ -1,0 +1,20 @@
+@use '@/sass/abstracts/' as *;
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+
+  @include mq(sm) {
+    max-width: 64rem;
+  }
+
+  @include mq(md) {
+    max-width: 102.4rem;
+    padding: 0 3rem;
+  }
+
+  @include mq(lg) {
+    max-width: 128rem;
+  }
+}
