@@ -2,7 +2,6 @@
 
 .main {
   position: relative;
-  @include flex-config($direction: column, $justify: center);
   min-height: 100vh;
   background-image: url('@/assets/images/explore.jpg');
   background-size: cover;
@@ -21,7 +20,20 @@
 
 .heroContent {
   position: relative;
+  min-height: 100vh;
+  @include flex-config($direction: column, $justify: center, $align: center);
   z-index: 2;
+
+  @include mq(lg) {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+.heroSectionHeadings {
+  @include mq(lg) {
+    width: 40%;
+  }
 }
 
 .heroParagraph {
@@ -31,7 +43,7 @@
 }
 
 .heroPrimaryHeading {
-  font-size: clamp(3rem, 2vw, 4rem);
+  font-size: clamp(3rem, 3vw, 6rem);
   color: var(--clr-blue-200);
   margin-top: 1rem;
   font-weight: var(--fw-bold);
@@ -42,4 +54,12 @@
   font-size: clamp(1.3rem, 2vw, 1.8rem);
   color: var(--clr-blue-200);
   margin-top: 1rem;
+}
+
+.sectionSwiper {
+  margin-top: 10rem;
+
+  @include mq(lg) {
+    width: 50%;
+  }
 }
