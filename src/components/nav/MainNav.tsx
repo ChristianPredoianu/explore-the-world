@@ -1,6 +1,6 @@
 import SocialMediaIcons from '@/components/ui/SocialMediaIcons';
-import classes from '@/components/nav/MainNav.module.scss';
 import classNames from 'classnames';
+import classes from '@/components/nav/MainNav.module.scss';
 
 export default function MainNav() {
   return (
