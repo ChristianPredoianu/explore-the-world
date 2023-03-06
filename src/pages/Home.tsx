@@ -11,13 +11,11 @@ export default function Home() {
       <MainNav />
       <main className={classes.main}>
         <div className={classes.overlay}></div>
-        <div className={classes.heroContent}>
-          <section
-            className={classNames('container', classes.heroSectionHeadings)}
-          >
+        <div className={classNames('container', classes.heroContent)}>
+          <section className={classNames(classes.heroSectionHeadings)}>
             <p className={classes.heroParagraph}>Travel website</p>
             <h1 className={classes.heroPrimaryHeading}>
-              Never stop exploring the world
+              Never stop exploring the world.
             </h1>
             <h2 className={classes.heroSecondaryHeading}>
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -26,7 +24,7 @@ export default function Home() {
               type and scrambled it to make a type specimen book.
             </h2>
           </section>
-          <section className={classes.swipers}>
+          <section className={classes.sectionSwiper}>
             <SlidesAutoSwiper />
           </section>
         </div>
