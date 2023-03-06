@@ -1,0 +1,28 @@
+@use '@/sass/abstracts' as *;
+
+.swiper {
+  width: auto;
+  height: auto;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+
+  /* Center slide text vertically */
+  @include flex-config($justify: center, $align: center);
+}
+
+.swiper-slide img {
+  display: block;
+  width: 18rem;
+  height: 25rem;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.swiper-slide {
+  width: auto;
+  height: auto;
+}
