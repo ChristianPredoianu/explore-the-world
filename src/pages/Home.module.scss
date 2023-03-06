@@ -1,0 +1,19 @@
+@use '@/sass/abstracts' as *;
+
+.main {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('@/assets/images/explore.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.overlay {
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: hsla(191, 92%, 40%, 0.2);
+}
