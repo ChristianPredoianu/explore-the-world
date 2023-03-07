@@ -31,8 +31,11 @@
 }
 
 .heroSectionHeadings {
+  margin-top: 10rem;
+
   @include mq(lg) {
     width: 40%;
+    margin-top: 0;
   }
 }
 
