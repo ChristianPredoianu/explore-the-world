@@ -6,16 +6,15 @@
 }
 
 .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: transparent;
-  overflow: visible !important;
-
   /* Center slide text vertically */
   @include flex-config($justify: center, $align: center);
+  font-size: 18px;
+  background: transparent;
+  text-align: center;
 }
 
 .swiper-slide img {
+  position: relative;
   display: block;
   width: 18rem;
   height: 25rem;
@@ -28,11 +27,61 @@
   height: auto;
 }
 
+.slider-country {
+  @include position($pos: absolute, $bottom: 9rem, $left: 1rem);
+  font-size: 2.5rem;
+  color: var(--clr-gray-200);
+  text-transform: uppercase;
+  font-weight: var(--fw-bold);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 2.5rem;
+  color: var(--clr-gray-200);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  border: 2px solid var(--clr-gray-200);
+  border-radius: 50%;
+  padding: 2rem;
+}
+
 .swiper-button-prev {
-  top: 37rem !important;
+  top: 36rem !important;
 }
 
 .swiper-button-next {
-  top: 37rem !important;
-  left: 15rem !important;
+  top: 36rem !important;
+  left: 8rem !important;
+}
+
+.line {
+  @include position($pos: absolute, $bottom: 3.5rem, $right: 10rem);
+  display: none;
+  width: 10rem;
+  border: 1.8px solid var(--clr-blue-400);
+
+  @include mq(sm) {
+    display: block;
+    width: 50%;
+  }
+}
+
+.counter {
+  @include position($pos: absolute, $bottom: 1.5rem, $right: 2rem);
+  font-size: 4rem;
+  color: var(--clr-gray-200);
+
+  @include mq(md) {
+    bottom: 1.5rem;
+  }
+}
+
+.pexels {
+  display: block;
+  width: 100%;
+  color: var(--clr-gray-200);
+  text-align: right;
 }
