@@ -1,20 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+import { Home, fetchMostPopularCountries } from '@/pages/Home';
+import ErrorPage from '@/pages/ErrorPage';
+import CountryDetails from '@/pages/CountryDetails';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 import '@/sass/main.scss';
 
 library.add(fab, faFacebook);
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route
+        path='/'
+        loader={fetchMostPopularCountries}
+        element={<Home />}
+        errorElement={<ErrorPage />}
+      />
+      <Route path='country/:id' element={<CountryDetails />} />
+    </>
+  )
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
