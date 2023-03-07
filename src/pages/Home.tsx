@@ -1,11 +1,22 @@
-import { useState, useEffect } from 'react';
-/* import useFetch from '@/hooks/useFetch' */
+import { useLoaderData } from 'react-router-dom';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
+import { ICountriesPhotos } from '@/types/apiTypes.interface';
 import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
 
-export default function Home() {
+const mostPopularCountries = [
+  'england',
+  'italy',
+  'spain',
+  'japan',
+  'greece',
+  'argentina',
+];
+
+export function Home() {
+  const data = useLoaderData() as ICountriesPhotos[];
+
   return (
     <>
       <MainNav />
@@ -25,10 +36,35 @@ export default function Home() {
             </h2>
           </section>
           <section className={classes.sectionSwiper}>
-            <SlidesAutoSwiper />
+            <SlidesAutoSwiper
+              swiperData={data}
+              mostPopularCountries={mostPopularCountries}
+            />
           </section>
         </div>
       </main>
     </>
   );
 }
+
+export function fetchMostPopularCountries() {
+  const baseUrl = 'https://api.pexels.com/v1/search?query=';
+
+  const countriesPromises = mostPopularCountries.map((country) =>
+    fetch(`${baseUrl}${country}&per_page=1`, {
+      headers: {
+        Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+      },
+    }).then((res) => res.json())
+  );
+
+  const data = Promise.all(countriesPromises).then(
+    (data: ICountriesPhotos[]) => {
+      return data;
+    }
+  );
+
+  return data;
+}
+
+export default Home;
