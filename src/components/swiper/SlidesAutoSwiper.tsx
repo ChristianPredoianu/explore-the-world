@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
+import LoadingSpinner from '@/components//ui/LoadingSpinner';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '@/components/swiper/SlidesAutoSwiper.scss';
 
 interface ICountries {
-  photos: [{ id: number; alt: string; src: { original: string } }];
+  photos: [{ id: number; alt: string; src: { medium: string } }];
 }
 
 const mostPopularCountries = [
@@ -44,16 +45,19 @@ export default function SlidesAutoSwiper() {
 
   let mostPopularCountriesSlides;
 
-  if (countries && !isLoading) {
+  if (isLoading) {
+    mostPopularCountriesSlides = <LoadingSpinner />;
+  } else if (countries) {
     mostPopularCountriesSlides = countries.map((country) => (
       <SwiperSlide key={country.photos[0].id}>
-        <img src={country.photos[0].src.original} alt={country.photos[0].alt} />
+        <img src={country.photos[0].src.medium} alt={country.photos[0].alt} />
       </SwiperSlide>
     ));
   }
 
   useEffect(() => {
     fetchMostPopularCountries();
+    console.log(countries);
   }, [mostPopularCountries]);
 
   return (
