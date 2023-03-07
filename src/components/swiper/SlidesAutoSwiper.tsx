@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Navigation } from 'swiper';
 import LoadingSpinner from '@/components//ui/LoadingSpinner';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import '@/components/swiper/SlidesAutoSwiper.scss';
 
 interface ICountries {
@@ -65,10 +65,8 @@ export default function SlidesAutoSwiper() {
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
+        navigation={true}
+        modules={[Navigation]}
         className='mySwiper'
       >
         {mostPopularCountriesSlides}

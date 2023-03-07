@@ -2,13 +2,14 @@
 
 .swiper {
   width: auto;
-  height: auto;
+  height: 40rem;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: transparent;
+  overflow: visible !important;
 
   /* Center slide text vertically */
   @include flex-config($justify: center, $align: center);
@@ -25,4 +26,13 @@
 .swiper-slide {
   width: auto;
   height: auto;
+}
+
+.swiper-button-prev {
+  top: 37rem !important;
+}
+
+.swiper-button-next {
+  top: 37rem !important;
+  left: 15rem !important;
 }
