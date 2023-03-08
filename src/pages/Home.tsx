@@ -14,7 +14,7 @@ const mostPopularCountries = [
   'argentina',
 ];
 
-export function Home() {
+export default function Home() {
   const data = useLoaderData() as ICountriesPhotos[];
 
   return (
@@ -66,5 +66,3 @@ export function fetchMostPopularCountries() {
 
   return data;
 }
-
-export default Home;
