@@ -6,9 +6,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import { Home, fetchMostPopularCountries } from '@/pages/Home';
-import ErrorPage from '@/pages/ErrorPage';
-import CountryDetails from '@/pages/CountryDetails';
+import Home, { fetchMostPopularCountries } from '@/pages/Home';
+import ErrorPage from '@/pages/error-page/ErrorPage';
+import CountryDetails, { fetchCountryDetails } from '@/pages/CountryDetails';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import '@/sass/main.scss';
@@ -24,7 +24,11 @@ const router = createBrowserRouter(
         element={<Home />}
         errorElement={<ErrorPage />}
       />
-      <Route path='country/:id' element={<CountryDetails />} />
+      <Route
+        path='country/:countryId'
+        element={<CountryDetails />}
+        loader={fetchCountryDetails}
+      />
     </>
   )
 );
