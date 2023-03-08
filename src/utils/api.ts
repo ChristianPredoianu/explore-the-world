@@ -3,12 +3,12 @@ interface IUseApi<T> {
 }
 
 export async function getApiData<T>(url: string) {
-  try {
-    const response = await fetch(url);
-    const data: IUseApi<T> = await response.json();
+  const response = await fetch(url);
 
-    return data;
-  } catch (error) {
-    console.log(error);
+  if (!response.ok) {
+    throw { message: 'Failed to get data', status: 500 };
   }
+
+  const data: IUseApi<T> = await response.json();
+  return data;
 }
