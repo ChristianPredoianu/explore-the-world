@@ -11,9 +11,10 @@ import ErrorPage from '@/pages/error-page/ErrorPage';
 import CountryDetails, { fetchCountryDetails } from '@/pages/CountryDetails';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import '@/sass/main.scss';
 
-library.add(fab, faFacebook);
+library.add(fab, faFacebook, faAngleLeft, faAngleRight);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
