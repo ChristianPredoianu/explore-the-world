@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import classes from '@/components/nav/CountryDetailsNav.module.scss';
 
 interface CountryDetailsProps {
@@ -11,7 +10,7 @@ export default function CountryDetailsNav({
   altSpelling,
 }: CountryDetailsProps) {
   return (
-    <header className={classNames('container', classes.header)}>
+    <header className='container'>
       <nav className={classes.nav}>
         <div className={classes.country}>
           <img src={flag} alt='country flag' className={classes.navFlag} />
