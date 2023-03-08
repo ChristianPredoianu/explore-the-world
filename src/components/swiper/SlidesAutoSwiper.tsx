@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { ICountriesPhotos } from '@/types/apiTypes.interface';
@@ -17,12 +18,21 @@ export default function SlidesAutoSwiper({
 }: SwiperDataProps) {
   const [swiperActiveIndex, setSwiperActiveIndex] = useState(1);
 
+  const navigate = useNavigate();
+
   const mostPopularCountriesSlides = swiperData.map((country, index) => (
-    <SwiperSlide key={country.photos[0].id}>
+    <SwiperSlide
+      key={country.photos[0].id}
+      onClick={() => goToCountryDetails(mostPopularCountries[index])}
+    >
       <img src={country.photos[0].src.portrait} alt={country.photos[0].alt} />
       <p className='slider-country'>{mostPopularCountries[index]}</p>
     </SwiperSlide>
   ));
+
+  function goToCountryDetails(country: string) {
+    navigate(`country/${country}`);
+  }
 
   return (
     <>
