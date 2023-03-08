@@ -24,7 +24,7 @@
   @include flex-config($direction: column, $justify: center, $align: center);
   z-index: 2;
 
-  @include mq(lg) {
+  @include mq(md) {
     justify-content: space-between;
     flex-direction: row;
   }
@@ -33,7 +33,7 @@
 .heroSectionHeadings {
   margin-top: 10rem;
 
-  @include mq(lg) {
+  @include mq(md) {
     width: 40%;
     margin-top: 0;
   }
@@ -62,7 +62,7 @@
 .sectionSwiper {
   margin-top: 10rem;
 
-  @include mq(lg) {
+  @include mq(md) {
     width: 50%;
   }
 }
