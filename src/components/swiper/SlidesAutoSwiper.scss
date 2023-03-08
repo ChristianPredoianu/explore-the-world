@@ -1,8 +1,8 @@
 @use '@/sass/abstracts' as *;
 
 .swiper {
-  width: auto;
-  height: 40rem;
+  width: 100%;
+  height: 100%;
 }
 
 .swiper-slide {
@@ -28,33 +28,26 @@
 }
 
 .slider-country {
-  @include position($pos: absolute, $bottom: 9rem, $left: 1rem);
+  @include position($pos: absolute, $bottom: 2rem, $left: 1rem);
   font-size: 2.5rem;
   color: var(--clr-gray-200);
   text-transform: uppercase;
   font-weight: var(--fw-bold);
 }
 
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  font-size: 2.5rem;
+.custom-swiper-button-prev,
+.custom-swiper-button-next {
+  font-size: 3rem;
   color: var(--clr-gray-200);
-}
-
-.swiper-button-prev,
-.swiper-button-next {
+  margin-top: 2rem;
+  padding: 0.8rem 1.4rem;
   border: 2px solid var(--clr-gray-200);
-  border-radius: 50%;
-  padding: 2rem;
+  border-radius: 60%;
+  cursor: pointer;
 }
 
-.swiper-button-prev {
-  top: 36rem !important;
-}
-
-.swiper-button-next {
-  top: 36rem !important;
-  left: 8rem !important;
+.custom-swiper-button-next {
+  margin-left: 3rem;
 }
 
 .line {

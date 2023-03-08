@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { ICountriesPhotos } from '@/types/apiTypes.interface';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '@/components/swiper/SlidesAutoSwiper.scss';
@@ -39,7 +40,10 @@ export default function SlidesAutoSwiper({
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={30}
-        navigation={true}
+        navigation={{
+          nextEl: '.custom-swiper-button-next',
+          prevEl: '.custom-swiper-button-prev',
+        }}
         modules={[Navigation]}
         onActiveIndexChange={(swiper) =>
           setSwiperActiveIndex(swiper.activeIndex + 1)
@@ -49,6 +53,15 @@ export default function SlidesAutoSwiper({
         {mostPopularCountriesSlides!}
         <div className='line'></div>
         <p className='counter'>{`0${swiperActiveIndex}`}</p>
+
+        <FontAwesomeIcon
+          icon={['fas', 'angle-left']}
+          className='custom-swiper-button-prev'
+        />
+        <FontAwesomeIcon
+          icon={['fas', 'angle-right']}
+          className='custom-swiper-button-next'
+        />
       </Swiper>
       <a
         href='https://www.pexels.com'
