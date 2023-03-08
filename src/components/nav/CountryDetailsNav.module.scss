@@ -1,0 +1,18 @@
+@use '@/sass/abstracts' as *;
+
+.nav {
+  padding: 2rem 0;
+}
+
+.country {
+  @include flex-config($align: center);
+}
+
+.countryName {
+  font-size: 2.5rem;
+  margin-left: 2rem;
+}
+
+.navFlag {
+  width: 5rem;
+}
