@@ -1,7 +1,9 @@
 import { useLoaderData } from 'react-router-dom';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
+import SearchCountryInput from '@/components/inputs/SearchCountryInput';
 import { ICountriesPhotos } from '@/types/apiTypes.interface';
+
 import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
 
@@ -34,6 +36,9 @@ export default function Home() {
               ever since the 1500s, when an unknown printer took a galley of
               type and scrambled it to make a type specimen book.
             </h2>
+            <div className={classes.inputWrapper}>
+              <SearchCountryInput />
+            </div>
           </section>
           <section className={classes.sectionSwiper}>
             <SlidesAutoSwiper
@@ -47,7 +52,7 @@ export default function Home() {
   );
 }
 
-export function fetchMostPopularCountries() {
+export async function fetchData() {
   const baseUrl = 'https://api.pexels.com/v1/search?query=';
 
   const countriesPromises = mostPopularCountries.map((country) =>
@@ -58,11 +63,11 @@ export function fetchMostPopularCountries() {
     }).then((res) => res.json())
   );
 
-  const data = Promise.all(countriesPromises).then(
-    (data: ICountriesPhotos[]) => {
-      return data;
+  const imgData = Promise.all(countriesPromises).then(
+    (imgData: ICountriesPhotos[]) => {
+      return imgData;
     }
   );
 
-  return data;
+  return imgData;
 }
