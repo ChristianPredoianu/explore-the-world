@@ -51,7 +51,7 @@
 }
 
 .line {
-  @include position($pos: absolute, $bottom: 3.5rem, $right: 10rem);
+  @include position($pos: absolute, $bottom: 2rem, $right: 10rem);
   display: none;
   width: 10rem;
   border: 1.8px solid var(--clr-blue-400);
@@ -63,13 +63,9 @@
 }
 
 .counter {
-  @include position($pos: absolute, $bottom: 1.5rem, $right: 2rem);
+  @include position($pos: absolute, $bottom: 0, $right: 2rem);
   font-size: 4rem;
   color: var(--clr-gray-200);
-
-  @include mq(md) {
-    bottom: 1.5rem;
-  }
 }
 
 .pexels {
