@@ -22,6 +22,7 @@
   position: relative;
   min-height: 100vh;
   @include flex-config($direction: column, $justify: center, $align: center);
+  flex-flow: row wrap;
   z-index: 2;
 
   @include mq(md) {
@@ -60,9 +61,15 @@
 }
 
 .sectionSwiper {
-  margin-top: 10rem;
+  padding: 5rem 0;
 
   @include mq(md) {
     width: 50%;
   }
+}
+
+.inputWrapper {
+  display: inline-block;
+  position: relative;
+  margin-top: 4rem;
 }
