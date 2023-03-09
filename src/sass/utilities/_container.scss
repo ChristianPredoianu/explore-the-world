@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 0 0.5rem;
+  padding: 0 1.3rem;
 
   @include mq(sm) {
     max-width: 64rem;
