@@ -1,0 +1,32 @@
+@use '@/sass/abstracts' as *;
+
+.searchInput {
+  font-size: 1.5rem;
+  color: hsl(0, 0%, 37%);
+  padding: 1.2rem 2rem;
+  border: none;
+  outline: none;
+  border-radius: 1.8rem;
+  box-shadow: hsla(0, 0%, 0%, 0.9) 0px 7px 29px 0px;
+}
+
+.searchIcon {
+  @include position($pos: absolute, $top: 0.5rem, $right: 1rem);
+  background-color: hsla(180, 74%, 70%, 0.4);
+  font-size: 1.5rem;
+  padding: 0.8rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  box-shadow: hsla(0, 0%, 0%, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsla(180, 74%, 70%, 0.9);
+  }
+}
+
+.inputError {
+  @include position($pos: absolute, $bottom: -4rem, $left: 4rem);
+  font-size: 2rem;
+  color: var(--clr-danger);
+}
