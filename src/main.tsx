@@ -6,22 +6,26 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Home, { fetchMostPopularCountries } from '@/pages/Home';
+import Home, { fetchData } from '@/pages/Home';
 import ErrorPage from '@/pages/error-page/ErrorPage';
 import CountryDetails, { fetchCountryDetails } from '@/pages/CountryDetails';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
 import '@/sass/main.scss';
 
-library.add(fab, faFacebook, faAngleLeft, faAngleRight);
+library.add(fab, faFacebook, faAngleLeft, faAngleRight, faMagnifyingGlass);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route
         path='/'
-        loader={fetchMostPopularCountries}
+        loader={fetchData}
         element={<Home />}
         errorElement={<ErrorPage />}
       />
@@ -29,6 +33,7 @@ const router = createBrowserRouter(
         path='country/:countryId'
         element={<CountryDetails />}
         loader={fetchCountryDetails}
+        errorElement={<ErrorPage />}
       />
     </>
   )
