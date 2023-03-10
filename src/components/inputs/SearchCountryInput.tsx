@@ -1,13 +1,8 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ICountryName } from '@/types/apiTypes.interface';
 import classes from '@/components/inputs/SearchCountryInput.module.scss';
-
-interface ICountryName {
-  name: {
-    common: string;
-  };
-}
 
 export default function SearchInput() {
   const [searchQuery, setSearchQuery] = useState<string | undefined>('');
@@ -65,7 +60,7 @@ export default function SearchInput() {
     <>
       <input
         type='text'
-        placeholder='Search for a country'
+        placeholder='Search country'
         className={classes.searchInput}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
