@@ -1,0 +1,14 @@
+@use '@/sass/abstracts' as *;
+
+.weatherList {
+  display: flex;
+  gap: 1rem;
+}
+
+.weatherListItem {
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 10px solid black;
+}
