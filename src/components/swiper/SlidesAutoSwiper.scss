@@ -38,9 +38,10 @@
 .custom-swiper-button-prev,
 .custom-swiper-button-next {
   font-size: 3rem;
+  background-color: transparent;
   color: var(--clr-gray-200);
   margin-top: 2rem;
-  padding: 0.8rem 1.4rem;
+  padding: 0.8rem 1.5rem;
   border: 2px solid var(--clr-gray-200);
   border-radius: 60%;
   cursor: pointer;
