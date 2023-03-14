@@ -1,6 +1,7 @@
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
+import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import {
   ICountryDetailsData,
   ICountryDetails,
@@ -14,7 +15,22 @@ export default function CountryDetails() {
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
-  console.log(countryDetailsData);
+  console.log(countryImages.photos[1]);
+
+  const translations = [
+    countryDetails[0].translations.deu,
+    countryDetails[0].translations.jpn,
+    countryDetails[0].translations.ara,
+    countryDetails[0].translations.fra,
+    countryDetails[0].translations.rus,
+    countryDetails[0].translations.spa,
+  ];
+
+  const translationsParagraphs = translations.map((language) => (
+    <p key={language.common} className={classes.language}>
+      {language.common}
+    </p>
+  ));
 
   return (
     <>
@@ -52,8 +68,18 @@ export default function CountryDetails() {
               </div>
             </div>
           </div>
+          <section className={classes.sectionTranslations}>
+            <div>{translationsParagraphs}</div>
+            <img
+              src={countryImages.photos[0].src.small}
+              alt={countryImages.photos[0].alt}
+              className={classes.translationsImg}
+            />
+          </section>
         </section>
-        <section className={classNames(classes.sectionPhotos)}></section>
+        <section className={classNames(classes.sectionPhotos)}>
+          <EffectCreativeSlider images={countryImages} />
+        </section>
       </main>
     </>
   );
@@ -61,7 +87,7 @@ export default function CountryDetails() {
 
 export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
   let countryDetailsUrl = `https://restcountries.com/v3.1/name/${params.countryId}`;
-  const countryImagesUrl = `https://api.pexels.com/v1/search?query=${params.countryId}&per_page=1`;
+  const countryImagesUrl = `https://api.pexels.com/v1/search?query=${params.countryId}&per_page=15`;
 
   if (params.countryId === 'england')
     countryDetailsUrl = `https://restcountries.com/v3.1/name/gb`;
