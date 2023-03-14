@@ -1,5 +1,9 @@
 export interface ICountriesImages {
-  photos: [{ id: number; alt: string; src: { portrait: string } }];
+  photos: {
+    id: number;
+    alt: string;
+    src: { portrait: string; small: string };
+  }[];
 }
 
 export interface ICountryName {
@@ -38,5 +42,5 @@ export interface ICountryDetails {
 }
 
 export interface ICountryDetailsData {
-  data: [ICountryDetails[], ICountriesImages[]];
+  data: [ICountryDetails[], ICountriesImages];
 }
