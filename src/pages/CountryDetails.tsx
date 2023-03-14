@@ -1,15 +1,20 @@
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
+import {
+  ICountryDetailsData,
+  ICountryDetails,
+  ICountriesImages,
+} from '@/types/apiTypes.interface';
 import classNames from 'classnames';
 import classes from '@/pages/CountryDetails.module.scss';
 
 export default function CountryDetails() {
-  const countryDetailsData = useLoaderData();
+  const countryDetailsData = useLoaderData() as ICountryDetailsData;
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
-  console.log(countryImages);
+  console.log(countryDetailsData);
 
   return (
     <>
@@ -61,12 +66,14 @@ export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
   if (params.countryId === 'england')
     countryDetailsUrl = `https://restcountries.com/v3.1/name/gb`;
 
-  const countryDetailsPromise = getApiData(countryDetailsUrl);
+  const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
+    ICountryDetails[]
+  >;
   const countryImagesPromise = getApiData(countryImagesUrl, {
     headers: {
       Authorization: import.meta.env.VITE_PEXELS_API_KEY,
     },
-  });
+  }) as Promise<ICountriesImages>;
 
   const data = await Promise.all([countryDetailsPromise, countryImagesPromise]);
 
