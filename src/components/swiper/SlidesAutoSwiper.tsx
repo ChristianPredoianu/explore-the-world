@@ -53,15 +53,12 @@ export default function SlidesAutoSwiper({
         {mostPopularCountriesSlides!}
         <div className='line'></div>
         <p className='counter'>{`0${swiperActiveIndex}`}</p>
-
-        <FontAwesomeIcon
-          icon={['fas', 'angle-left']}
-          className='custom-swiper-button-prev'
-        />
-        <FontAwesomeIcon
-          icon={['fas', 'angle-right']}
-          className='custom-swiper-button-next'
-        />
+        <button className='custom-swiper-button-prev'>
+          <FontAwesomeIcon icon={['fas', 'angle-left']} />
+        </button>
+        <button className='custom-swiper-button-next'>
+          <FontAwesomeIcon icon={['fas', 'angle-right']} />
+        </button>
       </Swiper>
       <a
         href='https://www.pexels.com'
