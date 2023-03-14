@@ -2,7 +2,7 @@ export interface ICountriesImages {
   photos: {
     id: number;
     alt: string;
-    src: { portrait: string; small: string };
+    src: { portrait: string; small: string; large2x: string };
   }[];
 }
 
