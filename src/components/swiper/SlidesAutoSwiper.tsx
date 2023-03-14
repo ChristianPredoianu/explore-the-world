@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { ICountriesPhotos } from '@/types/apiTypes.interface';
+import { ICountriesImages } from '@/types/apiTypes.interface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '@/components/swiper/SlidesAutoSwiper.scss';
 
 interface SwiperDataProps {
-  swiperData: ICountriesPhotos[];
+  swiperData: ICountriesImages[];
   mostPopularCountries: string[];
 }
 
