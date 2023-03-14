@@ -13,10 +13,28 @@ export interface ICountryDetails {
     png: string;
   };
   altSpellings: string;
-  name: {
-    common: string;
-  };
+  name: { common: string };
   capital: string;
+  translations: {
+    deu: {
+      common: string;
+    };
+    jpn: {
+      common: string;
+    };
+    ara: {
+      common: string;
+    };
+    fra: {
+      common: string;
+    };
+    rus: {
+      common: string;
+    };
+    spa: {
+      common: string;
+    };
+  };
 }
 
 export interface ICountryDetailsData {
