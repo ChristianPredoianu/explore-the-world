@@ -23,7 +23,7 @@ export default function SearchInput() {
 
   async function fetchCountries() {
     const countryResponse = await fetch('https://restcountries.com/v3.1/all');
-    const countryData = await countryResponse.json();
+    const countryData: ICountryName[] = await countryResponse.json();
 
     return countryData;
   }
