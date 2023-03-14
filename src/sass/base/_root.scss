@@ -2,10 +2,14 @@
 
 :root {
   --clr-gray-200: hsl(0, 0%, 97%);
+  --clr-gray-700: hsl(0, 0%, 45%);
   --clr-blue-200: hsl(196, 41%, 82%);
   --clr-blue-400: hsl(196, 73%, 81%);
+  --clr-blue-700: hsl(196, 27%, 39%);
   --clr-danger: hsl(0, 100%, 50%);
   --fw-bold: 700;
+
+  --box-shadow: 0 8px 32px 0 hsla(236, 63%, 33%, 0.37);
 
   --wrapper-spacing: 2rem 0;
 
