@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
 import SearchCountryInput from '@/components/inputs/SearchCountryInput';
-import { ICountriesPhotos } from '@/types/apiTypes.interface';
+import { ICountriesImages } from '@/types/apiTypes.interface';
 
 import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
@@ -17,7 +17,7 @@ const mostPopularCountries = [
 ];
 
 export default function Home() {
-  const data = useLoaderData() as ICountriesPhotos[];
+  const data = useLoaderData() as ICountriesImages[];
 
   return (
     <>
@@ -64,7 +64,7 @@ export async function fetchData() {
   );
 
   const imgData = Promise.all(countriesPromises).then(
-    (imgData: ICountriesPhotos[]) => {
+    (imgData: ICountriesImages[]) => {
       return imgData;
     }
   );
