@@ -11,9 +11,9 @@
 
   --box-shadow: 0 8px 32px 0 hsla(236, 63%, 33%, 0.37);
 
-  --wrapper-spacing: 2rem 0;
+  --wrapper-spacing: 4rem 0;
 
   @include mq(md) {
-    --wrapper-spacing: 5rem 0;
+    --wrapper-spacing: 8rem 0;
   }
 }
