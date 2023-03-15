@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
+import { CSSTransition } from 'react-transition-group';
 import TodaysWeather from '@/components/weather/TodaysWeather';
 import WeeksWeather from '@/components/weather/WeeksWeather';
-import { IOpenWeatherToday } from '@/types/apiTypes.interface';
+import {
+  IOpenWeatherToday,
+  IOpenWeatherForecast,
+  IOpenWeatherForecastList,
+} from '@/types/apiTypes.interface';
 import classNames from 'classnames';
 import classes from '@/components/weather/Weather.module.scss';
+import '@/components/weather/Test.scss';
 
 interface WeatherProps {
   latlng: {
@@ -15,13 +21,25 @@ interface WeatherProps {
 
 export function Weather({ latlng }: WeatherProps) {
   const [activeId, setActiveId] = useState(1);
+  const [showWeatherComponent, setShowWeatherComponent] = useState(true);
 
-  const openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?&units=metric&lat=${
+  const openWeatherTodayUrl = `https://api.openweathermap.org/data/2.5/weather?&units=metric&lat=${
     latlng[0]
   }&lon=${latlng[1]}&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`;
 
-  const [todayWeatherData, isLoading] =
-    useFetch<IOpenWeatherToday[]>(openWeatherUrl);
+  const openWeatherForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?&units=metric&lat=${
+    latlng[0]
+  }&lon=${latlng[1]}&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`;
+
+  const [todayWeatherData] = useFetch<IOpenWeatherToday>(openWeatherTodayUrl);
+
+  const [forecastData] = useFetch<IOpenWeatherForecastList[]>(
+    openWeatherForecastUrl
+  );
+
+  const nodeRef = useRef(null);
+
+  const fiveDaysForecast = getFiveDaysForecast();
 
   const components = [
     {
@@ -30,20 +48,52 @@ export function Weather({ latlng }: WeatherProps) {
       component: TodaysWeather,
       data: todayWeatherData,
     },
-    { id: 2, label: 'Weeks Weather', component: WeeksWeather, data: null },
+    {
+      id: 2,
+      label: 'Weeks Weather',
+      component: WeeksWeather,
+      data: fiveDaysForecast,
+    },
   ];
 
-  function handleClick(id: number) {
+  function changeComponent(id: number) {
     setActiveId(id);
+  }
+
+  function getFiveDaysForecast() {
+    let forecastDataFiveDays: IOpenWeatherForecast[] = [];
+
+    if (forecastData) {
+      for (var i = 0; i < forecastData.list.length; i += 8) {
+        forecastDataFiveDays.push(forecastData.list[i]);
+      }
+    }
+
+    return forecastDataFiveDays;
   }
 
   const weatherComponent = components.map((component) =>
     component.id === activeId
-      ? todayWeatherData && (
-          <component.component key={component.id} data={component.data} />
+      ? component.data && (
+          <component.component
+            key={component.id}
+            data={component.data}
+            ref={nodeRef}
+            /* onClose={() => setShowWeatherComponent(false)} */
+          />
         )
       : null
   );
+
+  useEffect(() => {
+    setShowWeatherComponent(false);
+    setTimeout(() => {
+      setShowWeatherComponent(true);
+    }, 500);
+
+    console.log(activeId);
+    console.log(showWeatherComponent);
+  }, [activeId]);
 
   return (
     <>
@@ -51,7 +101,7 @@ export function Weather({ latlng }: WeatherProps) {
         {components.map((component) => (
           <li
             key={component.id}
-            onClick={() => handleClick(component.id)}
+            onClick={() => changeComponent(component.id)}
             className={classNames(classes.weatherListItem, {
               [classes.active]: activeId === component.id,
             })}
@@ -60,7 +110,19 @@ export function Weather({ latlng }: WeatherProps) {
           </li>
         ))}
       </ul>
-      {weatherComponent}
+      <CSSTransition
+        in={showWeatherComponent}
+        nodeRef={nodeRef}
+        timeout={300}
+        classNames='alert'
+        unmountOnExit
+        /*    onEnter={() => setShowWeatherComponent(true)}
+        onExited={() => setShowWeatherComponent(false)} */
+      >
+        <div className={classes.cards} ref={nodeRef}>
+          {weatherComponent}
+        </div>
+      </CSSTransition>
     </>
   );
 }
