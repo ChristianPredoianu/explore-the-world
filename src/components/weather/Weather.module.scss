@@ -6,9 +6,10 @@
 }
 
 .weatherListItem {
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
 .active {
-  border-bottom: 10px solid black;
+  border-bottom: 1px solid black;
 }
