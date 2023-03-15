@@ -16,7 +16,7 @@ function toTimeString(totalSeconds: number) {
 
 export default function TodaysWeather({ data }: TodaysWeatherProps) {
   return (
-    <div className={classes.cards}>
+    <>
       <Card
         cardHeading='Weather'
         descriptionOne='Temperature'
@@ -25,7 +25,7 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
         descriptionTwo='Feels like'
         valueTwo={`${data.main.feels_like.toFixed()} \xBAC`}
       >
-        <p className={classes.cardValue}>{data.weather[0].main}</p>
+        <p className={classes.cardChild}>{data.weather[0].main}</p>
       </Card>
       <Card
         cardHeading='Sunrise - Sunset'
@@ -43,6 +43,6 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
         descriptionTwo='gust'
         valueTwo={data.wind.gust.toFixed()}
       />
-    </div>
+    </>
   );
 }
