@@ -2,6 +2,7 @@ import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
+import { Weather } from '@/components/weather/Weather';
 import {
   ICountryDetailsData,
   ICountryDetails,
@@ -14,8 +15,6 @@ export default function CountryDetails() {
   const countryDetailsData = useLoaderData() as ICountryDetailsData;
 
   const [countryDetails, countryImages] = countryDetailsData.data;
-
-  console.log(countryImages.photos[1]);
 
   const translations = [
     countryDetails[0].translations.deu,
@@ -81,6 +80,11 @@ export default function CountryDetails() {
           <EffectCreativeSlider images={countryImages} />
         </section>
       </main>
+      <section className={classes.sectionWeather}>
+        <div className='container'>
+          <Weather latlng={countryDetails[0].latlng} />
+        </div>
+      </section>
     </>
   );
 }
