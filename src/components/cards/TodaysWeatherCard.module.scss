@@ -1,0 +1,31 @@
+@use '@/sass/abstracts' as *;
+
+.card {
+  padding: 3rem 5rem;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+
+  @include flex-config(
+    $direction: column,
+    $align: center,
+    $justify: space-between
+  );
+}
+
+.cardHeading {
+  font-size: 1.2rem;
+  color: var(--clr-gray-700);
+}
+
+.cardDescription {
+  font-size: 1rem;
+
+  &:not(:first-of-type) {
+    margin-top: 1rem;
+  }
+}
+
+.cardValue {
+  font-size: 1.2rem;
+  padding: 0.2rem 0 0.3rem 0;
+}
