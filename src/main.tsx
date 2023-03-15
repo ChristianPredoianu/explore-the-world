@@ -15,10 +15,18 @@ import {
   faAngleLeft,
   faAngleRight,
   faMagnifyingGlass,
+  faWind,
 } from '@fortawesome/free-solid-svg-icons';
 import '@/sass/main.scss';
 
-library.add(fab, faFacebook, faAngleLeft, faAngleRight, faMagnifyingGlass);
+library.add(
+  fab,
+  faFacebook,
+  faAngleLeft,
+  faAngleRight,
+  faMagnifyingGlass,
+  faWind
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
