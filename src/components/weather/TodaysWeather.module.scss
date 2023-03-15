@@ -1,0 +1,15 @@
+@use '@/sass/abstracts' as *;
+
+/* .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 5rem;
+  justify-items: center;
+  margin-top: 5rem;
+} */
+
+.cardChild {
+  font-size: 1.3rem;
+  margin-top: 0.3rem;
+  color: var(--clr-gray-700);
+}
