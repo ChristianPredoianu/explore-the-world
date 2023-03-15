@@ -72,3 +72,20 @@ export interface IOpenWeatherToday {
     gust: number;
   };
 }
+
+export interface IOpenWeatherForecastList {
+  list: [];
+}
+
+export interface IOpenWeatherForecast {
+  dt: number;
+  main: {
+    temp_max: number;
+    temp_min: number;
+  };
+
+  weather: {
+    icon: string;
+  }[];
+}
+[];
