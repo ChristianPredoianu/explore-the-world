@@ -1,3 +1,16 @@
-export default function WeeksWeather() {
-  return <p>weeksWeather</p>;
+import ForecastCard from '@/components/cards/ForecastCard';
+import { IOpenWeatherForecast } from '@/types/apiTypes.interface';
+
+interface WeeksWeatherProps {
+  data: IOpenWeatherForecast[];
+}
+
+export default function WeeksWeather({ data }: WeeksWeatherProps) {
+  return (
+    <>
+      {data.map((day) => (
+        <ForecastCard data={day} key={day.dt} />
+      ))}
+    </>
+  );
 }
