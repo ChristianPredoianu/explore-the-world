@@ -5,39 +5,29 @@
   font-family: 'Michroma', sans-serif;
 
   @include mq(md) {
-    @include flex-config($justify: space-between);
+    @include flex-config($justify: space-between, $align: center);
   }
 }
 
 .sectionCountryInfo {
-  @include mq(md) {
-    width: 60%;
-  }
-}
-
-.sectionPhotos {
-  padding: var(--wrapper-spacing);
-
   @include mq(md) {
     width: 40%;
   }
 }
 
 .countryWrapper {
-  @include flex-config($align: center, $justify: space-around);
-  padding: var(--wrapper-spacing);
+  @include flex-config($align: center, $justify: space-between);
+  margin: var(--wrapper-spacing);
 }
 
 .countryName {
   font-size: clamp(2rem, 3vw, 4rem);
   font-weight: var(--fw-bold);
-  flex: 1;
 }
 
 .countryFlag {
   width: 30%;
-  background: hsla(40, 2%, 27%, 0.3);
-  box-shadow: 0 8px 32px 0 hsla(236, 63%, 33%, 0.37);
+  box-shadow: var(--box-shadow);
   backdrop-filter: blur(9px);
   -webkit-backdrop-filter: blur(9px);
   border-radius: 10px;
@@ -46,7 +36,7 @@
 
 .countryInfo {
   @include flex-config($justify: space-between, $align: center);
-  padding: var(--wrapper-spacing);
+  margin: var(--wrapper-spacing);
 }
 
 .countryCapital {
@@ -98,4 +88,43 @@
 .countryExploreFlag {
   width: 3rem;
   margin-left: 2rem;
+}
+
+.sectionTranslations {
+  @include flex-config($direction: column, $align: center);
+  gap: 2rem;
+  margin: var(--wrapper-spacing);
+
+  @include mq(sm) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+  }
+}
+
+.language {
+  font-size: 1.2rem;
+  color: var(--clr-gray-700);
+
+  &:not(:first-of-type) {
+    margin-top: 0.5rem;
+  }
+}
+
+.translationsImg {
+  box-shadow: var(--box-shadow);
+}
+
+.sectionPhotos {
+  width: 80%;
+  margin: 5rem auto 0 auto;
+
+  @include mq(md) {
+    width: 50%;
+    height: 100%;
+  }
+}
+
+.sectionWeather {
+  margin: var(--wrapper-spacing);
 }
