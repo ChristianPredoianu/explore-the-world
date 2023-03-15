@@ -25,8 +25,7 @@ export function useFetch<T>(initialUrl: string) {
 
   useEffect(() => {
     fetchData();
-    console.log('rendering');
   }, [url]);
 
-  return { data, error, isLoading, setUrl };
+  return [data, error, isLoading, setUrl];
 }
