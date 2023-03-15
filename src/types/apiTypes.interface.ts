@@ -18,7 +18,12 @@ export interface ICountryDetails {
   };
   altSpellings: string;
   name: { common: string };
+  latlng: {
+    0: number;
+    1: number;
+  };
   capital: string;
+
   translations: {
     deu: {
       common: string;
@@ -43,4 +48,27 @@ export interface ICountryDetails {
 
 export interface ICountryDetailsData {
   data: [ICountryDetails[], ICountriesImages];
+}
+
+export interface IOpenWeatherToday {
+  main: {
+    feels_like: number;
+    temp: number;
+  };
+  sys: {
+    sunrise: number;
+    sunset: number;
+  };
+  weather: {
+    0: {
+      main: string;
+      description: string;
+      icon: string;
+    };
+  };
+  wind: {
+    deg: number;
+    speed: number;
+    gust: number;
+  };
 }
