@@ -10,7 +10,7 @@ import {
 } from '@/types/apiTypes.interface';
 import classNames from 'classnames';
 import classes from '@/components/weather/Weather.module.scss';
-import '@/components/weather/Test.scss';
+import '@/components/weather/CssTransitions.scss';
 
 interface WeatherProps {
   latlng: {
@@ -75,24 +75,17 @@ export function Weather({ latlng }: WeatherProps) {
   const weatherComponent = components.map((component) =>
     component.id === activeId
       ? component.data && (
-          <component.component
-            key={component.id}
-            data={component.data}
-            ref={nodeRef}
-            /* onClose={() => setShowWeatherComponent(false)} */
-          />
+          <component.component key={component.id} data={component.data} />
         )
       : null
   );
 
   useEffect(() => {
     setShowWeatherComponent(false);
+
     setTimeout(() => {
       setShowWeatherComponent(true);
-    }, 500);
-
-    console.log(activeId);
-    console.log(showWeatherComponent);
+    }, 100);
   }, [activeId]);
 
   return (
@@ -116,8 +109,6 @@ export function Weather({ latlng }: WeatherProps) {
         timeout={300}
         classNames='alert'
         unmountOnExit
-        /*    onEnter={() => setShowWeatherComponent(true)}
-        onExited={() => setShowWeatherComponent(false)} */
       >
         <div className={classes.cards} ref={nodeRef}>
           {weatherComponent}
