@@ -1,5 +1,4 @@
 import { IOpenWeatherToday } from '@/types/apiTypes.interface';
-
 import Card from '@/components/cards/TodaysWeatherCard';
 import classes from '@/components/weather/TodaysWeather.module.scss';
 
