@@ -11,6 +11,7 @@ function toTimeString(totalSeconds: number) {
   const result = new Date(totalMs).toISOString().slice(11, 19);
 
   return result;
+  d;
 }
 
 export default function TodaysWeather({ data }: TodaysWeatherProps) {
