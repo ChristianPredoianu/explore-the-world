@@ -1,0 +1,110 @@
+@use '@/sass/abstracts' as *;
+
+.card {
+  box-shadow: var(--box-shadow);
+  font-family: 'Michroma', sans-serif;
+
+  @include mq(md) {
+    width: 50%;
+  }
+}
+
+.cardHeadingsWrapper {
+  @include flex-config($align: center);
+  padding: 4rem 2rem;
+
+  @include mq(sm) {
+    padding: 6rem;
+  }
+}
+
+.icon {
+  font-size: 4rem;
+  color: var(--clr-gray-200);
+}
+
+.headings {
+  margin-left: 2rem;
+  font-weight: var(--fr-normal);
+  color: var(--clr-gray-200);
+}
+
+.cardHeading {
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+}
+
+.cardSubheading {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.cardMain {
+  padding: 3rem;
+
+  @include mq(md) {
+    padding: 10rem 6rem;
+  }
+}
+
+.cardMainHeading {
+  font-size: 2rem;
+}
+
+.valuesWrapper {
+  @include flex-config(
+    $direction: column,
+    $justify: space-between,
+    $align: center
+  );
+  gap: 3rem;
+  margin-top: 5rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+
+  @include mq(sm) {
+    flex-direction: row;
+  }
+}
+
+.dot {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+.qualityValue {
+  position: relative;
+  font-size: 4rem;
+
+  @include mq(sm) {
+    &::after {
+      content: '';
+      @include position($pos: absolute, $right: -4rem);
+      border-right: 2px solid hsl(0, 0%, 0%);
+      height: 100%;
+    }
+  }
+}
+
+.qualityDescription {
+  @include mq(sm) {
+    width: 50%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(0.9);
+  }
+}

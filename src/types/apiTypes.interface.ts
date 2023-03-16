@@ -1,3 +1,5 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
 export interface ICountriesImages {
   photos: {
     id: number;
@@ -18,30 +20,34 @@ export interface ICountryDetails {
   };
   altSpellings: string;
   name: { common: string };
-  latlng: {
-    0: number;
-    1: number;
-  };
+  latlng: number[];
+
   capital: string;
 
   translations: {
     deu: {
       common: string;
+      official: string;
     };
     jpn: {
       common: string;
+      official: string;
     };
     ara: {
       common: string;
+      official: string;
     };
     fra: {
       common: string;
+      official: string;
     };
     rus: {
       common: string;
+      official: string;
     };
     spa: {
       common: string;
+      official: string;
     };
   };
 }
@@ -89,3 +95,21 @@ export interface IOpenWeatherForecast {
   }[];
 }
 [];
+
+export interface IAirQualityData {
+  data: {
+    city: string;
+    current: {
+      pollution: {
+        aqius: number;
+      };
+    };
+  };
+}
+
+export interface IPollutionInfo {
+  color: string;
+  icon: IconProp;
+  level: string;
+  desc: string;
+}

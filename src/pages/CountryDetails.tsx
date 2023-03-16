@@ -3,6 +3,8 @@ import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
+import AirQualityCard from '@/components/cards/AirQualityCard';
+import { baseCountryDetailsUrl, baseCountryImagesUrl } from '@/utils/urls';
 import {
   ICountryDetailsData,
   ICountryDetails,
@@ -16,6 +18,8 @@ export default function CountryDetails() {
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
+  if (countryDetails) console.log(countryDetails);
+
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
@@ -26,7 +30,7 @@ export default function CountryDetails() {
   ];
 
   const translationsParagraphs = translations.map((language) => (
-    <p key={language.common} className={classes.language}>
+    <p key={language.official} className={classes.language}>
       {language.common}
     </p>
   ));
@@ -58,7 +62,7 @@ export default function CountryDetails() {
                 {`${countryDetails[0].name.common} you don't know, atypical, unexplored, unique..`}
               </h3>
               <div className={classes.contryExploreWrapper}>
-                <h4 className={classes.countryExplore}>Explore</h4>
+                <button className={classes.countryExplore}>Explore</button>
                 <img
                   src={countryDetails[0].flags.png}
                   alt='country flag'
@@ -85,16 +89,24 @@ export default function CountryDetails() {
           <Weather latlng={countryDetails[0].latlng} />
         </div>
       </section>
+      <section className={classes.sectionAirQuality}>
+        <div className='container'>
+          <h4 className='sectionHeading'>
+            {`Air Quality in ${countryDetails[0].name.common}`}{' '}
+          </h4>
+          <AirQualityCard coords={countryDetails[0].latlng} />
+        </div>
+      </section>
     </>
   );
 }
 
 export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
-  let countryDetailsUrl = `https://restcountries.com/v3.1/name/${params.countryId}`;
-  const countryImagesUrl = `https://api.pexels.com/v1/search?query=${params.countryId}&per_page=15`;
+  let countryDetailsUrl = `${baseCountryDetailsUrl}${params.countryId}`;
+  const countryImagesUrl = `${baseCountryImagesUrl}${params.countryId}&per_page=15`;
 
   if (params.countryId === 'england')
-    countryDetailsUrl = `https://restcountries.com/v3.1/name/gb`;
+    countryDetailsUrl = `${baseCountryDetailsUrl}gb`;
 
   const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
     ICountryDetails[]

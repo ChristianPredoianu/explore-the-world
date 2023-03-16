@@ -14,6 +14,9 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import {
   faAngleLeft,
   faAngleRight,
+  faFaceMeh,
+  faFaceSadTear,
+  faFaceSmile,
   faMagnifyingGlass,
   faWind,
 } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +28,10 @@ library.add(
   faAngleLeft,
   faAngleRight,
   faMagnifyingGlass,
-  faWind
+  faWind,
+  faFaceMeh,
+  faFaceSadTear,
+  faFaceSmile
 );
 
 const router = createBrowserRouter(

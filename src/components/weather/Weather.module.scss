@@ -1,17 +1,25 @@
 @use '@/sass/abstracts' as *;
 
-.weatherList {
+.weatherBtns {
   display: flex;
   gap: 1rem;
 }
 
-.weatherListItem {
-  font-size: 1.5rem;
+.weatherBtn {
+  position: relative;
+  font-size: 1.8rem;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
 }
 
 .active {
-  border-bottom: 1px solid hsl(0, 0%, 0%);
+  &::after {
+    content: '';
+    @include position($pos: absolute, $bottom: -0.5rem, $left: 0);
+    width: 50%;
+    border-top: 2px solid hsl(0, 0%, 0%);
+  }
 }
 
 .cards {

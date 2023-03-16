@@ -36,7 +36,6 @@
 
 .countryInfo {
   @include flex-config($justify: space-between, $align: center);
-  margin: var(--wrapper-spacing);
 }
 
 .countryCapital {
@@ -63,8 +62,17 @@
 
 .countryExplore {
   position: relative;
-  display: inline-block;
+  background-color: transparent;
+  font-size: 1.2rem;
+  border: none;
   cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--clr-gray-700);
+
+  &:hover {
+    font-weight: var(--fw-bold);
+    color: hsl(0, 0%, 0%);
+  }
 
   &:hover {
     &::after {
@@ -74,10 +82,10 @@
 
   &::after {
     content: '';
-    @include position($pos: absolute, $top: 2rem, $left: 0);
+    @include position($pos: absolute, $top: 2.3rem, $left: 0);
     width: 30%;
     border-top: 2px solid;
-    transition: all 0.2s ease;
+    transition: width 0.2s ease;
   }
 }
 
@@ -93,12 +101,11 @@
 .sectionTranslations {
   @include flex-config($direction: column, $align: center);
   gap: 2rem;
-  margin: var(--wrapper-spacing);
+  margin-top: 5rem;
 
   @include mq(sm) {
     flex-direction: row;
     justify-content: space-between;
-    margin: 0;
   }
 }
 

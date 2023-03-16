@@ -1,3 +1,8 @@
 body {
   font-family: 'Golos Text', sans-serif;
 }
+
+.sectionHeading {
+  font-size: clamp(1.8rem, 2vw, 2.3rem);
+  padding: 5rem 0;
+}

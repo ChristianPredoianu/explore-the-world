@@ -27,5 +27,5 @@ export function useFetch<T>(initialUrl: string) {
     fetchData();
   }, [url]);
 
-  return [data, error, isLoading, setUrl];
+  return [data, error, isLoading, setUrl] as const;
 }
