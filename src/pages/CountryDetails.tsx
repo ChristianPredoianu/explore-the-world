@@ -18,8 +18,6 @@ export default function CountryDetails() {
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
-  if (countryDetails) console.log(countryDetails);
-
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
@@ -44,9 +42,7 @@ export default function CountryDetails() {
       <main className={classNames('container', classes.main)}>
         <section className={classNames(classes.sectionCountryInfo)}>
           <div className={classes.countryWrapper}>
-            <h1 className={classes.countryName}>
-              {countryDetails[0].name.common}
-            </h1>
+            <h1 className={classes.countryName}>{countryDetails[0].name.common}</h1>
             <img
               src={countryDetails[0].flags.png}
               alt='country flag'
@@ -54,9 +50,7 @@ export default function CountryDetails() {
             />
           </div>
           <div className={classes.countryInfo}>
-            <h2 className={classes.countryCapital}>
-              {countryDetails[0].capital[0]}
-            </h2>
+            <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
             <div className={classes.countryInfoExplore}>
               <h3 className={classes.countryText}>
                 {`${countryDetails[0].name.common} you don't know, atypical, unexplored, unique..`}
@@ -105,8 +99,7 @@ export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
   let countryDetailsUrl = `${baseCountryDetailsUrl}${params.countryId}`;
   const countryImagesUrl = `${baseCountryImagesUrl}${params.countryId}&per_page=15`;
 
-  if (params.countryId === 'england')
-    countryDetailsUrl = `${baseCountryDetailsUrl}gb`;
+  if (params.countryId === 'england') countryDetailsUrl = `${baseCountryDetailsUrl}gb`;
 
   const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
     ICountryDetails[]
