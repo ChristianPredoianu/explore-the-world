@@ -16,7 +16,7 @@ export default function SearchInput() {
 
     if (e.target.value === '') setIsInputError(false);
   }
-
+  /* Need to fix like fetch countries and show them when user starts typing, show them below the input element like position absolute */
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') searchCountry();
   }
