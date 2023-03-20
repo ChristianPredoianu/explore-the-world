@@ -1,5 +1,6 @@
-import { useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFetch } from '@/hooks/useFetch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICountryName } from '@/types/apiTypes.interface';
 import classes from '@/components/inputs/SearchCountryInput.module.scss';
@@ -8,6 +9,8 @@ export default function SearchInput() {
   const [searchQuery, setSearchQuery] = useState<string | undefined>('');
   const [inputError, setInputError] = useState('');
   const [isInputError, setIsInputError] = useState(false);
+
+  const [countryData] = useFetch(`https://restcountries.com/v3.1/all`);
 
   const navigate = useNavigate();
 
@@ -18,14 +21,19 @@ export default function SearchInput() {
   }
   /* Need to fix like fetch countries and show them when user starts typing, show them below the input element like position absolute */
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') searchCountry();
+    const foundCountries = countryData.filter((country: ICountryName) =>
+      country.name.common.includes(capitalizeFirstLetterString(searchQuery!))
+    );
+
+    console.log(foundCountries);
+    if (e.key === 'Enter' && searchQuery !== '') searchCountry();
   }
 
   async function fetchCountries() {
-    const countryResponse = await fetch('https://restcountries.com/v3.1/all');
+    /*   const countryResponse = await fetch('https://restcountries.com/v3.1/all');
     const countryData: ICountryName[] = await countryResponse.json();
 
-    return countryData;
+    return countryData; */
   }
 
   function capitalizeFirstLetterString(str: string) {
@@ -38,22 +46,23 @@ export default function SearchInput() {
     return capitalizedString;
   }
 
-  async function searchCountry() {
-    if (searchQuery !== '') {
-      const countryData = await fetchCountries();
-
-      const found = countryData.find(
+  function searchCountry() {
+    /*   const countryData = await fetchCountries(); */
+    /* setUrl('dsa'); */
+    /*   setUrl('https://restcountries.com/v3.1/all'); */
+    /* console.log(countryData); */
+    /*   const found = countryData.filter(
         (country: ICountryName) =>
           country.name.common === capitalizeFirstLetterString(searchQuery!)
       );
 
-      if (found) {
-        navigate(`country/${searchQuery}`);
+      console.log(found); */
+    /*   if (found) {
+         navigate(`country/${searchQuery}`); 
       } else if (found === undefined) {
         setIsInputError(true);
         setInputError('Invalid country');
-      }
-    }
+      } */
   }
 
   return (
@@ -70,6 +79,9 @@ export default function SearchInput() {
         className={classes.searchIcon}
         onClick={searchCountry}
       />
+      <ul>
+        <li>dsa</li>
+      </ul>
       {isInputError && <p className={classes.inputError}>{inputError}</p>}
     </>
   );
