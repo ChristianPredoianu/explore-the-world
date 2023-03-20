@@ -21,9 +21,9 @@ export function Weather({ latlng }: WeatherProps) {
   const [activeWeatherComponent, setActiveWeatherComponent] = useState(1);
   const [showWeatherComponent, setShowWeatherComponent] = useState(true);
 
-  const openWeatherTodayUrl = `${baseOpenWeatherUrl}&lat=${latlng[0]}&lon=${latlng[1]}&appid=${
-    import.meta.env.VITE_OPENWEATHER_API_KEY
-  }`;
+  const openWeatherTodayUrl = `${baseOpenWeatherUrl}&lat=${latlng[0]}&lon=${
+    latlng[1]
+  }&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`;
 
   const openWeatherForecastUrl = `${baseOpenWeatherForecastUrl}&lat=${latlng[0]}&lon=${
     latlng[1]
@@ -94,7 +94,7 @@ export function Weather({ latlng }: WeatherProps) {
         in={showWeatherComponent}
         nodeRef={nodeRef}
         timeout={300}
-        classNames='alert'
+        classNames='slide'
         unmountOnExit
       >
         <div className={classes.cards} ref={nodeRef}>
