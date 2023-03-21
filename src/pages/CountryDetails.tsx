@@ -17,7 +17,7 @@ export default function CountryDetails() {
   const countryDetailsData = useLoaderData() as ICountryDetailsData;
 
   const [countryDetails, countryImages] = countryDetailsData.data;
-  console.log(countryDetails);
+
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
