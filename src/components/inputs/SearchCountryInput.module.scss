@@ -33,7 +33,7 @@
 
 .suggestionList {
   position: absolute;
-  top: 6rem;
+  top: 4.5rem;
   background-color: var(--clr-gray-200);
   width: 100%;
   padding: 1.2rem 2rem;
@@ -42,10 +42,10 @@
 }
 
 .suggestionListItem {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 
   &:not(:first-of-type) {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
 }
 
