@@ -17,7 +17,7 @@ const mostPopularCountries = [
 ];
 
 export default function Home() {
-  const data = useLoaderData() as ICountriesImages[];
+  const countriesData = useLoaderData() as ICountriesImages[];
 
   return (
     <>
@@ -31,10 +31,10 @@ export default function Home() {
               Never stop exploring the world.
             </h1>
             <h2 className={classes.heroSecondaryHeading}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              Lorem Ipsum has been the industry's standard dummy text ever since the
+              1500s, when an unknown printer took a galley of type and scrambled it to
+              make a type specimen book.
             </h2>
             <div className={classes.inputWrapper}>
               <SearchCountryInput />
@@ -42,7 +42,7 @@ export default function Home() {
           </section>
           <section className={classes.sectionSwiper}>
             <SlidesAutoSwiper
-              swiperData={data}
+              swiperData={countriesData}
               mostPopularCountries={mostPopularCountries}
             />
           </section>
@@ -63,11 +63,9 @@ export async function fetchData() {
     }).then((res) => res.json())
   );
 
-  const imgData = Promise.all(countriesPromises).then(
-    (imgData: ICountriesImages[]) => {
-      return imgData;
-    }
-  );
+  const imgData = Promise.all(countriesPromises).then((imgData: ICountriesImages[]) => {
+    return imgData;
+  });
 
   return imgData;
 }
