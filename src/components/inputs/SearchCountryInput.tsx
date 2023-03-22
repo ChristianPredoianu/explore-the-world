@@ -1,108 +1,83 @@
-import { useState, ChangeEvent, KeyboardEvent, useRef, useEffect } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '@/hooks/useFetch';
+import { useCapitalizeFirstLetterString } from '@/hooks/utils/useCapitalizeFirstLetterString';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICountryName } from '@/types/apiTypes.interface';
 import classNames from 'classnames';
 import classes from '@/components/inputs/SearchCountryInput.module.scss';
 
 export default function SearchInput() {
-  const [searchQuery, setSearchQuery] = useState<string | undefined>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [inputError, setInputError] = useState('');
   const [isInputError, setIsInputError] = useState(false);
   const [suggestions, setSuggestions] = useState<ICountryName[]>([]);
-  const [activeSuggestion, setActiveSuggestion] = useState(2);
-
-  const suggestionListRef = useRef(null);
+  const [activeSuggestion, setActiveSuggestion] = useState(0);
 
   const [countryData, setUrl] = useFetch<ICountryName[]>(
     `https://restcountries.com/v3.1/all`
   );
 
+  const { capitalizeFirstLetterString } = useCapitalizeFirstLetterString();
+
   const navigate = useNavigate();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
+    if (countryData) filterSuggestions();
+
+    /* const filteredCountries = filterSuggestions();
+    const eightSuggestions = filteredCountries!.slice(0, 8); */
+
+    /* if (searchQuery === '') {
+      setSuggestions([]);
+    } */
 
     if (e.target.value === '') setIsInputError(false);
   }
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
-    const filteredCountries = filterCountries();
-    const eightSuggestions = filteredCountries!.slice(0, 8);
-
-    if (searchQuery === '') {
-      setSuggestions([]);
-      setActiveSuggestion(0);
-    } else {
-      setSuggestions(eightSuggestions);
-      setSuggestionActive(e);
-    }
-
     if (e.key === 'Enter' && searchQuery !== '') {
       /*  setSearchQuery(suggestions[activeSuggestion].name.common); */
       /*  searchCountry(); */
     }
+
+    if (
+      e.key === 'ArrowDown' &&
+      searchQuery !== '' &&
+      suggestions.length >= activeSuggestion + 2
+    ) {
+      setActiveSuggestion((prevState) => prevState + 1);
+    }
+
+    if (e.key === 'ArrowUp' && searchQuery !== '' && activeSuggestion !== 0) {
+      setActiveSuggestion((prevState) => prevState - 1);
+    }
+
+    /*   if (e.key === 'Backspace') filterSuggestions(); */
   }
 
-  function filterCountries() {
+  function filterSuggestions() {
     let foundCountries;
 
-    if (countryData) {
+    if (suggestions && countryData) {
       foundCountries = countryData.filter((country: ICountryName) =>
         country.name.common.includes(capitalizeFirstLetterString(searchQuery!))
       );
     }
 
-    return foundCountries;
-  }
-
-  function setSuggestionActive(e: KeyboardEvent<HTMLInputElement>) {
-    /*    if (
-      e.key === 'ArrowDown' &&
-      searchQuery !== '' &&
-      suggestions.length - 1 >= activeSuggestion
-    ) {
-      setActiveSuggestion((prevState) => prevState + 1);
-      console.log(suggestions.length - 1 >= activeSuggestion);
-      console.log(suggestions.length);
-      console.log(activeSuggestion);
-      console.log(suggestions[activeSuggestion].name.common);
-      console.log(e.key);
-    } */
-
-    if (e.key === 'ArrowUp' && searchQuery !== '' && activeSuggestion !== 0) {
-      setActiveSuggestion((count) => count - 1);
-      console.log(activeSuggestion);
-      console.log(e.key);
-    }
-  }
-
-  async function fetchCountries() {
-    const countryResponse = await fetch('https://restcountries.com/v3.1/all');
-    const countryData: ICountryName[] = await countryResponse.json();
-
-    return countryData;
-  }
-
-  function capitalizeFirstLetterString(str: string) {
-    const capitalizedString = str
-      .toLowerCase()
-      .split(' ')
-      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-      .join(' ');
-
-    return capitalizedString;
+    if (foundCountries) setSuggestions(foundCountries.slice(0, 8));
   }
 
   async function searchCountry() {
-    const countryData = await fetchCountries();
+    let found;
 
-    const found = countryData.filter(
-      (country: ICountryName) =>
-        country.name.common === capitalizeFirstLetterString(searchQuery!)
-    );
-    console.log(found);
+    if (countryData) {
+      found = countryData.filter(
+        (country: ICountryName) =>
+          country.name.common === capitalizeFirstLetterString(searchQuery!)
+      );
+    }
 
     if (found) {
       navigate(`country/${searchQuery}`);
@@ -112,9 +87,33 @@ export default function SearchInput() {
     }
   }
 
+  let suggestionListItems;
+
+  if (suggestions.length > 0) {
+    suggestionListItems = suggestions.map((suggestion, index) => (
+      <li
+        className={classNames(classes.suggestionListItem, {
+          [classes.activeSuggestion]: index === activeSuggestion,
+        })}
+        key={suggestion.name.common}
+      >
+        {`${suggestion.name.common}`}
+      </li>
+    ));
+  }
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      setSuggestions([]);
+    } else {
+      filterSuggestions();
+    }
+  }, [searchQuery]);
+
   return (
     <>
       <input
+        value={searchQuery}
         type='text'
         placeholder='Search country'
         className={classes.searchInput}
@@ -128,19 +127,9 @@ export default function SearchInput() {
         onClick={searchCountry}
       />
       {suggestions.length > 0 && (
-        <ul className={classes.suggestionList} ref={suggestionListRef}>
-          {suggestions.map((suggestion, index) => (
-            <li
-              className={classNames(classes.suggestionListItem, {
-                [classes.activeSuggestion]: index === activeSuggestion,
-              })}
-              key={suggestion.name.common}
-            >
-              {suggestion.name.common}
-            </li>
-          ))}
-        </ul>
+        <ul className={classes.suggestionList}>{suggestionListItems}</ul>
       )}
+
       {isInputError && <p className={classes.inputError}>{inputError}</p>}
     </>
   );
