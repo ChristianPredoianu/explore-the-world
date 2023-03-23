@@ -14,7 +14,6 @@ function toTimeString(totalSeconds: number) {
 }
 
 export default function TodaysWeather({ data }: TodaysWeatherProps) {
-  console.log(data);
   return (
     <>
       <Card
