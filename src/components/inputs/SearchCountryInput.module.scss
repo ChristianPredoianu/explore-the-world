@@ -28,7 +28,7 @@
 .inputError {
   @include position($pos: absolute, $bottom: -4rem, $left: 4rem);
   font-size: 2rem;
-  color: var(--clr-danger);
+  color: rgb(233, 237, 241);
 }
 
 .suggestionList {
@@ -42,7 +42,10 @@
 }
 
 .suggestionListItem {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
 
   &:not(:first-of-type) {
     margin-top: 1rem;
@@ -50,5 +53,12 @@
 }
 
 .activeSuggestion {
-  background-color: aqua;
+  font-weight: var(--fw-bold);
+  background-color: var(--clr-blue-400);
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.listItemSpan {
+  margin-left: 1rem;
 }
