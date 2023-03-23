@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '@/hooks/useFetch';
 import { useCapitalizeFirstLetterString } from '@/hooks/utils/useCapitalizeFirstLetterString';
@@ -13,10 +13,10 @@ export default function SearchInput() {
   const [isInputError, setIsInputError] = useState(false);
   const [suggestions, setSuggestions] = useState<ICountryName[]>([]);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [isShowSuggestions, setIsShowSuggestions] = useState(false);
 
-  const [countryData, setUrl] = useFetch<ICountryName[]>(
-    `https://restcountries.com/v3.1/all`
-  );
+  const [countryData] = useFetch<ICountryName[]>(`https://restcountries.com/v3.1/all`);
 
   const { capitalizeFirstLetterString } = useCapitalizeFirstLetterString();
 
@@ -24,66 +24,76 @@ export default function SearchInput() {
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
-    if (countryData) filterSuggestions();
-
-    /* const filteredCountries = filterSuggestions();
-    const eightSuggestions = filteredCountries!.slice(0, 8); */
-
-    /* if (searchQuery === '') {
-      setSuggestions([]);
-    } */
+    setIsInputError(false);
+    setIsSelecting(false);
+    setActiveSuggestion(0);
 
     if (e.target.value === '') setIsInputError(false);
-  }
-
-  function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && searchQuery !== '') {
-      /*  setSearchQuery(suggestions[activeSuggestion].name.common); */
-      /*  searchCountry(); */
-    }
-
-    if (
-      e.key === 'ArrowDown' &&
-      searchQuery !== '' &&
-      suggestions.length >= activeSuggestion + 2
-    ) {
-      setActiveSuggestion((prevState) => prevState + 1);
-    }
-
-    if (e.key === 'ArrowUp' && searchQuery !== '' && activeSuggestion !== 0) {
-      setActiveSuggestion((prevState) => prevState - 1);
-    }
-
-    /*   if (e.key === 'Backspace') filterSuggestions(); */
   }
 
   function filterSuggestions() {
     let foundCountries;
 
-    if (suggestions && countryData) {
+    if (countryData) {
       foundCountries = countryData.filter((country: ICountryName) =>
-        country.name.common.includes(capitalizeFirstLetterString(searchQuery!))
+        country.name.common.includes(capitalizeFirstLetterString(searchQuery))
       );
     }
 
-    if (foundCountries) setSuggestions(foundCountries.slice(0, 8));
+    if (foundCountries) {
+      const firstEightSuggestions = foundCountries.slice(0, 8);
+      setSuggestions(firstEightSuggestions);
+      setIsShowSuggestions(true);
+    }
   }
 
-  async function searchCountry() {
-    let found;
+  function searchCountry() {
+    let found: ICountryName[];
 
     if (countryData) {
       found = countryData.filter(
         (country: ICountryName) =>
-          country.name.common === capitalizeFirstLetterString(searchQuery!)
+          country.name.common === capitalizeFirstLetterString(searchQuery)
       );
+
+      if (found.length > 0) {
+        navigate(`country/${searchQuery}`);
+      } else {
+        setInputError('Invalid country');
+        setIsInputError(true);
+        setIsShowSuggestions(false);
+      }
+    }
+  }
+
+  function handleSuggestionClick(suggestion: string, index: number) {
+    if (activeSuggestion) setActiveSuggestion(index);
+
+    setSearchQuery(suggestion);
+    navigate(`country/${suggestion}`);
+  }
+
+  function checkKeyPress(e: KeyboardEvent) {
+    if (e.key === 'Enter' && searchQuery !== '') {
+      const selectedSuggestion = suggestions[activeSuggestion].name.common;
+
+      setIsInputError(false);
+      navigate(`country/${selectedSuggestion}`);
     }
 
-    if (found) {
-      navigate(`country/${searchQuery}`);
-    } else if (found === undefined) {
-      setIsInputError(true);
-      setInputError('Invalid country');
+    if (e.key === 'ArrowDown' && suggestions.length >= activeSuggestion + 2) {
+      setIsSelecting(true);
+      setActiveSuggestion((prevState) => prevState + 1);
+    }
+
+    if (e.key === 'ArrowUp' && activeSuggestion !== 0) {
+      setIsSelecting(true);
+      setActiveSuggestion((prevState) => prevState - 1);
+    }
+
+    if (e.key === 'Backspace') {
+      setIsSelecting(false);
+      setActiveSuggestion(0);
     }
   }
 
@@ -96,19 +106,31 @@ export default function SearchInput() {
           [classes.activeSuggestion]: index === activeSuggestion,
         })}
         key={suggestion.name.common}
+        onClick={() => handleSuggestionClick(suggestion.name.common, index)}
       >
-        {`${suggestion.name.common}`}
+        <span className={classes.listItemSpan}>{`${suggestion.name.common}`}</span>
       </li>
     ));
   }
 
   useEffect(() => {
-    if (searchQuery === '') {
-      setSuggestions([]);
-    } else {
-      filterSuggestions();
-    }
+    window.addEventListener('keydown', checkKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', checkKeyPress);
+    };
+  }, [checkKeyPress]);
+
+  useEffect(() => {
+    if (!isSelecting) filterSuggestions();
+
+    if (searchQuery === '') setSuggestions([]);
   }, [searchQuery]);
+
+  useEffect(() => {
+    if (countryData && isSelecting)
+      setSearchQuery(suggestions[activeSuggestion].name.common);
+  }, [suggestions, activeSuggestion]);
 
   return (
     <>
@@ -118,15 +140,13 @@ export default function SearchInput() {
         placeholder='Search country'
         className={classes.searchInput}
         onChange={handleChange}
-        onKeyUp={handleKeyUp}
-        list='suggestion'
       />
       <FontAwesomeIcon
         icon={['fas', 'magnifying-glass']}
         className={classes.searchIcon}
         onClick={searchCountry}
       />
-      {suggestions.length > 0 && (
+      {isShowSuggestions && suggestions.length > 0 && (
         <ul className={classes.suggestionList}>{suggestionListItems}</ul>
       )}
 
