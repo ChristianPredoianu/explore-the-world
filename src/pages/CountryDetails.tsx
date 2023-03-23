@@ -50,7 +50,9 @@ export default function CountryDetails() {
             />
           </div>
           <div className={classes.countryInfo}>
-            <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
+            {countryDetails[0].capital && (
+              <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
+            )}
             <div className={classes.countryInfoExplore}>
               <h3 className={classes.countryText}>
                 {`${countryDetails[0].name.common} you don't know, atypical, unexplored, unique..`}
