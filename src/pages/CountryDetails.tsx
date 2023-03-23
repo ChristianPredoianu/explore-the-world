@@ -18,6 +18,8 @@ export default function CountryDetails() {
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
+  const countryDetail = countryDetails[0];
+
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
@@ -36,31 +38,31 @@ export default function CountryDetails() {
   return (
     <>
       <CountryDetailsNav
-        flag={countryDetails[0].flags.png}
-        altSpelling={countryDetails[0].altSpellings[0]}
+        flag={countryDetail.flags.png}
+        altSpelling={countryDetail.altSpellings[0]}
       />
       <main className={classNames('container', classes.main)}>
         <section className={classNames(classes.sectionCountryInfo)}>
           <div className={classes.countryWrapper}>
-            <h1 className={classes.countryName}>{countryDetails[0].name.common}</h1>
+            <h1 className={classes.countryName}>{countryDetail.name.common}</h1>
             <img
-              src={countryDetails[0].flags.png}
+              src={countryDetail.flags.png}
               alt='country flag'
               className={classes.countryFlag}
             />
           </div>
           <div className={classes.countryInfo}>
-            {countryDetails[0].capital && (
+            {countryDetail.capital && (
               <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
             )}
             <div className={classes.countryInfoExplore}>
               <h3 className={classes.countryText}>
-                {`${countryDetails[0].name.common} you don't know, atypical, unexplored, unique..`}
+                {`${countryDetail.name.common} you don't know, atypical, unexplored, unique..`}
               </h3>
               <div className={classes.contryExploreWrapper}>
                 <button className={classes.countryExplore}>Explore</button>
                 <img
-                  src={countryDetails[0].flags.png}
+                  src={countryDetail.flags.png}
                   alt='country flag'
                   className={classes.countryExploreFlag}
                 />
