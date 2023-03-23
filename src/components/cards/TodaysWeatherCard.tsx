@@ -6,7 +6,7 @@ interface CardProps {
   valueOne: string | number;
   cardIcon: string;
   descriptionTwo: string;
-  valueTwo: string | number;
+  valueTwo?: string | number | null;
   children?: React.ReactNode;
 }
 
