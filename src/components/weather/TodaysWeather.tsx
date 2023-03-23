@@ -14,6 +14,7 @@ function toTimeString(totalSeconds: number) {
 }
 
 export default function TodaysWeather({ data }: TodaysWeatherProps) {
+  console.log(data);
   return (
     <>
       <Card
@@ -26,6 +27,7 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
       >
         <p className={classes.cardChild}>{data.weather[0].main}</p>
       </Card>
+
       <Card
         cardHeading='Sunrise - Sunset'
         descriptionOne='Sunrise'
@@ -40,7 +42,7 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
         valueOne={`${data.wind.speed.toFixed()} m/s`}
         cardIcon='https://openweathermap.org/img/wn/50d@2x.png'
         descriptionTwo='gust'
-        valueTwo={data.wind.gust.toFixed()}
+        valueTwo={data.wind.gust ? data.wind.gust.toFixed() : null}
       />
     </>
   );
