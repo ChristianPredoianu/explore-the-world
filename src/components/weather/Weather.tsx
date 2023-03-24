@@ -50,9 +50,9 @@ export function Weather({ latlng }: WeatherProps) {
     return forecastDataFiveDays;
   }
 
-  let weatherComponent;
-
   const fiveDaysForecast = getFiveDaysForecast();
+
+  let weatherComponent;
 
   if (todayWeatherData && fiveDaysForecast) {
     if (activeWeatherComponent === 1) {
