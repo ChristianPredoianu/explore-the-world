@@ -87,6 +87,8 @@ export default function CountryDetails() {
           <Weather latlng={countryDetails[0].latlng} />
         </div>
       </section>
+
+      {/*      Show air Quality data if there is data */}
       <section className={classes.sectionAirQuality}>
         <div className='container'>
           <h4 className='sectionHeading'>
