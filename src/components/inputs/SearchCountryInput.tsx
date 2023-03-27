@@ -58,6 +58,7 @@ export default function SearchInput() {
 
       if (found.length > 0) {
         navigate(`country/${searchQuery}`);
+        console.log(found);
       } else {
         setInputError('Invalid country');
         setIsInputError(true);
@@ -75,10 +76,16 @@ export default function SearchInput() {
 
   function checkKeyPress(e: KeyboardEvent) {
     if (e.key === 'Enter' && searchQuery !== '') {
-      const selectedSuggestion = suggestions[activeSuggestion].name.common;
+      let selectedSuggestion;
 
-      setIsInputError(false);
-      navigate(`country/${selectedSuggestion}`);
+      if (suggestions[activeSuggestion] !== undefined) {
+        selectedSuggestion = suggestions[activeSuggestion].name.common;
+        navigate(`country/${selectedSuggestion}`);
+      } else {
+        setInputError('Invalid country');
+        setIsInputError(true);
+        console.log(inputError);
+      }
     }
 
     if (e.key === 'ArrowDown' && suggestions.length >= activeSuggestion + 2) {
