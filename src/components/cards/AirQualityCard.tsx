@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { baseAirVisualUrl } from '@/utils/urls';
@@ -6,14 +7,15 @@ import classes from '@/components/cards/AirQualityCard.module.scss';
 
 interface AirQualityCardProps {
   coords: number[];
+  country: string;
 }
 
-export default function AirQualityCard({ coords }: AirQualityCardProps) {
-  const airVisualUrl = `${baseAirVisualUrl}lat=${coords[0]}&lon=${
-    coords[1]
-  }&key=${import.meta.env.VITE_AIRVISUAL_API_KEY}`;
+export default function AirQualityCard({ coords, country }: AirQualityCardProps) {
+  const airVisualUrl = `${baseAirVisualUrl}lat=${coords[0]}&lon=${coords[1]}&key=${
+    import.meta.env.VITE_AIRVISUAL_API_KEY
+  }`;
 
-  const [airQualityData] = useFetch<IAirQualityData>(airVisualUrl);
+  const [airQualityData, error] = useFetch<IAirQualityData>(airVisualUrl);
 
   let pollutionInfo!: IPollutionInfo;
 
@@ -72,40 +74,52 @@ export default function AirQualityCard({ coords }: AirQualityCardProps) {
     }
   }
 
+  let noDataMessage;
+
+  if (error) {
+    noDataMessage = (
+      <p className={classes.error}>
+        {`There is no air quality data avaliable for ${country}`}
+      </p>
+    );
+  }
+
+  let airQualityCard;
+
+  if (airQualityData) {
+    airQualityCard = (
+      <article className={classes.card}>
+        <div
+          style={{ backgroundColor: pollutionInfo.color }}
+          className={classes.cardHeadingsWrapper}
+        >
+          <FontAwesomeIcon icon={pollutionInfo.icon} className={classes.icon} />
+          <div className={classes.headings}>
+            <h5 className={classes.cardHeading}>{airQualityData.data.city}</h5>
+            <h6 className={classes.cardSubheading}>{pollutionInfo.level}</h6>
+          </div>
+        </div>
+        <div className={classes.cardMain}>
+          <h6 className={classes.cardMainHeading}>Air Quality</h6>
+          <div className={classes.valuesWrapper}>
+            <span
+              style={{ backgroundColor: pollutionInfo.color }}
+              className={classes.dot}
+            ></span>
+            <p className={classes.qualityValue}>
+              {airQualityData.data.current.pollution.aqius}
+            </p>
+            <p className={classes.qualityDescription}>{pollutionInfo.desc}</p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <>
-      {airQualityData && (
-        <article className={classes.card}>
-          <div
-            style={{ backgroundColor: pollutionInfo.color }}
-            className={classes.cardHeadingsWrapper}
-          >
-            <FontAwesomeIcon
-              icon={pollutionInfo.icon}
-              className={classes.icon}
-            />
-            <div className={classes.headings}>
-              <h5 className={classes.cardHeading}>
-                {airQualityData.data.city}
-              </h5>
-              <h6 className={classes.cardSubheading}>{pollutionInfo.level}</h6>
-            </div>
-          </div>
-          <div className={classes.cardMain}>
-            <h6 className={classes.cardMainHeading}>Air Quality</h6>
-            <div className={classes.valuesWrapper}>
-              <span
-                style={{ backgroundColor: pollutionInfo.color }}
-                className={classes.dot}
-              ></span>
-              <p className={classes.qualityValue}>
-                {airQualityData.data.current.pollution.aqius}
-              </p>
-              <p className={classes.qualityDescription}>{pollutionInfo.desc}</p>
-            </div>
-          </div>
-        </article>
-      )}
+      {noDataMessage}
+      {airQualityCard}
     </>
   );
 }
