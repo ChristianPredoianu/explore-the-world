@@ -35,6 +35,69 @@ export default function CountryDetails() {
     </p>
   ));
 
+  const sectionCountryInfo = (
+    <section className={classNames(classes.sectionCountryInfo)}>
+      <div className={classes.countryWrapper}>
+        <h1 className={classes.countryName}>{countryDetail.name.common}</h1>
+        <img
+          src={countryDetail.flags.png}
+          alt='country flag'
+          className={classes.countryFlag}
+        />
+      </div>
+      <div className={classes.countryInfo}>
+        {countryDetail.capital && (
+          <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
+        )}
+        <div className={classes.countryInfoExplore}>
+          <h3 className={classes.countryText}>
+            {`${countryDetail.name.common} you don't know, atypical, unexplored, unique..`}
+          </h3>
+          <div className={classes.contryExploreWrapper}>
+            <button className={classes.countryExplore}>Explore</button>
+            <img
+              src={countryDetail.flags.png}
+              alt='country flag'
+              className={classes.countryExploreFlag}
+            />
+          </div>
+        </div>
+      </div>
+      <section className={classes.sectionTranslations}>
+        <div>{translationsParagraphs}</div>
+        <img
+          src={countryImages.photos[0].src.small}
+          alt={countryImages.photos[0].alt}
+          className={classes.translationsImg}
+        />
+      </section>
+    </section>
+  );
+
+  const sectionPhotos = (
+    <section className={classNames(classes.sectionPhotos)}>
+      <EffectCreativeSlider images={countryImages} />
+    </section>
+  );
+
+  const sectionWeather = (
+    <section className={classes.sectionWeather}>
+      <Weather latlng={countryDetails[0].latlng} />
+    </section>
+  );
+
+  const sectionAirQuality = (
+    <section className={classes.sectionAirQuality}>
+      <h4 className='sectionHeading'>
+        {`Air Quality in ${countryDetails[0].name.common}`}{' '}
+      </h4>
+      <AirQualityCard
+        coords={countryDetails[0].latlng}
+        country={countryDetail.name.common}
+      />
+    </section>
+  );
+
   return (
     <>
       <CountryDetailsNav
@@ -42,61 +105,13 @@ export default function CountryDetails() {
         altSpelling={countryDetail.altSpellings[0]}
       />
       <main className={classNames('container', classes.main)}>
-        <section className={classNames(classes.sectionCountryInfo)}>
-          <div className={classes.countryWrapper}>
-            <h1 className={classes.countryName}>{countryDetail.name.common}</h1>
-            <img
-              src={countryDetail.flags.png}
-              alt='country flag'
-              className={classes.countryFlag}
-            />
-          </div>
-          <div className={classes.countryInfo}>
-            {countryDetail.capital && (
-              <h2 className={classes.countryCapital}>{countryDetails[0].capital[0]}</h2>
-            )}
-            <div className={classes.countryInfoExplore}>
-              <h3 className={classes.countryText}>
-                {`${countryDetail.name.common} you don't know, atypical, unexplored, unique..`}
-              </h3>
-              <div className={classes.contryExploreWrapper}>
-                <button className={classes.countryExplore}>Explore</button>
-                <img
-                  src={countryDetail.flags.png}
-                  alt='country flag'
-                  className={classes.countryExploreFlag}
-                />
-              </div>
-            </div>
-          </div>
-          <section className={classes.sectionTranslations}>
-            <div>{translationsParagraphs}</div>
-            <img
-              src={countryImages.photos[0].src.small}
-              alt={countryImages.photos[0].alt}
-              className={classes.translationsImg}
-            />
-          </section>
-        </section>
-        <section className={classNames(classes.sectionPhotos)}>
-          <EffectCreativeSlider images={countryImages} />
-        </section>
+        {sectionCountryInfo}
+        {sectionPhotos}
       </main>
-      <section className={classes.sectionWeather}>
-        <div className='container'>
-          <Weather latlng={countryDetails[0].latlng} />
-        </div>
-      </section>
-
-      {/*      Show air Quality data if there is data */}
-      <section className={classes.sectionAirQuality}>
-        <div className='container'>
-          <h4 className='sectionHeading'>
-            {`Air Quality in ${countryDetails[0].name.common}`}{' '}
-          </h4>
-          <AirQualityCard coords={countryDetails[0].latlng} />
-        </div>
-      </section>
+      <div className='container'>
+        {sectionWeather}
+        {sectionAirQuality}
+      </div>
     </>
   );
 }
