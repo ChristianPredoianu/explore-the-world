@@ -74,16 +74,6 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
     }
   }
 
-  let noDataMessage;
-
-  if (error) {
-    noDataMessage = (
-      <p className={classes.error}>
-        {`There is no air quality data avaliable for ${country}`}
-      </p>
-    );
-  }
-
   let airQualityCard;
 
   if (airQualityData) {
@@ -118,7 +108,11 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
 
   return (
     <>
-      {noDataMessage}
+      {error && (
+        <p className={classes.error}>
+          {`There is no air quality data avaliable for ${country}`}
+        </p>
+      )}
       {airQualityCard}
     </>
   );
