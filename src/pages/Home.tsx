@@ -8,12 +8,12 @@ import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
 
 const mostPopularCountries = [
-  'england',
-  'italy',
-  'spain',
-  'japan',
-  'greece',
-  'argentina',
+  'United Kingdom',
+  'Italy',
+  'Spain',
+  'Japan',
+  'Greece',
+  'Argentina',
 ];
 
 export default function Home() {
