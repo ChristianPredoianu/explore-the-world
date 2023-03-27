@@ -105,7 +105,8 @@ export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
   let countryDetailsUrl = `${baseCountryDetailsUrl}${params.countryId}`;
   const countryImagesUrl = `${baseCountryImagesUrl}${params.countryId}&per_page=15`;
 
-  if (params.countryId === 'england') countryDetailsUrl = `${baseCountryDetailsUrl}gb`;
+  if (params.countryId === 'India')
+    countryDetailsUrl = `${baseCountryDetailsUrl}Republic%20of%20India`;
 
   const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
     ICountryDetails[]
