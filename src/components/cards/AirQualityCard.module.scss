@@ -1,5 +1,9 @@
 @use '@/sass/abstracts' as *;
 
+.error {
+  font-size: 1.4rem;
+}
+
 .card {
   box-shadow: var(--box-shadow);
   font-family: 'Michroma', sans-serif;
@@ -52,11 +56,7 @@
 }
 
 .valuesWrapper {
-  @include flex-config(
-    $direction: column,
-    $justify: space-between,
-    $align: center
-  );
+  @include flex-config($direction: column, $justify: space-between, $align: center);
   gap: 3rem;
   margin-top: 5rem;
   font-size: 1.5rem;
