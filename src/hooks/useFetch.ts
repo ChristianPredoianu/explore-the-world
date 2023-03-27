@@ -12,10 +12,13 @@ export function useFetch<T>(initialUrl: string) {
 
     try {
       const response = await fetch(url);
+
       if (!response.ok) {
-        throw new Error(`HTTP error status: ${response.status}`);
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
       }
       const data = await response.json();
+
       setData(data);
     } catch (error: any) {
       setError(error.message);
