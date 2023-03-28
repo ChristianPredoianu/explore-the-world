@@ -135,3 +135,15 @@
 .sectionWeather {
   margin: var(--wrapper-spacing);
 }
+
+.sectionAirQuality {
+  margin: var(--wrapper-spacing);
+}
+
+.airQualityWrapper {
+  @include flex-config($justify: space-between);
+}
+
+.sectionMap {
+  margin: var(--wrapper-spacing);
+}
