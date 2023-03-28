@@ -21,9 +21,8 @@ export interface ICountryDetails {
   altSpellings: string;
   name: { common: string };
   latlng: number[];
-
   capital: string;
-
+  cca2: string;
   translations: {
     deu: {
       common: string;
