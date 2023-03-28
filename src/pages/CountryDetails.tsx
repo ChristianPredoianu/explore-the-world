@@ -1,9 +1,12 @@
+import { useRef } from 'react';
+
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
 import AirQualityCard from '@/components/cards/AirQualityCard';
+import CountryMap from '@/components/map/CountryMap';
 import { baseCountryDetailsUrl, baseCountryImagesUrl } from '@/utils/urls';
 import {
   ICountryDetailsData,
@@ -19,6 +22,11 @@ export default function CountryDetails() {
   const [countryDetails, countryImages] = countryDetailsData.data;
 
   const countryDetail = countryDetails[0];
+  const countryCode = countryDetails[0].cca2;
+
+  console.log(countryDetail);
+
+  const sectionMapRef = useRef<HTMLElement>(null);
 
   const translations = [
     countryDetails[0].translations.deu,
@@ -34,6 +42,10 @@ export default function CountryDetails() {
       {language.common}
     </p>
   ));
+
+  function scrollToSection() {
+    if (sectionMapRef.current) sectionMapRef.current.scrollIntoView();
+  }
 
   const sectionCountryInfo = (
     <section className={classNames(classes.sectionCountryInfo)}>
@@ -54,7 +66,9 @@ export default function CountryDetails() {
             {`${countryDetail.name.common} you don't know, atypical, unexplored, unique..`}
           </h3>
           <div className={classes.contryExploreWrapper}>
-            <button className={classes.countryExplore}>Explore</button>
+            <button className={classes.countryExplore} onClick={scrollToSection}>
+              Explore
+            </button>
             <img
               src={countryDetail.flags.png}
               alt='country flag'
@@ -89,12 +103,21 @@ export default function CountryDetails() {
   const sectionAirQuality = (
     <section className={classes.sectionAirQuality}>
       <h4 className='sectionHeading'>
-        {`Air Quality in ${countryDetails[0].name.common}`}{' '}
+        {`Air Quality in ${countryDetails[0].name.common}`}
       </h4>
-      <AirQualityCard
-        coords={countryDetails[0].latlng}
-        country={countryDetail.name.common}
-      />
+      <div className={classes.airQualityWrapper}>
+        <AirQualityCard
+          coords={countryDetails[0].latlng}
+          country={countryDetail.name.common}
+        />
+      </div>
+    </section>
+  );
+
+  const sectionMap = (
+    <section className={classes.sectionMap} ref={sectionMapRef}>
+      <h4 className='sectionHeading'>{`Map of ${countryDetails[0].name.common}`}</h4>
+      <CountryMap coords={countryDetails[0].latlng} />
     </section>
   );
 
@@ -111,6 +134,7 @@ export default function CountryDetails() {
       <div className='container'>
         {sectionWeather}
         {sectionAirQuality}
+        {sectionMap}
       </div>
     </>
   );
