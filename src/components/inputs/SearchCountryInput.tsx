@@ -53,25 +53,28 @@ export default function SearchInput() {
     if (countryData) {
       found = countryData.filter(
         (country: ICountryName) =>
-          country.name.common === capitalizeFirstLetterString(searchQuery)
+          capitalizeFirstLetterString(country.name.common) ===
+          capitalizeFirstLetterString(searchQuery)
       );
 
       if (found.length > 0) {
-        navigate(`country/${searchQuery}`);
-        console.log(found);
+        navigate(`/country/${searchQuery}`);
+        console.log(searchQuery);
       } else {
         setInputError('Invalid country');
         setIsInputError(true);
         setIsShowSuggestions(false);
       }
+      console.log(found);
     }
   }
 
   function handleSuggestionClick(suggestion: string, index: number) {
     if (activeSuggestion) setActiveSuggestion(index);
-
     setSearchQuery(suggestion);
-    navigate(`country/${suggestion}`);
+    navigate(`/country/${suggestion}`);
+    setIsShowSuggestions(false);
+    setSearchQuery('');
   }
 
   function checkKeyPress(e: KeyboardEvent) {
@@ -80,11 +83,12 @@ export default function SearchInput() {
 
       if (suggestions[activeSuggestion] !== undefined) {
         selectedSuggestion = suggestions[activeSuggestion].name.common;
-        navigate(`country/${selectedSuggestion}`);
+        navigate(`/country/${selectedSuggestion}`);
+        setIsShowSuggestions(false);
+        setSearchQuery('');
       } else {
         setInputError('Invalid country');
         setIsInputError(true);
-        console.log(inputError);
       }
     }
 
@@ -131,7 +135,10 @@ export default function SearchInput() {
   useEffect(() => {
     if (!isSelecting) filterSuggestions();
 
-    if (searchQuery === '') setSuggestions([]);
+    if (searchQuery === '') {
+      setSuggestions([]);
+      setIsShowSuggestions(false);
+    }
   }, [searchQuery]);
 
   useEffect(() => {
@@ -141,23 +148,25 @@ export default function SearchInput() {
 
   return (
     <>
-      <input
-        value={searchQuery}
-        type='text'
-        placeholder='Search country'
-        className={classes.searchInput}
-        onChange={handleChange}
-      />
-      <FontAwesomeIcon
-        icon={['fas', 'magnifying-glass']}
-        className={classes.searchIcon}
-        onClick={searchCountry}
-      />
-      {isShowSuggestions && suggestions.length > 0 && (
-        <ul className={classes.suggestionList}>{suggestionListItems}</ul>
-      )}
+      <div className={classes.inputWrapper}>
+        <input
+          value={searchQuery}
+          type='text'
+          placeholder='Search country'
+          className={classes.searchInput}
+          onChange={handleChange}
+        />
+        <FontAwesomeIcon
+          icon={['fas', 'magnifying-glass']}
+          className={classes.searchIcon}
+          onClick={searchCountry}
+        />
+        {isShowSuggestions && (
+          <ul className={classes.suggestionList}>{suggestionListItems}</ul>
+        )}
 
-      {isInputError && <p className={classes.inputError}>{inputError}</p>}
+        {isInputError && <p className={classes.inputError}>{inputError}</p>}
+      </div>
     </>
   );
 }
