@@ -3,10 +3,12 @@
 .nav {
   padding: 2rem 0;
   font-family: 'Michroma', sans-serif;
+  @include flex-config($align: center, $justify: center);
 }
 
 .country {
   @include flex-config($align: center);
+  flex: 1;
 }
 
 .countryName {
