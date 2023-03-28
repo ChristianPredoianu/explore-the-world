@@ -9,6 +9,11 @@
   border-radius: 1.8rem;
 }
 
+.inputWrapper {
+  display: inline-block;
+  position: relative;
+}
+
 .searchIcon {
   @include position($pos: absolute, $top: 0.5rem, $right: 1rem);
   background-color: hsla(180, 74%, 70%, 0.4);
