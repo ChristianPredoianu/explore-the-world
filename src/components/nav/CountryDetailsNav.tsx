@@ -1,3 +1,4 @@
+import SearchInput from '@/components/inputs/SearchCountryInput';
 import classes from '@/components/nav/CountryDetailsNav.module.scss';
 
 interface CountryDetailsProps {
@@ -5,10 +6,7 @@ interface CountryDetailsProps {
   altSpelling: string;
 }
 
-export default function CountryDetailsNav({
-  flag,
-  altSpelling,
-}: CountryDetailsProps) {
+export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsProps) {
   return (
     <header className='container'>
       <nav className={classes.nav}>
@@ -16,6 +14,7 @@ export default function CountryDetailsNav({
           <img src={flag} alt='country flag' className={classes.navFlag} />
           <p className={classes.countryName}>{`${altSpelling} Trip`}</p>
         </div>
+        <SearchInput />
       </nav>
     </header>
   );
