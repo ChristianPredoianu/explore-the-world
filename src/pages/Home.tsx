@@ -30,7 +30,7 @@ export default function Home() {
           unknown printer took a galley of type and scrambled it to make a type specimen
           book.
         </h2>
-        <div className={classes.inputWrapper}>
+        <div className={classes.searchInput}>
           <SearchCountryInput />
         </div>
       </section>
