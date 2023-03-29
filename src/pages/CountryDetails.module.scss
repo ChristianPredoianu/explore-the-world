@@ -2,7 +2,6 @@
 
 .main {
   margin-top: 2rem;
-  font-family: 'Michroma', sans-serif;
 
   @include mq(md) {
     @include flex-config($justify: space-between, $align: center);
@@ -145,5 +144,9 @@
 }
 
 .sectionMap {
+  margin: var(--wrapper-spacing);
+}
+
+.sectionCalendar {
   margin: var(--wrapper-spacing);
 }
