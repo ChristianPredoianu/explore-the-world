@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
@@ -7,6 +6,7 @@ import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
 import AirQualityCard from '@/components/cards/AirQualityCard';
 import CountryMap from '@/components/map/CountryMap';
+import ReactCalendar from '@/components/calendar/ReactCalendar';
 import { baseCountryDetailsUrl, baseCountryImagesUrl } from '@/utils/urls';
 import {
   ICountryDetailsData,
@@ -18,6 +18,7 @@ import classes from '@/pages/CountryDetails.module.scss';
 
 export default function CountryDetails() {
   const countryDetailsData = useLoaderData() as ICountryDetailsData;
+  console.log(countryDetailsData);
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
@@ -121,6 +122,13 @@ export default function CountryDetails() {
     </section>
   );
 
+  const sectionCalendar = (
+    <section className={classes.sectionCalendar}>
+      <h4 className='sectionHeading'>{`${countryDetails[0].name.common}'s holidays`}</h4>
+      <ReactCalendar countryCode={countryCode} />
+    </section>
+  );
+
   return (
     <>
       <CountryDetailsNav
@@ -135,6 +143,7 @@ export default function CountryDetails() {
         {sectionWeather}
         {sectionAirQuality}
         {sectionMap}
+        {sectionCalendar}
       </div>
     </>
   );
