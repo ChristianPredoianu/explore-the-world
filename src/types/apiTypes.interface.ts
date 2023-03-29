@@ -112,3 +112,12 @@ export interface IPollutionInfo {
   level: string;
   desc: string;
 }
+
+export interface IHolidaysData {
+  response: {
+    name: string;
+    date: {
+      iso: string;
+    };
+  };
+}
