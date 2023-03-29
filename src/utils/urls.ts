@@ -9,3 +9,5 @@ export const baseOpenWeatherForecastUrl =
   'https://api.openweathermap.org/data/2.5/forecast?&units=metric';
 
 export const baseAirVisualUrl = 'https://api.airvisual.com/v2/nearest_city?';
+
+export const baseCalendarificUrl = 'https://calendarific.com/api/v2/holidays?';
