@@ -1,0 +1,16 @@
+@use '@/sass/abstracts' as *;
+
+.holidayListItem {
+  font-size: 1.2rem;
+  transition: font-weight 0.2s ease;
+
+  cursor: pointer;
+
+  &:not(:first-of-type) {
+    margin-top: 1.3rem;
+  }
+
+  &:hover {
+    font-weight: var(--fw-bold);
+  }
+}
