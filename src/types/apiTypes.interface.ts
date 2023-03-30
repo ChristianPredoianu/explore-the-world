@@ -115,9 +115,13 @@ export interface IPollutionInfo {
 
 export interface IHolidaysData {
   response: {
-    name: string;
-    date: {
-      iso: string;
-    };
+    holidays: {
+      id: number;
+      name: string;
+      description: string;
+      date: {
+        iso: string;
+      };
+    }[];
   };
 }
