@@ -18,14 +18,11 @@ import classes from '@/pages/CountryDetails.module.scss';
 
 export default function CountryDetails() {
   const countryDetailsData = useLoaderData() as ICountryDetailsData;
-  console.log(countryDetailsData);
 
   const [countryDetails, countryImages] = countryDetailsData.data;
 
   const countryDetail = countryDetails[0];
   const countryCode = countryDetails[0].cca2;
-
-  console.log(countryDetail);
 
   const sectionMapRef = useRef<HTMLElement>(null);
 
@@ -135,16 +132,18 @@ export default function CountryDetails() {
         flag={countryDetail.flags.png}
         altSpelling={countryDetail.altSpellings[0]}
       />
-      <main className={classNames('container', classes.main)}>
-        {sectionCountryInfo}
-        {sectionPhotos}
-      </main>
-      <div className='container'>
-        {sectionWeather}
-        {sectionAirQuality}
-        {sectionMap}
-        {sectionCalendar}
-      </div>
+      <>
+        <main className={classNames('container', classes.main)}>
+          {sectionCountryInfo}
+          {sectionPhotos}
+        </main>
+        <div className='container'>
+          {sectionWeather}
+          {sectionAirQuality}
+          {sectionMap}
+          {sectionCalendar}
+        </div>
+      </>
     </>
   );
 }
