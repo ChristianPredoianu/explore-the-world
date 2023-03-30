@@ -23,9 +23,7 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
   const [holidaysData] = useFetch<IHolidaysData>(calendarificUrl);
 
   function onChange(date: Date | Date[]) {
-    if (date instanceof Date) {
-      setDate(date);
-    }
+    if (date instanceof Date) setDate(date);
   }
 
   function handleHolidayItemClick(date: string, description: string) {
@@ -36,7 +34,6 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
   function setCalendarDate(date: string) {
     setDate(new Date(date));
   }
-  console.log(holidaysData);
 
   function onActiveStartDateChange({ activeStartDate }: any) {
     setCalendarDate(activeStartDate);
