@@ -21,9 +21,9 @@ export default function HolidaysList({
   handleHolidayItemClick,
 }: HolidaysListProps) {
   function addIdToHolidaysData() {
-    const holidaysDataWithIds = holidaysData.holidays.map((item, i) => {
+    const holidaysDataWithIds = holidaysData.holidays.map((holiday, i) => {
       return {
-        ...item,
+        ...holiday,
         id: i + 1,
       };
     });
