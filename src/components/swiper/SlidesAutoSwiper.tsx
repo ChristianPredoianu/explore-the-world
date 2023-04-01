@@ -21,6 +21,10 @@ export default function SlidesAutoSwiper({
 
   const navigate = useNavigate();
 
+  function goToCountryDetails(country: string) {
+    navigate(`country/${country}`);
+  }
+
   const mostPopularCountriesSlides = swiperData.map((country, index) => (
     <SwiperSlide
       key={country.photos[0].id}
@@ -32,9 +36,29 @@ export default function SlidesAutoSwiper({
     </SwiperSlide>
   ));
 
-  function goToCountryDetails(country: string) {
-    navigate(`country/${country}`);
-  }
+  const swiperCta = (
+    <>
+      <div className='line'></div>
+      <p className='counter'>{`0${swiperActiveIndex}`}</p>
+      <button className='custom-swiper-button-prev'>
+        <FontAwesomeIcon icon={['fas', 'angle-left']} />
+      </button>
+      <button className='custom-swiper-button-next'>
+        <FontAwesomeIcon icon={['fas', 'angle-right']} />
+      </button>
+    </>
+  );
+
+  const pexelsCreditLink = (
+    <a
+      href='https://www.pexels.com'
+      target='_blank'
+      rel='noopener nofollow'
+      className='pexels'
+    >
+      Photos provided by Pexels
+    </a>
+  );
 
   return (
     <>
@@ -50,23 +74,9 @@ export default function SlidesAutoSwiper({
         className='mySwiper'
       >
         {mostPopularCountriesSlides!}
-        <div className='line'></div>
-        <p className='counter'>{`0${swiperActiveIndex}`}</p>
-        <button className='custom-swiper-button-prev'>
-          <FontAwesomeIcon icon={['fas', 'angle-left']} />
-        </button>
-        <button className='custom-swiper-button-next'>
-          <FontAwesomeIcon icon={['fas', 'angle-right']} />
-        </button>
+        {swiperCta}
       </Swiper>
-      <a
-        href='https://www.pexels.com'
-        target='_blank'
-        rel='noopener nofollow'
-        className='pexels'
-      >
-        Photos provided by Pexels
-      </a>
+      {pexelsCreditLink}
     </>
   );
 }
