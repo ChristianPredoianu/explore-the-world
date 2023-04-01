@@ -27,6 +27,7 @@ export default function SlidesAutoSwiper({
       onClick={() => goToCountryDetails(mostPopularCountries[index])}
     >
       <img src={country.photos[0].src.portrait} alt={country.photos[0].alt} />
+      <div className='img-overlay'></div>
       <p className='slider-country'>{mostPopularCountries[index]}</p>
     </SwiperSlide>
   ));
@@ -45,9 +46,7 @@ export default function SlidesAutoSwiper({
           prevEl: '.custom-swiper-button-prev',
         }}
         modules={[Navigation]}
-        onActiveIndexChange={(swiper) =>
-          setSwiperActiveIndex(swiper.activeIndex + 1)
-        }
+        onActiveIndexChange={(swiper) => setSwiperActiveIndex(swiper.activeIndex + 1)}
         className='mySwiper'
       >
         {mostPopularCountriesSlides!}
