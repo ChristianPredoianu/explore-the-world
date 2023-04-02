@@ -46,7 +46,7 @@ export function Weather({ latlng }: WeatherProps) {
         forecastDataFiveDays.push(forecastData.list[i]);
       }
     }
-
+    console.log(forecastDataFiveDays);
     return forecastDataFiveDays;
   }
 
