@@ -7,6 +7,7 @@ import { Weather } from '@/components/weather/Weather';
 import AirQualityCard from '@/components/cards/AirQualityCard';
 import CountryMap from '@/components/map/CountryMap';
 import ReactCalendar from '@/components/calendar/ReactCalendar';
+import CurrencyExchange from '@/components/currency-exchange/CurrencyExchange';
 import { baseCountryDetailsUrl, baseCountryImagesUrl } from '@/utils/urls';
 import {
   ICountryDetailsData,
@@ -123,6 +124,13 @@ export default function CountryDetails() {
     <section className={classes.sectionCalendar}>
       <h4 className='sectionHeading'>{`${countryDetails[0].name.common}'s holidays`}</h4>
       <ReactCalendar countryCode={countryCode} />
+    </section>
+  );
+
+  const sectionCurrencyExchange = (
+    <section className={classes.sectionCurrencyExchange}>
+      <h4 className='sectionHeading'>Currency Exchange</h4>
+      <CurrencyExchange />
     </section>
   );
 
