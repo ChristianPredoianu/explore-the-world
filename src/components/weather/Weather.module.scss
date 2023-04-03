@@ -2,12 +2,12 @@
 
 .weatherBtns {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .weatherBtn {
   position: relative;
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 2vw, 1.5rem);
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -16,7 +16,7 @@
 .active {
   &::after {
     content: '';
-    @include position($pos: absolute, $bottom: -0.5rem, $left: 0);
+    @include position($pos: absolute, $bottom: -1rem, $left: 0);
     width: 50%;
     border-top: 2px solid hsl(0, 0%, 0%);
   }
@@ -25,7 +25,7 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 5rem;
+  grid-gap: 3rem;
   justify-items: center;
-  margin-top: 5rem;
+  margin-top: 7rem;
 }
