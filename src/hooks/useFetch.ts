@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useFetch<T>(initialUrl: string) {
+export function useFetch<T>(initialUrl: string, settings?: {}) {
   const [url, setUrl] = useState(initialUrl || '');
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<any>(null);
@@ -11,7 +11,7 @@ export function useFetch<T>(initialUrl: string) {
     if (!url) return;
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, settings);
 
       if (!response.ok) {
         const message = `An error has occured: ${response.status}`;
