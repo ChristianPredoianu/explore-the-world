@@ -1,1 +1,51 @@
 @use '@/sass/abstracts' as *;
+
+.currencyCard {
+  padding: 5rem 2rem;
+  box-shadow: var(--box-shadow);
+  @include flex-config($direction: column);
+  gap: 3rem;
+
+  @include mq(md) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.currencyFrom {
+  @include flex-config($align: center);
+}
+
+.currencyTo {
+  @include flex-config($align: center);
+}
+
+.countryCurrency {
+  @include flex-config($align: center);
+}
+
+/* .inputWrapper {
+  width: 50%;
+}
+.currencyWrapper {
+  width: 50%;
+} */
+
+.currencyInput {
+  width: 80%;
+  display: block;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.selectWrapper {
+  @include flex-config($direction: column);
+}
+
+.select {
+  /* display: block; */
+}
