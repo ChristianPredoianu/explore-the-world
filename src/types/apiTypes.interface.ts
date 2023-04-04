@@ -23,6 +23,9 @@ export interface ICountryDetails {
   latlng: number[];
   capital: string;
   cca2: string;
+  currencies: {
+    symbol: string;
+  };
   translations: {
     deu: {
       common: string;
