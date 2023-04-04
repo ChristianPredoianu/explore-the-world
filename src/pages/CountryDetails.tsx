@@ -27,6 +27,8 @@ export default function CountryDetails() {
 
   const sectionMapRef = useRef<HTMLElement>(null);
 
+  const currency = Object.keys(countryDetail.currencies);
+
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
@@ -126,11 +128,11 @@ export default function CountryDetails() {
       <ReactCalendar countryCode={countryCode} />
     </section>
   );
-
+  console.log(countryDetail);
   const sectionCurrencyExchange = (
     <section className={classes.sectionCurrencyExchange}>
       <h4 className='sectionHeading'>Currency Exchange</h4>
-      <CurrencyExchange />
+      <CurrencyExchange currency={currency[0]} countryCode={countryDetail.cca2} />
     </section>
   );
 
@@ -150,6 +152,7 @@ export default function CountryDetails() {
           {sectionAirQuality}
           {sectionMap}
           {sectionCalendar}
+          {sectionCurrencyExchange}
         </div>
       </>
     </>
