@@ -3,8 +3,8 @@
 .currencyCard {
   padding: 5rem 2rem;
   box-shadow: var(--box-shadow);
-  @include flex-config($direction: column);
-  gap: 3rem;
+  @include flex-config($direction: column, $align: center);
+  gap: 5rem;
 
   @include mq(md) {
     flex-direction: row;
@@ -13,39 +13,106 @@
   }
 }
 
-.currencyFrom {
-  @include flex-config($align: center);
+.currencyFrom,
+.currencyTo {
+  @include flex-config($direction: column);
+  gap: 1rem;
+
+  @include mq(md) {
+    width: 40%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
 }
 
-.currencyTo {
-  @include flex-config($align: center);
+.icon {
+  font-size: 2rem;
+}
+
+.label {
+  font-size: 1.3rem;
+  font-weight: var(--fw-bold);
+}
+
+.inputWrapper {
+  @include flex-config($direction: column);
+  gap: 1rem;
+
+  @include mq(md) {
+    width: 30%;
+  }
+}
+
+.currencyInput {
+  display: inline-block;
+  border: none;
+  border-bottom: 1px solid var(--clr-blue-700);
+  padding: 1rem;
+  font-size: 1.3rem;
+
+  &:focus {
+    outline: 1px solid var(--clr-blue-700);
+    border-bottom: 1px solid transparent;
+  }
+
+  &::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.currencyWrapper {
+  @include flex-config($direction: column);
+  gap: 1rem;
+  font-size: 1.3rem;
 }
 
 .countryCurrency {
-  @include flex-config($align: center);
-}
-
-/* .inputWrapper {
-  width: 50%;
-}
-.currencyWrapper {
-  width: 50%;
-} */
-
-.currencyInput {
-  width: 80%;
-  display: block;
-  margin-top: 0.5rem;
-  padding: 1rem;
+  display: flex;
   font-size: 1.2rem;
-  border: none;
-  border-bottom: 1px solid black;
 }
 
 .selectWrapper {
   @include flex-config($direction: column);
+
+  gap: 2.5rem;
 }
 
-.select {
-  /* display: block; */
+.dropdown {
+  position: relative;
+  font-size: 1.3rem;
+  padding: 0.5rem 0;
+  min-width: 10ch;
+  max-width: 30ch;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #000000, #ffffff 10%);
+  border: none;
+
+  &:focus-within {
+    outline: 2px solid black;
+  }
+}
+
+.currencyOptionsList {
+  position: absolute;
+  bottom: -20rem;
+  width: 100%;
+  border: 1px solid black;
+  background-color: #fff;
+  max-height: 20rem;
+  overflow: scroll;
+}
+
+.dropdownOption {
+  @include flex-config($justify: space-between);
 }
