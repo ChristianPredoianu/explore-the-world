@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '@/hooks/useFetch';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { baseExchangeRateUrl } from '@/utils/urls';
+import { IExchangeRates } from '@/types/apiTypes.interface';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
+import CountryDetails from '@/pages/CountryDetails';
 
 interface CurrencyExchangeProps {
   currency: string;
@@ -11,13 +15,34 @@ export default function CurrencyExchange({
   currency,
   countryCode,
 }: CurrencyExchangeProps) {
+  const [countryCurrency, setCountryCurrency] = useState(1);
   const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [cca2, setCca2] = useState([]);
 
-  const countryFlag = `https://flagsapi.com/${countryCode}/flat/16.png`;
+  const exchangeRateUrl = `${baseExchangeRateUrl}${
+    import.meta.env.VITE_EXCHANGERATE_API_KEY
+  }/latest/${currency}`;
+
+  const [currencyData] = useFetch<IExchangeRates>(exchangeRateUrl);
+  const [countriesData] = useFetch('https://restcountries.com/v3.1/all');
+
+  let currencyDataKeys;
+
+  if (currencyData) currencyDataKeys = Object.keys(currencyData.conversion_rates);
+
+  const currencyOptions = currencyDataKeys?.map((currencyDataKey) => (
+    <li key={currencyDataKey}>{currencyDataKey}</li>
+  ));
+
+  const countryFlagImgSrc = `https://flagsapi.com/${countryCode}/flat/16.png`;
 
   function handleChange(e) {
-    console.log(e.target.value);
     setSelectedCurrency(e.target.value);
+  }
+
+  function toggleDropDown() {
+    setIsSelectOpen(!isSelectOpen);
   }
 
   return (
@@ -25,33 +50,46 @@ export default function CurrencyExchange({
       <article className={classes.currencyCard}>
         <div className={classes.currencyFrom}>
           <div className={classes.inputWrapper}>
-            <label htmlFor='currency from'>Amount</label>
-            <input type='text' className={classes.currencyInput} />
+            <label htmlFor='currency from' className={classes.label}>
+              Amount
+            </label>
+            <input
+              type='number'
+              value={countryCurrency}
+              onChange={handleChange}
+              className={classes.currencyInput}
+            />
           </div>
           <div className={classes.currencyWrapper}>
             <p>Swedish Crown</p>
             <div className={classes.countryCurrency}>
-              <img src={countryFlag}></img>
+              <img src={countryFlagImgSrc}></img>
               <p>SEK</p>
             </div>
           </div>
         </div>
+        <FontAwesomeIcon icon={['fas', 'repeat']} className={classes.icon} />
         <div className={classes.currencyTo}>
           <div className={classes.inputWrapper}>
-            <label htmlFor='currency to'>You Get</label>
-            <input type='text' className={classes.currencyInput} />
+            <label htmlFor='currency to' className={classes.label}>
+              You Get
+            </label>
+            <input
+              type='number'
+              onChange={(e) => console.log(e.target.value)}
+              className={classes.currencyInput}
+            />
           </div>
           <div className={classes.selectWrapper}>
-            <label htmlFor='currency'>Euro</label>
-            <select
-              value={selectedCurrency}
-              onChange={handleChange}
-              className={classes.select}
-            >
-              <option value='apple'>Apple</option>
-              <option value='banana'>Banana</option>
-              <option value='orange'>Orange</option>
-            </select>
+            <label htmlFor='currency' className={classes.label}>
+              Euro
+            </label>
+            <div className={classes.dropdown} onClick={toggleDropDown} tabIndex='0'>
+              countries
+              {isSelectOpen && (
+                <ul className={classes.currencyOptionsList}>{currencyOptions}</ul>
+              )}
+            </div>
           </div>
         </div>
       </article>
