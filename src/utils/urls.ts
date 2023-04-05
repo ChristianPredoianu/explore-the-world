@@ -11,3 +11,5 @@ export const baseOpenWeatherForecastUrl =
 export const baseAirVisualUrl = 'https://api.airvisual.com/v2/nearest_city?';
 
 export const baseCalendarificUrl = 'https://calendarific.com/api/v2/holidays?';
+
+export const baseExchangeRateUrl = 'https://v6.exchangerate-api.com/v6/';
