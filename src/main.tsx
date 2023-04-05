@@ -19,6 +19,7 @@ import {
   faFaceSmile,
   faMagnifyingGlass,
   faWind,
+  faRepeat,
 } from '@fortawesome/free-solid-svg-icons';
 import '@/sass/main.scss';
 
@@ -31,7 +32,8 @@ library.add(
   faWind,
   faFaceMeh,
   faFaceSadTear,
-  faFaceSmile
+  faFaceSmile,
+  faRepeat
 );
 
 const router = createBrowserRouter(
