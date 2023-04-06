@@ -18,22 +18,27 @@ export default function CurrencyExchange({
   const [countryCurrency, setCountryCurrency] = useState(1);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [cca2, setCca2] = useState([]);
 
   const exchangeRateUrl = `${baseExchangeRateUrl}${
     import.meta.env.VITE_EXCHANGERATE_API_KEY
   }/latest/${currency}`;
 
+  const supportedCurrenciesUrl = `${baseExchangeRateUrl}${
+    import.meta.env.VITE_EXCHANGERATE_API_KEY
+  }/codes`;
+
   const [currencyData] = useFetch<IExchangeRates>(exchangeRateUrl);
+  const [currencyCodes] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
   const [countriesData] = useFetch('https://restcountries.com/v3.1/all');
 
-  let currencyDataKeys;
-
-  if (currencyData) currencyDataKeys = Object.keys(currencyData.conversion_rates);
-
-  const currencyOptions = currencyDataKeys?.map((currencyDataKey) => (
-    <li key={currencyDataKey}>{currencyDataKey}</li>
-  ));
+  let currencyOptions;
+  if (currencyCodes) {
+    currencyOptions = currencyCodes.supported_codes?.map((currencyCode) => (
+      <li key={currencyCode[0]} className={classes.currencyOptionItem}>
+        {currencyCode[1]}
+      </li>
+    ));
+  }
 
   const countryFlagImgSrc = `https://flagsapi.com/${countryCode}/flat/16.png`;
 
