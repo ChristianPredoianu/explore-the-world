@@ -86,13 +86,13 @@ input[type='number'] {
 
 .selectWrapper {
   @include flex-config($direction: column);
-
   gap: 2.5rem;
+  width: 50%;
 }
 
 .dropdown {
   position: relative;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   padding: 0.5rem 0;
   min-width: 10ch;
   max-width: 30ch;
@@ -110,7 +110,6 @@ input[type='number'] {
 .currencyOptionsList {
   position: absolute;
   bottom: -20rem;
-  width: 100%;
   border: 1px solid black;
   background-color: #fff;
   max-height: 20rem;
@@ -119,4 +118,11 @@ input[type='number'] {
 
 .dropdownOption {
   @include flex-config($justify: space-between);
+}
+
+.currencyOptionItem {
+  padding: 0.2rem 0.2rem;
+  &:not(:first-of-type) {
+    margin-top: 1rem;
+  }
 }
