@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { baseExchangeRateUrl } from '@/utils/urls';
 import { IExchangeRates } from '@/types/apiTypes.interface';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
-import CountryDetails from '@/pages/CountryDetails';
 
 interface CurrencyExchangeProps {
   currency: string;
