@@ -153,6 +153,7 @@ export default function CountryDetails() {
           {sectionMap}
           {sectionCalendar}
           {sectionCurrencyExchange}
+          {sectionMap}
         </div>
       </>
     </>
