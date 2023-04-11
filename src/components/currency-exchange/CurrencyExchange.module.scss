@@ -80,27 +80,34 @@ input[type='number'] {
 }
 
 .countryCurrency {
-  display: flex;
+  @include flex-config($align: center);
   font-size: 1.2rem;
 }
 
 .selectWrapper {
   @include flex-config($direction: column);
   gap: 2.5rem;
-  width: 50%;
+  position: relative;
+  width: 100%;
+
+  @include mq(md) {
+    width: 50%;
+  }
 }
 
 .dropdown {
-  position: relative;
   font-size: 1.1rem;
   padding: 0.5rem 0;
-  min-width: 10ch;
-  max-width: 30ch;
+  width: 100%;
+  /*  min-width: 10ch;
+  max-width: 30ch; */
   cursor: pointer;
   line-height: 1.1;
-  background-color: #fff;
-  background-image: linear-gradient(to top, #000000, #ffffff 10%);
+
+  /*   background-color: #fff;
+  background-image: linear-gradient(to top, #000000, #ffffff 10%); */
   border: none;
+  border-bottom: 1px solid black;
 
   &:focus-within {
     outline: 2px solid black;
@@ -108,21 +115,33 @@ input[type='number'] {
 }
 
 .currencyOptionsList {
-  position: absolute;
-  bottom: -20rem;
-  border: 1px solid black;
-  background-color: #fff;
-  max-height: 20rem;
-  overflow: scroll;
+  @include position($pos: absolute, $top: 3rem);
+  z-index: 1000;
+  width: 100%;
+  border: 1px solid hsl(0, 0%, 0%);
+  background-color: hsl(0, 0%, 100%);
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.selectInputWrapper {
+  display: flex;
+  align-items: center;
+  /*  border: 1px solid black; */
 }
 
 .dropdownOption {
   @include flex-config($justify: space-between);
 }
 
-.currencyOptionItem {
-  padding: 0.2rem 0.2rem;
+.currencyListItem {
+  padding: 0.5rem 1rem;
+
   &:not(:first-of-type) {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
+}
+
+.listItemDiv {
+  @include flex-config($justify: space-between, $align: center);
 }
