@@ -10,11 +10,14 @@ interface CountryDetailsProps {
 }
 
 export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsProps) {
-  const [countryData] = useFetch<ICountryName[]>(`https://restcountries.com/v3.1/all`);
+  const allCountriesUrl = 'https://restcountries.com/v3.1/all';
+
+  const [countryData] = useFetch<ICountryName[]>(allCountriesUrl);
 
   const navigate = useNavigate();
 
   let countryNames: string[] = [];
+
   if (countryData) {
     countryNames = countryData.map((countryName) => countryName.name.common);
   }
