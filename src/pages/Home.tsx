@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
 import SearchCountryInput from '@/components/inputs/SearchCountryInput';
+import { baseCountryImagesUrl } from '@/utils/urls';
 import { ICountriesImages } from '@/types/apiTypes.interface';
 
 import classNames from 'classnames';
@@ -54,11 +55,10 @@ export default function Home() {
   );
 }
 
+// fix with async await
 export async function fetchData() {
-  const baseUrl = 'https://api.pexels.com/v1/search?query=';
-
   const countriesPromises = mostPopularCountries.map((country) =>
-    fetch(`${baseUrl}${country}&per_page=1`, {
+    fetch(`${baseCountryImagesUrl}${country}&per_page=1`, {
       headers: {
         Authorization: import.meta.env.VITE_PEXELS_API_KEY,
       },
