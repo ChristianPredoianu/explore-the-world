@@ -30,118 +30,65 @@
   font-size: 2rem;
 }
 
-.label {
-  font-size: 1.3rem;
-  font-weight: var(--fw-bold);
-}
-
-.inputWrapper {
-  @include flex-config($direction: column);
-  gap: 1rem;
-
-  @include mq(md) {
-    width: 30%;
-  }
-}
-
-.currencyInput {
-  display: inline-block;
-  border: none;
-  border-bottom: 1px solid var(--clr-blue-700);
-  padding: 1rem;
-  font-size: 1.3rem;
-
-  &:focus {
-    outline: 1px solid var(--clr-blue-700);
-    border-bottom: 1px solid transparent;
-  }
-
-  &::-webkit-outer-spin-button,
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-.currencyWrapper {
-  @include flex-config($direction: column);
-  gap: 1rem;
-  font-size: 1.3rem;
-}
-
 .countryCurrency {
   @include flex-config($align: center);
   font-size: 1.2rem;
 }
 
-.selectWrapper {
-  @include flex-config($direction: column);
-  gap: 2.5rem;
+.multiInput {
+  @include flex-config($align: center, $justify: space-between);
   position: relative;
+  padding: 2rem 1rem;
+  border: 1px solid var(--clr-gray-700);
   width: 100%;
+}
 
-  @include mq(md) {
-    width: 50%;
-  }
+.currency {
+  @include flex-config($align: center);
+}
+
+.currencyInput {
+  font-size: 1.3rem;
+  padding: 1rem 0.5rem;
+  border: none;
+  width: 70%;
+}
+
+.inputIcon {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.searchIcon {
+  font-size: 2rem;
+}
+
+.inputControls {
+  @include position($pos: absolute, $top: 3.2rem, $right: 2rem);
+  display: flex;
+  gap: 1rem;
 }
 
 .dropdown {
-  font-size: 1.1rem;
-  padding: 0.5rem 0;
+  @include position($pos: absolute, $top: 8.2rem, $left: 0);
+  max-height: 25rem;
   width: 100%;
-  /*  min-width: 10ch;
-  max-width: 30ch; */
-  cursor: pointer;
-  line-height: 1.1;
-
-  /*   background-color: #fff;
-  background-image: linear-gradient(to top, #000000, #ffffff 10%); */
-  border: none;
-  border-bottom: 1px solid black;
-
-  &:focus-within {
-    outline: 2px solid black;
-  }
-}
-
-.currencyOptionsList {
-  @include position($pos: absolute, $top: 3rem);
-  z-index: 1000;
-  width: 100%;
-  border: 1px solid hsl(0, 0%, 0%);
-  background-color: hsl(0, 0%, 100%);
-  max-height: 30rem;
   overflow-y: scroll;
+  padding: 1rem;
+  border: 1px solid var(--clr-gray-200);
+  z-index: 1000;
+  background-color: rgb(253, 253, 253);
 }
 
-.selectInputWrapper {
-  display: flex;
-  align-items: center;
-  /*  border: 1px solid black; */
-}
-
-.dropdownOption {
-  @include flex-config($justify: space-between);
+.currencyList {
 }
 
 .currencyListItem {
-  padding: 0.5rem 1rem;
-
-  &:not(:first-of-type) {
-    margin-top: 2rem;
-  }
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .listItemDiv {
-  @include flex-config($justify: space-between, $align: center);
+  @include flex-config($align: center);
+  gap: 0.5rem;
 }
