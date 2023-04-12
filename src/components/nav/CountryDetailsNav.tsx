@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import SearchInput from '@/components/inputs/SearchCountryInput';
 import { useFetch } from '@/hooks/useFetch';
+import { baseAllCountriesUrl } from '@/utils/urls';
 import { ICountryName } from '@/types/apiTypes.interface';
 import classes from '@/components/nav/CountryDetailsNav.module.scss';
 
@@ -10,9 +11,7 @@ interface CountryDetailsProps {
 }
 
 export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsProps) {
-  const allCountriesUrl = 'https://restcountries.com/v3.1/all';
-
-  const [countryData] = useFetch<ICountryName[]>(allCountriesUrl);
+  const [countryData] = useFetch<ICountryName[]>(baseAllCountriesUrl);
 
   const navigate = useNavigate();
 
