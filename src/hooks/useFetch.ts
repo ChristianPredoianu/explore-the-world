@@ -7,6 +7,7 @@ export function useFetch<T>(initialUrl: string, settings?: {}) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function fetchData() {
+    setError(null);
     setIsLoading(true);
     if (!url) return;
 
@@ -18,7 +19,6 @@ export function useFetch<T>(initialUrl: string, settings?: {}) {
         throw new Error(message);
       }
       const data = await response.json();
-
       setData(data);
     } catch (error: any) {
       setError(error.message);
@@ -28,7 +28,7 @@ export function useFetch<T>(initialUrl: string, settings?: {}) {
 
   useEffect(() => {
     fetchData();
-  }, [url]);
+  }, []);
 
   return [data, error, isLoading, setUrl] as const;
 }
