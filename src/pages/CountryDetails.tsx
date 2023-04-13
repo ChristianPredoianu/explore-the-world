@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { getApiData } from '@/utils/api';
-import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
+import { useLoaderData, LoaderFunctionArgs, useParams, defer } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
@@ -103,12 +103,10 @@ export default function CountryDetails() {
 
   const sectionAirQuality = (
     <section className={classes.sectionAirQuality}>
-      <h4 className='sectionHeading'>
-        {`Air Quality in ${countryDetails[0].name.common}`}
-      </h4>
+      <h4 className='sectionHeading'>{`Air Quality in ${countryDetail.name.common}`}</h4>
       <div className={classes.airQualityWrapper}>
         <AirQualityCard
-          coords={countryDetails[0].latlng}
+          coords={countryDetail.latlng}
           country={countryDetail.name.common}
         />
       </div>
@@ -117,18 +115,18 @@ export default function CountryDetails() {
 
   const sectionMap = (
     <section className={classes.sectionMap} ref={sectionMapRef}>
-      <h4 className='sectionHeading'>{`Map of ${countryDetails[0].name.common}`}</h4>
+      <h4 className='sectionHeading'>{`Map of ${countryDetail.name.common}`}</h4>
       <CountryMap coords={countryDetails[0].latlng} />
     </section>
   );
 
   const sectionCalendar = (
     <section className={classes.sectionCalendar}>
-      <h4 className='sectionHeading'>{`${countryDetails[0].name.common}'s holidays`}</h4>
+      <h4 className='sectionHeading'>{`${countryDetail.name.common}'s holidays`}</h4>
       <ReactCalendar countryCode={countryCode} />
     </section>
   );
-  console.log(countryDetail);
+
   const sectionCurrencyExchange = (
     <section className={classes.sectionCurrencyExchange}>
       <h4 className='sectionHeading'>Currency Exchange</h4>
@@ -144,15 +142,16 @@ export default function CountryDetails() {
       />
       <>
         <main className={classNames('container', classes.main)}>
+          <p>{countryDetail.cca2}</p>
           {sectionCountryInfo}
           {sectionPhotos}
         </main>
         <div className='container'>
-          {sectionWeather}
-          {sectionAirQuality}
+          {/*  {sectionWeather} */}
+          {/*  {sectionAirQuality} */}
           {sectionMap}
-          {sectionCalendar}
-          {sectionCurrencyExchange}
+          {/*     {sectionCalendar} */}
+          {/*  {sectionCurrencyExchange} */}
           {sectionMap}
         </div>
       </>
@@ -178,5 +177,5 @@ export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
 
   const data = await Promise.all([countryDetailsPromise, countryImagesPromise]);
 
-  return { data };
+  return defer({ data });
 }
