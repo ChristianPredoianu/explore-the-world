@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SearchInput from '@/components/inputs/SearchInput';
 import { useCountryNames } from '@/hooks/useCountryNames';
 import classes from '@/components/nav/CountryDetailsNav.module.scss';
@@ -13,9 +15,14 @@ export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsP
 
   const navigate = useNavigate();
 
+  const { countryId } = useParams();
   function goToCountryDetails(country: string) {
-    navigate(`/country/${country}`);
+    if (country !== undefined) {
+      navigate(`/country/${country}`, { replace: true });
+    }
   }
+
+  useEffect(() => {}, [countryId]);
 
   return (
     <header className='container'>
@@ -24,7 +31,11 @@ export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsP
           <img src={flag} alt='country flag' className={classes.navFlag} />
           <p className={classes.countryName}>{`${altSpelling} Trip`}</p>
         </div>
-        <SearchInput suggestions={countryNames} callback={goToCountryDetails} />
+        <SearchInput
+          suggestions={countryNames}
+          placeholder={'Search country'}
+          callback={goToCountryDetails}
+        />
       </nav>
     </header>
   );
