@@ -1,4 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
+import { getApiData } from '@/utils/api';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
 import SearchCountryInput from '@/components/inputs/SearchCountryInput';
@@ -55,19 +56,17 @@ export default function Home() {
   );
 }
 
-// fix with async await
 export async function fetchData() {
-  const countriesPromises = mostPopularCountries.map((country) =>
-    fetch(`${baseCountryImagesUrl}${country}&per_page=1`, {
-      headers: {
-        Authorization: import.meta.env.VITE_PEXELS_API_KEY,
-      },
-    }).then((res) => res.json())
+  const countriesPromises = mostPopularCountries.map(
+    (country) =>
+      getApiData(`${baseCountryImagesUrl}${country}&per_page=1`, {
+        headers: {
+          Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+        },
+      }) as Promise<string[]>
   );
 
-  const imgData = Promise.all(countriesPromises).then((imgData: ICountriesImages[]) => {
-    return imgData;
-  });
+  const imgData = await Promise.all(countriesPromises);
 
   return imgData;
 }
