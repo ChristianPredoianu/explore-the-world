@@ -27,7 +27,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   function goToCountryDetails(country: string) {
-    navigate(`/country/${country}`);
+    if (country !== undefined) navigate(`/country/${country}`);
   }
 
   const heroContent = (
@@ -42,7 +42,11 @@ export default function Home() {
           book.
         </h2>
         <div className={classes.searchInput}>
-          <SearchInput suggestions={countryNames} callback={goToCountryDetails} />
+          <SearchInput
+            suggestions={countryNames}
+            placeholder={'Search country'}
+            callback={goToCountryDetails}
+          />
         </div>
       </section>
       <section className={classes.sectionSwiper}>
