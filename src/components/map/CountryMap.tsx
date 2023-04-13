@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+
 import { LatLngExpression } from 'leaflet';
 import '@/components/map/CountryMap.scss';
 
@@ -9,6 +11,12 @@ interface CountryMapProps {
 export default function CountryMap({ coords }: CountryMapProps) {
   const position: LatLngExpression = [coords[0], coords[1]]; // [latitude, longitude]
   const zoomLevel = 7;
+
+  console.log(position);
+
+  /*  useEffect(() => {
+    map.setView(coords[0], coords[1]);
+  }, [coords]); */
 
   return (
     <div id='map'>
