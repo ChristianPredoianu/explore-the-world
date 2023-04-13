@@ -11,9 +11,7 @@ interface EffectCreativeSliderProps {
   images: ICountriesImages;
 }
 
-export default function EffectCreativeSlider({
-  images,
-}: EffectCreativeSliderProps) {
+export default function EffectCreativeSlider({ images }: EffectCreativeSliderProps) {
   images.photos.shift();
 
   const imgSlides = images.photos.map((image) => (
