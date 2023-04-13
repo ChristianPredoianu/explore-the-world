@@ -1,30 +1,32 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-/* import { useNavigate } from 'react-router-dom'; */
-
 import { useKeyPress } from '@/hooks/useKeyPress';
-import { useCapitalizeFirstLetterString } from '@/hooks/utils/useCapitalizeFirstLetterString';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import classNames from 'classnames';
 import classes from '@/components/inputs/SearchInput.module.scss';
+import '@/components/inputs/CurrencyFlags.css';
 
 interface SearchInputProps {
   suggestions: string[];
+  placeholder: string;
   callback: (param: string) => void;
 }
 
-export default function SearchInput({ suggestions, callback }: SearchInputProps) {
+export default function SearchInput({
+  suggestions,
+  placeholder,
+
+  callback,
+}: SearchInputProps) {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isShowSuggestions, setIsShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [undefinedSuggestionError, setUndefinedSuggestionError] = useState('');
 
   useKeyPress(() => onEnter(), ['Enter']);
   useKeyPress(() => onArrowDown(), ['ArrowDown']);
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
   useKeyPress(() => onBackspace(), ['Backspace']);
-
-  const { capitalizeFirstLetterString } = useCapitalizeFirstLetterString();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.currentTarget.value);
@@ -45,7 +47,12 @@ export default function SearchInput({ suggestions, callback }: SearchInputProps)
       setActiveSuggestion(0);
       setFilteredSuggestions([]);
       setIsShowSuggestions(false);
-      setSearchQuery(filteredSuggestions[activeSuggestion]);
+      if (filteredSuggestions[activeSuggestion] !== undefined) {
+        setSearchQuery(filteredSuggestions[activeSuggestion]);
+        setUndefinedSuggestionError('');
+      } else {
+        setUndefinedSuggestionError('Invalid search');
+      }
       callback(filteredSuggestions[activeSuggestion]);
     }
   }
@@ -64,6 +71,7 @@ export default function SearchInput({ suggestions, callback }: SearchInputProps)
 
   function onBackspace() {
     setActiveSuggestion(0);
+    setUndefinedSuggestionError('');
   }
 
   let suggestionListItems;
@@ -76,16 +84,24 @@ export default function SearchInput({ suggestions, callback }: SearchInputProps)
       key={suggestion}
       onClick={handleSuggestionClick}
     >
-      <span className={classes.listItemSpan}>{`${suggestion}`}</span>
+      <div className={classes.suggestionListItemWrapper}>
+        {placeholder === 'Currency' && (
+          <div
+            className={`currency-flag currency-flag-${suggestion.toLowerCase()}`}
+          ></div>
+        )}
+        <span className={classes.listItemSpan}>{`${suggestion}`}</span>
+      </div>
     </li>
   ));
 
   useEffect(() => {
     if (suggestions) {
       const newFilteredSuggestions = suggestions.filter((suggestion: string) =>
-        suggestion.includes(capitalizeFirstLetterString(searchQuery))
+        suggestion.toUpperCase().includes(searchQuery.toUpperCase())
       );
-      setFilteredSuggestions(newFilteredSuggestions);
+      if (newFilteredSuggestions !== undefined)
+        setFilteredSuggestions(newFilteredSuggestions);
     }
 
     if (searchQuery === '') {
@@ -100,17 +116,20 @@ export default function SearchInput({ suggestions, callback }: SearchInputProps)
         <input
           value={searchQuery}
           type='text'
-          placeholder='Search country'
+          placeholder={placeholder}
           className={classes.searchInput}
           onChange={handleChange}
         />
-        <FontAwesomeIcon
-          icon={['fas', 'magnifying-glass']}
-          className={classes.searchIcon}
-        />
-        {isShowSuggestions && (
+        {placeholder !== 'Currency' && (
+          <FontAwesomeIcon
+            icon={['fas', 'magnifying-glass']}
+            className={classes.searchIcon}
+          />
+        )}
+        {isShowSuggestions && filteredSuggestions.length > 0 && (
           <ul className={classes.suggestionList}>{suggestionListItems}</ul>
         )}
+        <p className={classes.error}>{undefinedSuggestionError}</p>
       </div>
     </>
   );
