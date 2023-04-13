@@ -58,6 +58,10 @@
   }
 }
 
+.suggestionListItemWrapper {
+  @include flex-config($align: center);
+}
+
 .activeSuggestion {
   font-weight: var(--fw-bold);
   background-color: var(--clr-blue-400);
@@ -67,4 +71,9 @@
 
 .listItemSpan {
   margin-left: 1rem;
+}
+
+.error {
+  @include position($pos: absolute, $bottom: -1rem, $left: 2rem);
+  color: var(--clr-danger);
 }
