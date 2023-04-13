@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, ChangeEvent, useState } from 'react';
 import { useFetch } from '@/hooks/useFetch';
+import CurrencyInput from '@/components/inputs/CurrencyInput';
+import SearchInput from '@/components/inputs/SearchInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { currencyCountryCodes } from '@/utils/currencies';
 import { IExchangeRates } from '@/types/apiTypes.interface';
 
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
+import '@/components/inputs/CurrencyFlags.css';
 
 interface CurrencyExchangeProps {
   currency: string;
@@ -22,38 +25,60 @@ export default function CurrencyExchange({
   const [selectedCurrency, setSelectedCurrency] = useState(
     Object.keys(currencyCountryCodes)[0]
   );
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCurrencyInputOpen, setIsCurrencyInputOpen] = useState(false);
+  const [isCloseOpen, setIsCloseOpen] = useState(false);
+  const [isCurrencyDivOpen, setIsCurrencyDivOpen] = useState(true);
+  const [countryFlag, setCountryFlag] = useState('aed');
+  const [isShowSuggestions, setIsShowSuggestions] = useState(false);
 
   const supportedCurrenciesUrl =
     'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json';
 
   const [currencyCodes] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
-  const [countriesData] = useFetch('https://restcountries.com/v3.1/all');
+  /*   const [countriesData] = useFetch('https://restcountries.com/v3.1/all'); */
 
   const countryFlagImgSrc = `https://www.countryflagicons.com/FLAT/32/${countryCode}.png`;
 
-  function handleCurrencyChange(e) {
-    setIsSelectOpen(true);
-    setSelectedCurrency(e.target.value.toUpperCase());
-  }
-
-  function handleCurrencyInput() {
-    setIsSelectOpen(true);
-    setIsCurrencyInputOpen(true);
-    console.log(isSelectOpen);
-  }
-
-  if (currencyCodes) console.log(currencyCodes);
-
-  function userSelectedCurrency(currency, countryCode) {
-    setIsSelectOpen(false);
+  function userSelectedCurrency(currency: string, countryCode: string) {
+    setIsDropdownOpen(false);
     setIsCurrencyInputOpen(false);
+    setIsCurrencyDivOpen(true);
     setSelectedCurrency(currency);
     setInputFlag(`https://www.countryflagicons.com/FLAT/32/${countryCode}.png`);
   }
 
-  const currencyOptions = Object.keys(currencyCountryCodes).map((currencyCode, i) => (
+  function handleMultiInputChange(e: ChangeEvent<HTMLInputElement>) {
+    setSelectedCurrency(e.target.value);
+  }
+
+  function handleMultiInputClick() {
+    setIsDropdownOpen(!isDropdownOpen);
+    setIsCurrencyDivOpen(!isCurrencyDivOpen);
+  }
+
+  function handleMultiInputClose() {
+    setIsCurrencyDivOpen(false);
+  }
+
+  function getExchangeRates(currency: string) {
+    setCountryFlag(currency);
+    setSelectedCurrency(currency);
+  }
+
+  const currencyFrom = (
+    <div className={classes.currencyFrom}>
+      <CurrencyInput label={'Amount'} type={'number'} value={countryCurrency} />
+      <div className={classes.countryCurrency}>
+        <img src={countryFlagImgSrc}></img>
+        <p>{currency}</p>
+      </div>
+    </div>
+  );
+
+  const currencyArray = Object.keys(currencyCountryCodes);
+
+  /*   const currencyOptions = Object.keys(currencyCountryCodes).map((currencyCode, i) => (
     <li
       key={i}
       className={classes.currencyListItem}
@@ -62,81 +87,83 @@ export default function CurrencyExchange({
       }
     >
       <div className={classes.listItemDiv}>
-        {currencyCode}
         <img
           src={`https://www.countryflagicons.com/FLAT/32/${currencyCountryCodes[currencyCode]}.png`}
           alt='country flag'
         />
+        {currencyCode}
       </div>
     </li>
-  ));
+  )); */
 
-  function handleClickOutside() {
-    setIsSelectOpen(false);
-    console.log('clicked');
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  function showSuggestions() {}
 
   return (
     <>
       <article className={classes.currencyCard}>
-        <div className={classes.currencyFrom}>
-          <div className={classes.inputWrapper}>
-            <label htmlFor='currency from' className={classes.label}>
-              Amount
-            </label>
-            <input
-              type='number'
-              value={countryCurrency}
-              className={classes.currencyInput}
-            />
-          </div>
-          <div className={classes.currencyWrapper}>
-            <p>Swedish Crown</p>
-            <div className={classes.countryCurrency}>
-              <img src={countryFlagImgSrc}></img>
-              <p>SEK</p>
-            </div>
-          </div>
-        </div>
+        {currencyFrom}
         <FontAwesomeIcon icon={['fas', 'repeat']} className={classes.icon} />
         <div className={classes.currencyTo}>
-          <div className={classes.inputWrapper}>
-            <label htmlFor='currency to' className={classes.label}>
-              You Get
-            </label>
-            <input
-              type='number'
-              onChange={(e) => console.log(e.target.value)}
-              className={classes.currencyInput}
-            />
-          </div>
-          <div className={classes.selectWrapper}>
-            <div className={classes.inputFlag}>
-              <div className={classes.selectInputWrapper} onClick={handleCurrencyInput}>
-                {!isCurrencyInputOpen && <img src={inputFlag} alt='' />}
-                {!isCurrencyInputOpen && <span>{selectedCurrency}</span>}
-                {isCurrencyInputOpen && (
-                  <input
-                    type='text'
-                    value={selectedCurrency}
-                    className={classes.dropdown}
-                    onChange={handleCurrencyChange}
-                    onClick={() => setIsSelectOpen(true)}
-                  />
-                )}
-              </div>
+          <CurrencyInput label={'You get'} type={'number'} />
+          <div
+            className={classes.multiInput}
+            onMouseEnter={() => setIsCloseOpen(true)}
+            onMouseLeave={() => setIsCloseOpen(false)}
+          >
+            <div className={classes.currency}>
+              {isCurrencyDivOpen && (
+                <>
+                  {countryFlag && (
+                    <div
+                      className={`currency-flag currency-flag-${countryFlag.toLowerCase()}`}
+                    ></div>
+                  )}
+                  <p>{selectedCurrency}</p>
+                </>
+              )}
+              {!isCurrencyDivOpen && (
+                <FontAwesomeIcon
+                  icon={['fas', 'search']}
+                  className={classes.searchIcon}
+                />
+              )}
             </div>
-            {isSelectOpen && (
-              <ul className={classes.currencyOptionsList}>{currencyOptions}</ul>
-            )}
+            <SearchInput
+              suggestions={currencyArray}
+              isShowSuggestions={isShowSuggestions}
+              setIsShowSuggestions={setIsShowSuggestions}
+              placeholder={'Currency'}
+              callback={getExchangeRates}
+            />
+            {/* 
+            <input
+              type='text'
+              value={selectedCurrency}
+              onChange={handleMultiInputChange}
+              className={classes.currencyInput}
+              onClick={handleMultiInputClick}
+            /> */}
+            <div className={classes.inputControls}>
+              {isCloseOpen && (
+                <FontAwesomeIcon
+                  icon={['fas', 'xmark']}
+                  className={classes.inputIcon}
+                  onClick={handleMultiInputClose}
+                />
+              )}
+
+              <FontAwesomeIcon
+                icon={['fas', 'chevron-down']}
+                className={classes.inputIcon}
+                onClick={showSuggestions}
+              />
+
+              <FontAwesomeIcon
+                icon={['fas', 'chevron-up']}
+                className={classes.inputIcon}
+                onClick={() => setIsDropdownOpen(false)}
+              />
+            </div>
           </div>
         </div>
       </article>
