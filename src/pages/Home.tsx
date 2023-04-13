@@ -1,8 +1,9 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useCountryNames } from '@/hooks/useCountryNames';
 import { getApiData } from '@/utils/api';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
-import SearchCountryInput from '@/components/inputs/SearchCountryInput';
+import SearchInput from '@/components/inputs/SearchInput';
 import { baseCountryImagesUrl } from '@/utils/urls';
 import { ICountriesImages } from '@/types/apiTypes.interface';
 
@@ -21,6 +22,14 @@ const mostPopularCountries = [
 export default function Home() {
   const countriesData = useLoaderData() as ICountriesImages[];
 
+  const { countryNames } = useCountryNames();
+
+  const navigate = useNavigate();
+
+  function goToCountryDetails(country: string) {
+    navigate(`/country/${country}`);
+  }
+
   const heroContent = (
     <div className={classNames('container', classes.heroContent)}>
       <section className={classNames(classes.heroSectionHeadings)}>
@@ -33,7 +42,7 @@ export default function Home() {
           book.
         </h2>
         <div className={classes.searchInput}>
-          <SearchCountryInput />
+          <SearchInput suggestions={countryNames} callback={goToCountryDetails} />
         </div>
       </section>
       <section className={classes.sectionSwiper}>
