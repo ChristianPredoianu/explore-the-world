@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 export default function ReactCalendar({ countryCode }: CalendarProps) {
-  const holidayYear = '2023';
+  /*   const holidayYear = '2023';
 
   const calendarificUrl = `${baseCalendarificUrl}&api_key=${
     import.meta.env.VITE_CALENDARIFIC_API_KEY
@@ -37,10 +37,10 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
 
   function onActiveStartDateChange({ activeStartDate }: any) {
     setCalendarDate(activeStartDate);
-  }
+  } */
 
-  return (
-    <>
+  return;
+  /*     <>
       <div className='holidays-wrapper'>
         <div className='calendar-wrapper'>
           <Calendar
@@ -61,5 +61,5 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
       </div>
       <p className='calendar-description'>{holidayDescription}</p>
     </>
-  );
+  ); */
 }
