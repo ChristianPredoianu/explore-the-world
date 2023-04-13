@@ -6,6 +6,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import App from '@/App';
 import Home, { fetchData } from '@/pages/Home';
 import ErrorPage from '@/pages/error-page/ErrorPage';
 import CountryDetails, { fetchCountryDetails } from '@/pages/CountryDetails';
@@ -45,16 +46,12 @@ library.add(
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route
-        path='/'
-        loader={fetchData}
-        element={<Home />}
-        errorElement={<ErrorPage />}
-      />
+      <Route path='/' loader={fetchData} element={<App />} errorElement={<ErrorPage />} />
       <Route
         path='country/:countryId'
         element={<CountryDetails />}
         loader={fetchCountryDetails}
+        action={findCountryDetails}
         errorElement={<ErrorPage />}
       />
     </>
