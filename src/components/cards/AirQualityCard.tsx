@@ -16,7 +16,7 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
   }`;
 
   const [airQualityData, error] = useFetch<IAirQualityData>(airVisualUrl);
-
+  console.log(airQualityData);
   let pollutionInfo!: IPollutionInfo;
 
   if (airQualityData) {
