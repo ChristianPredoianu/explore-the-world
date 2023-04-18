@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useKeyPress } from '@/hooks/useKeyPress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -14,7 +15,6 @@ interface SearchInputProps {
 export default function SearchInput({
   suggestions,
   placeholder,
-
   callback,
 }: SearchInputProps) {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -23,7 +23,11 @@ export default function SearchInput({
   const [searchQuery, setSearchQuery] = useState('');
   const [undefinedSuggestionError, setUndefinedSuggestionError] = useState('');
 
-  useKeyPress(() => onEnter(), ['Enter']);
+  const selectedSuggestionRef = useRef<HTMLUListElement>(null);
+
+  const location = useLocation();
+
+  useKeyPress(() => onSearch(), ['Enter']);
   useKeyPress(() => onArrowDown(), ['ArrowDown']);
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
   useKeyPress(() => onBackspace(), ['Backspace']);
@@ -34,6 +38,23 @@ export default function SearchInput({
     setIsShowSuggestions(true);
   }
 
+  function setActiveSuggestionIntoView() {
+    let selectedSuggestion;
+
+    if (selectedSuggestionRef.current !== null) {
+      selectedSuggestion = selectedSuggestionRef.current.querySelector(
+        `.${classes.activeSuggestion}`
+      );
+    }
+
+    if (selectedSuggestion) {
+      selectedSuggestion?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }
+
   function handleSuggestionClick(e: React.MouseEvent<HTMLElement>) {
     setActiveSuggestion(0);
     setFilteredSuggestions([]);
@@ -42,7 +63,7 @@ export default function SearchInput({
     callback(e.currentTarget.innerText);
   }
 
-  function onEnter() {
+  function onSearch() {
     if (searchQuery !== '') {
       setActiveSuggestion(0);
       setFilteredSuggestions([]);
@@ -96,6 +117,11 @@ export default function SearchInput({
   ));
 
   useEffect(() => {
+    setActiveSuggestionIntoView();
+    console.log('dsa');
+  }, [activeSuggestion]);
+
+  useEffect(() => {
     if (suggestions) {
       const newFilteredSuggestions = suggestions.filter((suggestion: string) =>
         suggestion.toUpperCase().includes(searchQuery.toUpperCase())
@@ -117,17 +143,22 @@ export default function SearchInput({
           value={searchQuery}
           type='text'
           placeholder={placeholder}
-          className={classes.searchInput}
+          className={classNames(classes.searchInput, {
+            [classes.searchInputBgDark]: location.pathname !== '/',
+          })}
           onChange={handleChange}
         />
-        {placeholder !== 'Currency' && (
-          <FontAwesomeIcon
-            icon={['fas', 'magnifying-glass']}
-            className={classes.searchIcon}
-          />
-        )}
+
+        <FontAwesomeIcon
+          icon={['fas', 'magnifying-glass']}
+          className={classes.searchIcon}
+          onClick={onSearch}
+        />
+
         {isShowSuggestions && filteredSuggestions.length > 0 && (
-          <ul className={classes.suggestionList}>{suggestionListItems}</ul>
+          <ul className={classes.suggestionList} ref={selectedSuggestionRef}>
+            {suggestionListItems}
+          </ul>
         )}
         <p className={classes.error}>{undefinedSuggestionError}</p>
       </div>
