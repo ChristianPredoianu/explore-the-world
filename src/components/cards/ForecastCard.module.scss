@@ -2,16 +2,12 @@
 
 .card {
   width: 20rem;
-  box-shadow: var(--box-shadow);
   padding: 8rem 3rem;
   text-align: center;
   border-radius: 2rem;
+  box-shadow: var(--box-shadow);
 
-  @include flex-config(
-    $direction: column,
-    $align: center,
-    $justify: space-between
-  );
+  @include flex-config($direction: column, $align: center, $justify: space-between);
 }
 
 .cardHeading {
