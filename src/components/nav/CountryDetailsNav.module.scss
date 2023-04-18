@@ -1,9 +1,8 @@
 @use '@/sass/abstracts' as *;
 
 .nav {
-  padding: 2rem 0;
-  font-family: 'Michroma', sans-serif;
   @include flex-config($align: center, $justify: center);
+  padding: 2rem 0;
 }
 
 .country {
