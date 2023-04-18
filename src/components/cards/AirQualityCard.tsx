@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { baseAirVisualUrl } from '@/utils/urls';
