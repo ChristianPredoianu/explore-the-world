@@ -18,7 +18,7 @@ export default function CountryDetailsNav({ flag, altSpelling }: CountryDetailsP
   const { countryId } = useParams();
   function goToCountryDetails(country: string) {
     if (country !== undefined) {
-      navigate(`/country/${country}`, { replace: true });
+      navigate(`/country/${country}`);
     }
   }
 
