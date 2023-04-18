@@ -99,7 +99,6 @@ export function Weather({ latlng }: WeatherProps) {
       >
         <div className={classes.cards} ref={nodeRef}>
           {weatherComponent}
-          <p>{forecastData && forecastData.city.name}</p>
         </div>
       </CSSTransition>
     </>
