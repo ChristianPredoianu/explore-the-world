@@ -33,8 +33,6 @@ export default function CountryDetails() {
 
   if (countryDetails) console.log(countryDetail.name.common);
 
-  useEffect(() => {}, [params]);
-
   const translations = [
     countryDetails[0].translations.deu,
     countryDetails[0].translations.jpn,
