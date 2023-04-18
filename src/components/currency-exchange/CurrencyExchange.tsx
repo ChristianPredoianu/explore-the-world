@@ -22,7 +22,6 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const [selectedCurrency, setSelectedCurrency] = useState(
     Object.keys(currencyCountryCodes)[0]
   );
-
   const [countryFlag, setCountryFlag] = useState('aed');
   const supportedCurrenciesUrl =
     'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json';
