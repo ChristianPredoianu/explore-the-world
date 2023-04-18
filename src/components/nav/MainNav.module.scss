@@ -2,9 +2,9 @@
 
 .header {
   @include position($pos: absolute, $left: 0, $right: 0);
+  color: var(--clr-gray-200);
   margin: 0 auto;
   z-index: 2;
-  color: var(--clr-gray-200);
 }
 
 .nav {
