@@ -6,7 +6,6 @@
 
 .card {
   box-shadow: var(--box-shadow);
-  font-family: 'Michroma', sans-serif;
 
   @include mq(md) {
     width: 50%;
@@ -28,9 +27,9 @@
 }
 
 .headings {
-  margin-left: 2rem;
-  font-weight: var(--fr-normal);
   color: var(--clr-gray-200);
+  font-weight: var(--fr-normal);
+  margin-left: 2rem;
 }
 
 .cardHeading {
