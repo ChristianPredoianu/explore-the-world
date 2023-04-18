@@ -51,7 +51,6 @@ const router = createBrowserRouter(
         path='country/:countryId'
         element={<CountryDetails />}
         loader={fetchCountryDetails}
-        action={findCountryDetails}
         errorElement={<ErrorPage />}
       />
     </>
