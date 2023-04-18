@@ -5,7 +5,7 @@ interface ForecastCardProps {
   data: IOpenWeatherForecast;
 }
 
-var days = [
+const days = [
   'Monday',
   'Tuesday',
   'Wednesday',
@@ -31,12 +31,8 @@ export default function ForecastCard({ data }: ForecastCardProps) {
           alt='weather icon'
         />
         <div className={classes.temperature}>
-          <p
-            className={classes.tempMax}
-          >{`${data.main.temp_max.toFixed()} \xBAC`}</p>
-          <p
-            className={classes.tempMin}
-          >{`${data.main.temp_min.toFixed()} \xBAC`}</p>
+          <p className={classes.tempMax}>{`${data.main.temp_max.toFixed()} \xBAC`}</p>
+          <p className={classes.tempMin}>{`${data.main.temp_min.toFixed()} \xBAC`}</p>
         </div>
       </article>
     </>
