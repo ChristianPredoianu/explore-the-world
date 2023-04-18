@@ -16,7 +16,7 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
   }`;
 
   const [airQualityData, error] = useFetch<IAirQualityData>(airVisualUrl);
-  console.log(airQualityData);
+
   let pollutionInfo!: IPollutionInfo;
 
   if (airQualityData) {
@@ -74,6 +74,14 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
     }
   }
 
+  let airQualityError;
+  if (error)
+    airQualityError = (
+      <p className={classes.error}>
+        {`There is no air quality data avaliable for ${country}`}
+      </p>
+    );
+
   let airQualityCard;
 
   if (airQualityData) {
@@ -108,12 +116,8 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
 
   return (
     <>
-      {error && (
-        <p className={classes.error}>
-          {`There is no air quality data avaliable for ${country}`}
-        </p>
-      )}
-      {airQualityCard}
+      {airQualityError}
+      {!error && airQualityCard}
     </>
   );
 }
