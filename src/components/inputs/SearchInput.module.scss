@@ -5,8 +5,15 @@
   color: hsl(0, 0%, 37%);
   padding: 1.2rem 2rem;
   border: none;
-  outline: none;
   border-radius: 1.8rem;
+
+  &:focus {
+    outline: 3px solid rgb(162, 197, 233);
+  }
+}
+
+.searchInputBgDark {
+  background-color: hsl(0, 0%, 97%);
 }
 
 .inputWrapper {
@@ -29,18 +36,11 @@
   }
 }
 
-.inputError {
-  @include position($pos: absolute, $bottom: -4rem, $left: 4rem);
-  font-size: 2rem;
-  color: rgb(233, 237, 241);
-}
-
 .suggestionList {
-  position: absolute;
-  top: 4.5rem;
-  background-color: var(--clr-gray-200);
+  @include position($pos: absolute, $top: 5rem);
   width: 100%;
   max-height: 20rem;
+  background-color: var(--clr-gray-200);
   overflow-y: scroll;
   padding: 1.2rem;
   border-radius: 1.8rem;
@@ -74,6 +74,6 @@
 }
 
 .error {
-  @include position($pos: absolute, $bottom: -1rem, $left: 2rem);
+  @include position($pos: absolute, $bottom: -2rem, $left: 2rem);
   color: var(--clr-danger);
 }
