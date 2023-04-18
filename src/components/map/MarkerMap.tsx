@@ -11,5 +11,6 @@ export default function MarkerMap({ position }: IMarkerProps) {
   useEffect(() => {
     map.flyTo(position);
   }, [position]);
+
   return <Marker position={position}></Marker>;
 }
