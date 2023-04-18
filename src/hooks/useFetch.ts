@@ -18,7 +18,6 @@ export function useFetch<T>(initialUrl: string, settings?: {}) {
         throw new Error(message);
       }
       const data = await response.json();
-      console.log(data);
       setData(data);
     } catch (error: any) {
       setError(error.message);
