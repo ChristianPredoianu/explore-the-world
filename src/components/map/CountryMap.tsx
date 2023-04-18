@@ -12,12 +12,6 @@ export default function CountryMap({ coords }: CountryMapProps) {
   const position: LatLngExpression = [coords[0], coords[1]]; // [latitude, longitude]
   const zoomLevel = 7;
 
-  /*   function ChangeView({ center, zoom }) {
-    const map = useMap();
-    map.setView(center, zoom);
-    return null;
-  }
- */
   return (
     <>
       <MapContainer center={position} zoom={zoomLevel} scrollWheelZoom={false}>
