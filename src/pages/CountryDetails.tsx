@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs, useParams, defer } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
@@ -28,6 +28,12 @@ export default function CountryDetails() {
   const sectionMapRef = useRef<HTMLElement>(null);
 
   const currency = Object.keys(countryDetail.currencies);
+
+  const params = useParams();
+
+  if (countryDetails) console.log(countryDetail.name.common);
+
+  useEffect(() => {}, [params]);
 
   const translations = [
     countryDetails[0].translations.deu,
@@ -130,7 +136,7 @@ export default function CountryDetails() {
   const sectionCurrencyExchange = (
     <section className={classes.sectionCurrencyExchange}>
       <h4 className='sectionHeading'>Currency Exchange</h4>
-      <CurrencyExchange currency={currency[0]} countryCode={countryDetail.cca2} />
+      <CurrencyExchange currency={currency[0]} />
     </section>
   );
 
@@ -142,16 +148,15 @@ export default function CountryDetails() {
       />
       <>
         <main className={classNames('container', classes.main)}>
-          <p>{countryDetail.cca2}</p>
           {sectionCountryInfo}
           {sectionPhotos}
         </main>
         <div className='container'>
-          {/*  {sectionWeather} */}
-          {/*  {sectionAirQuality} */}
+          {/*    {sectionWeather}
+          {sectionAirQuality}
           {sectionMap}
-          {/*     {sectionCalendar} */}
-          {/*  {sectionCurrencyExchange} */}
+          {sectionCalendar} */}
+          {sectionCurrencyExchange}
           {sectionMap}
         </div>
       </>
