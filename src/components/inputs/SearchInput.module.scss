@@ -1,14 +1,14 @@
 @use '@/sass/abstracts' as *;
 
 .searchInput {
-  font-size: clamp(1rem, 2vw, 1.5rem);
   color: hsl(0, 0%, 37%);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   padding: 1.2rem 2rem;
   border: none;
   border-radius: 1.8rem;
 
   &:focus {
-    outline: 3px solid rgb(162, 197, 233);
+    outline: 3px solid hsl(210, 62%, 77%);
   }
 }
 
@@ -49,9 +49,9 @@
 
 .suggestionListItem {
   font-size: 1.2rem;
-  cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
+  cursor: pointer;
 
   &:not(:first-of-type) {
     margin-top: 1rem;
@@ -63,8 +63,8 @@
 }
 
 .activeSuggestion {
-  font-weight: var(--fw-bold);
   background-color: var(--clr-blue-400);
+  font-weight: var(--fw-bold);
   padding: 0.5rem;
   border-radius: 1rem;
 }
