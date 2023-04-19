@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useKeyPress } from '@/hooks/useKeyPress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,7 +32,7 @@ export default function SearchInput({
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
   useKeyPress(() => onBackspace(), ['Backspace']);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.currentTarget.value);
     setActiveSuggestion(0);
     setIsShowSuggestions(true);
@@ -118,7 +118,6 @@ export default function SearchInput({
 
   useEffect(() => {
     setActiveSuggestionIntoView();
-    console.log('dsa');
   }, [activeSuggestion]);
 
   useEffect(() => {
