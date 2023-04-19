@@ -20,10 +20,10 @@
 
 .currencyInput {
   display: inline-block;
+  font-size: 1.3rem;
+  padding: 1rem;
   border: none;
   border-bottom: 1px solid var(--clr-blue-700);
-  padding: 1rem;
-  font-size: 1.3rem;
 
   &:focus {
     outline: 1px solid var(--clr-blue-700);
