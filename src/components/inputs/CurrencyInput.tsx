@@ -8,18 +8,27 @@ interface CurrencyInputProps {
     flag: string;
     currency: string;
   };
+
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function CurrencyInput({
   label,
   type,
   value,
+  handleChange,
+
   currencyDetails,
 }: CurrencyInputProps) {
   return (
     <div className={classes.inputWrapper}>
       <label className={classes.label}>{label}</label>
-      <input type={type} value={value} className={classes.currencyInput} />
+      <input
+        type={type}
+        value={value}
+        className={classes.currencyInput}
+        onChange={handleChange}
+      />
       {currencyDetails && (
         <div className={classes.countryCurrency}>
           <div
