@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import CurrencyInput from '@/components/inputs/CurrencyInput';
 import SearchInput from '@/components/inputs/SearchInput';
