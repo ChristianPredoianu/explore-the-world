@@ -130,7 +130,7 @@ export interface IHolidaysData {
 }
 
 export interface IExchangeRates {
-  conversion_rates: {
-    name: number;
+  [key: string]: {
+    [key: string]: number;
   };
 }
