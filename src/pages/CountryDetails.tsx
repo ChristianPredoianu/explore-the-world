@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs, useParams, defer } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
@@ -30,8 +30,6 @@ export default function CountryDetails() {
   const currency = Object.keys(countryDetail.currencies);
 
   const params = useParams();
-
-  if (countryDetails) console.log(countryDetail.name.common);
 
   const translations = [
     countryDetails[0].translations.deu,
