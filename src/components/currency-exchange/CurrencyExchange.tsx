@@ -11,7 +11,6 @@ import '@/components/inputs/CurrencyFlags.css';
 
 interface CurrencyExchangeProps {
   currency: string;
-  countryCode: string;
 }
 
 export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
