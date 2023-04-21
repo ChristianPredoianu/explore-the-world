@@ -4,7 +4,7 @@ import { useKeyPress } from '@/hooks/useKeyPress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import classes from '@/components/inputs/SearchInput.module.scss';
-import '@/components/inputs/CurrencyFlags.css';
+import '@/components/inputs/CurrencyFlags.scss';
 
 interface SearchInputProps {
   suggestions: string[];
