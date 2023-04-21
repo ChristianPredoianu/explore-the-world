@@ -7,7 +7,7 @@ import { currencyCountryCodes } from '@/utils/currencies';
 import { IExchangeRates } from '@/types/apiTypes.interface';
 
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
-import '@/components/inputs/CurrencyFlags.css';
+import '@/components/inputs/CurrencyFlags.scss';
 
 interface CurrencyExchangeProps {
   currency: string;
