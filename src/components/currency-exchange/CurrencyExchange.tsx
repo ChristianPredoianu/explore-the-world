@@ -23,11 +23,10 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const [selectedCurrency, setSelectedCurrency] = useState(
     Object.keys(currencyCountryCodes)[0].toLowerCase()
   );
-
   const [isFlipped, setIsFlipped] = useState(false);
-
   const [countryFlag, setCountryFlag] = useState('aed');
   const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
+
   const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
 
   const [initialCurrencyExchRates] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
