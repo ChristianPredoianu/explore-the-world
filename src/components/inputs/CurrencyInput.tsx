@@ -1,8 +1,7 @@
 import classes from '@/components/inputs/CurrencyInput.module.scss';
 
 interface CurrencyInputProps {
-  label?: string;
-  type: string;
+  label: string;
   value: number;
   currencyDetails: {
     flag: string;
@@ -14,17 +13,15 @@ interface CurrencyInputProps {
 
 export default function CurrencyInput({
   label,
-  type,
   value,
-  handleChange,
-
   currencyDetails,
+  handleChange,
 }: CurrencyInputProps) {
   return (
     <div className={classes.inputWrapper}>
       <label className={classes.label}>{label}</label>
       <input
-        type={type}
+        type='number'
         value={value}
         className={classes.currencyInput}
         onChange={handleChange}
