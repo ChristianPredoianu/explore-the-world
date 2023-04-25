@@ -24,8 +24,8 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     Object.keys(currencyCountryCodes)[0].toLowerCase()
   );
   const [isFlipped, setIsFlipped] = useState(false);
-  const [countryFlag, setCountryFlag] = useState('aed');
   const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
+  const [countryFlagTo, setCountryFlagTo] = useState('aed');
 
   const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
 
@@ -35,7 +35,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
 
   function getExchangeRates(userSelectedCurrency: string) {
     if (userSelectedCurrency !== undefined) {
-      setCountryFlag(userSelectedCurrency);
+      setCountryFlagTo(userSelectedCurrency);
       setSelectedCurrency(userSelectedCurrency.toLowerCase());
     }
   }
@@ -44,17 +44,10 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     setIsFlipped(!isFlipped);
   }
 
-  function handleCurrencyFromChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setCurrencyFromValue(+e.currentTarget.value);
-    if (+e.currentTarget.value === 0) {
-      setCurrencyFromValue(1);
-    }
-  }
-
   function convert() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        initialCurrencyExchRates[currency.toLowerCase()][currency.toLowerCase()] *
+        initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()] *
           currencyFromValue
       );
     }
@@ -63,32 +56,47 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   function convertTo() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        initialCurrencyExchRates[currency.toLowerCase()][selectedCurrency] *
+        initialCurrencyExchRates[currency.toLowerCase()][selectedCurrency.toLowerCase()] *
           currencyFromValue
       );
     }
   }
 
   function flip() {
-    let temp = currencyFromValue;
-    setCurrencyFromValue(currencyToValue);
-    setCurrencyToValue(temp);
+    toggleIsFlipped();
 
-    let tempFlag = countryFlag;
-    setCountryFlag(countryFlagFrom);
+    let tempValue = currencyFromValue;
+    setCurrencyFromValue(currencyToValue);
+    setCurrencyToValue(tempValue);
+
+    let tempFlag = countryFlagTo;
+    setCountryFlagTo(countryFlagFrom);
     setCountryFlagFrom(tempFlag);
 
-    /*  let tempCurrency = initialCurrency;
-    setInitialCurrency(selectedCurrency);
-    setSelectedCurrency(tempCurrency); */
+    let tempCurrency = initialCurrency;
+    setInitialCurrency(selectedCurrency.toUpperCase());
+    setSelectedCurrency(tempCurrency);
+  }
+
+  function handleCurrencyFromChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setCurrencyFromValue(+e.currentTarget.value);
   }
 
   function handleCurrencyToChange(e: React.ChangeEvent<HTMLInputElement>) {
     setCurrencyToValue(+e.currentTarget.value);
-    if (+e.currentTarget.value === 0) {
-      setCurrencyToValue(1);
-    }
   }
+
+  useEffect(() => {
+    setInitialCurrency(currency);
+    setCountryFlagFrom(currency.toLowerCase());
+  }, [currency]);
+
+  useEffect(() => {
+    if (!isFlipped) {
+      setInitialCurrency(currency);
+      setCountryFlagFrom(currency.toLowerCase());
+    }
+  }, [isFlipped]);
 
   useEffect(() => {
     isFlipped ? convert() : convertTo();
@@ -109,9 +117,9 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
       <CurrencyInput
         label={'Amount'}
         type={'number'}
-        value={currencyFromValue}
+        value={+currencyFromValue.toFixed(4)}
         handleChange={handleCurrencyFromChange}
-        currencyDetails={{ flag: countryFlagFrom, currency: currency }}
+        currencyDetails={{ flag: countryFlagFrom, currency: initialCurrency }}
       />
     </div>
   );
@@ -124,7 +132,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
         value={+currencyToValue.toFixed(4)}
         handleChange={handleCurrencyToChange}
         currencyDetails={{
-          flag: countryFlag.toLowerCase(),
+          flag: countryFlagTo.toLowerCase(),
           currency: selectedCurrency,
         }}
       />
