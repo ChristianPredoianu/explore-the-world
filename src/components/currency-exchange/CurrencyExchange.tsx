@@ -116,7 +116,6 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     <div className={classes.currencyFrom}>
       <CurrencyInput
         label={'Amount'}
-        type={'number'}
         value={+currencyFromValue.toFixed(4)}
         handleChange={handleCurrencyFromChange}
         currencyDetails={{ flag: countryFlagFrom, currency: initialCurrency }}
@@ -128,7 +127,6 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     <div className={classes.currencyTo}>
       <CurrencyInput
         label={'You get'}
-        type={'number'}
         value={+currencyToValue.toFixed(4)}
         handleChange={handleCurrencyToChange}
         currencyDetails={{
