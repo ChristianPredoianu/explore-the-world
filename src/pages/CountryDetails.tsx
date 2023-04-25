@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { getApiData } from '@/utils/api';
-import { useLoaderData, LoaderFunctionArgs, useParams, defer } from 'react-router-dom';
+import { useLoaderData, LoaderFunctionArgs, useParams } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
@@ -178,5 +178,5 @@ export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
 
   const data = await Promise.all([countryDetailsPromise, countryImagesPromise]);
 
-  return defer({ data });
+  return { data };
 }
