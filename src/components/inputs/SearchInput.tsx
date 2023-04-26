@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import classes from '@/components/inputs/SearchInput.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
 
+import { useClickOutside } from '@/hooks/useClickOutside';
+
 interface SearchInputProps {
   suggestions: string[];
   placeholder: string;
@@ -26,6 +28,8 @@ export default function SearchInput({
   const selectedSuggestionRef = useRef<HTMLUListElement>(null);
 
   const location = useLocation();
+
+  const ref = useClickOutside(onClose);
 
   useKeyPress(() => onSearch(), ['Enter']);
   useKeyPress(() => onArrowDown(), ['ArrowDown']);
@@ -76,6 +80,10 @@ export default function SearchInput({
       }
       callback(filteredSuggestions[activeSuggestion]);
     }
+  }
+
+  function onClose() {
+    setIsShowSuggestions(false);
   }
 
   function onArrowUp() {
@@ -146,6 +154,7 @@ export default function SearchInput({
             [classes.searchInputBgDark]: location.pathname !== '/',
           })}
           onChange={handleChange}
+          ref={ref}
         />
 
         <FontAwesomeIcon
