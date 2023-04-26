@@ -44,16 +44,16 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     setIsFlipped(!isFlipped);
   }
 
-  function convert() {
+  function flipConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()] *
-          currencyFromValue
+        currencyFromValue /
+          initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
       );
     }
   }
 
-  function convertTo() {
+  function initialConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
         initialCurrencyExchRates[currency.toLowerCase()][selectedCurrency.toLowerCase()] *
@@ -99,7 +99,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   }, [isFlipped]);
 
   useEffect(() => {
-    isFlipped ? convert() : convertTo();
+    isFlipped ? flipConversion() : initialConversion();
   }, [currencyFromValue, selectedCurrency, initialCurrencyExchRates]);
 
   const searchInput = (
