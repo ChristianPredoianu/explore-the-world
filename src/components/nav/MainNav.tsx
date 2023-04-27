@@ -7,7 +7,7 @@ export default function MainNav() {
     <>
       <header className={classNames('container', classes.header)}>
         <nav className={classes.nav}>
-          <p className={classes.navLogo}>Explorer</p>
+          <p className={classes.navLogo}>Wanderlust Adventures</p>
           <SocialMediaIcons />
         </nav>
       </header>
