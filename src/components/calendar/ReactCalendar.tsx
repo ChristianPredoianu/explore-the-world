@@ -22,8 +22,6 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
 
   const [holidaysData] = useFetch<IHolidaysData>(calendarificUrl);
 
-  console.log(countryCode);
-
   function onChange(date: Date | Date[]) {
     if (date instanceof Date) setDate(date);
   }
