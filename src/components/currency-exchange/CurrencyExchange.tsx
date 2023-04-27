@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import CurrencyInput from '@/components/inputs/CurrencyInput';
 import SearchInput from '@/components/inputs/SearchInput';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { currencyCountryCodes } from '@/utils/currencies';
 import { IExchangeRates } from '@/types/apiTypes.interface';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
 
@@ -44,20 +43,20 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     setIsFlipped(!isFlipped);
   }
 
-  function flipConversion() {
-    if (initialCurrencyExchRates) {
-      setCurrencyToValue(
-        currencyFromValue /
-          initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
-      );
-    }
-  }
-
   function initialConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
         initialCurrencyExchRates[currency.toLowerCase()][selectedCurrency.toLowerCase()] *
           currencyFromValue
+      );
+    }
+  }
+
+  function flipConversion() {
+    if (initialCurrencyExchRates) {
+      setCurrencyToValue(
+        currencyFromValue /
+          initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
       );
     }
   }
@@ -123,6 +122,10 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     </div>
   );
 
+  const flipIcon = (
+    <FontAwesomeIcon icon={['fas', 'repeat']} className={classes.icon} onClick={flip} />
+  );
+
   const currencyTo = (
     <div className={classes.currencyTo}>
       <CurrencyInput
@@ -143,11 +146,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
         {searchInput}
         <div className={classes.currencyWrapper}>
           {currencyFrom}
-          <FontAwesomeIcon
-            icon={['fas', 'repeat']}
-            className={classes.icon}
-            onClick={flip}
-          />
+          {flipIcon}
           {currencyTo}
         </div>
       </article>
