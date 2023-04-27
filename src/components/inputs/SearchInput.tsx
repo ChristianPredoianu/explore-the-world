@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useReducer } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { useKeyPress } from '@/hooks/useKeyPress';
+import { suggestionsReducer } from '@/reducers/suggestionsReducer';
+import { IInitialState } from '@/reducers/suggestionsReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import classes from '@/components/inputs/SearchInput.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
-
-import { useClickOutside } from '@/hooks/useClickOutside';
 
 interface SearchInputProps {
   suggestions: string[];
@@ -14,21 +15,20 @@ interface SearchInputProps {
   callback: (param: string) => void;
 }
 
+const initialState: IInitialState = { count: 0, filteredSuggestions: [] };
+
 export default function SearchInput({
   suggestions,
   placeholder,
   callback,
 }: SearchInputProps) {
-  const [activeSuggestion, setActiveSuggestion] = useState(0);
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [state, dispatch] = useReducer(suggestionsReducer, initialState);
   const [isShowSuggestions, setIsShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [undefinedSuggestionError, setUndefinedSuggestionError] = useState('');
 
   const selectedSuggestionRef = useRef<HTMLUListElement>(null);
-
   const location = useLocation();
-
   const ref = useClickOutside(onClose);
 
   useKeyPress(() => onSearch(), ['Enter']);
@@ -38,7 +38,7 @@ export default function SearchInput({
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.currentTarget.value);
-    setActiveSuggestion(0);
+    dispatch({ type: 'RESET_SUGGESTIONS' });
     setIsShowSuggestions(true);
   }
 
@@ -60,8 +60,7 @@ export default function SearchInput({
   }
 
   function handleSuggestionClick(e: React.MouseEvent<HTMLElement>) {
-    setActiveSuggestion(0);
-    setFilteredSuggestions([]);
+    dispatch({ type: 'RESET_SUGGESTIONS' });
     setIsShowSuggestions(false);
     setSearchQuery(e.currentTarget.innerText);
     callback(e.currentTarget.innerText);
@@ -69,16 +68,16 @@ export default function SearchInput({
 
   function onSearch() {
     if (searchQuery !== '') {
-      setActiveSuggestion(0);
-      setFilteredSuggestions([]);
+      dispatch({ type: 'RESET_SUGGESTIONS' });
       setIsShowSuggestions(false);
-      if (filteredSuggestions[activeSuggestion] !== undefined) {
-        setSearchQuery(filteredSuggestions[activeSuggestion]);
+
+      if (state.filteredSuggestions[state.count] !== undefined) {
+        setSearchQuery(state.filteredSuggestions[state.count]);
         setUndefinedSuggestionError('');
       } else {
         setUndefinedSuggestionError('Invalid search');
       }
-      callback(filteredSuggestions[activeSuggestion]);
+      callback(state.filteredSuggestions[state.count]);
     }
   }
 
@@ -87,58 +86,54 @@ export default function SearchInput({
   }
 
   function onArrowUp() {
-    return activeSuggestion === 0
+    return state.count === 0
       ? null
-      : setActiveSuggestion((prevSuggestion) => prevSuggestion - 1);
+      : dispatch({ type: 'PREVIOUS_ACTIVE_SUGGESTION', payload: 1 });
   }
 
   function onArrowDown() {
-    return activeSuggestion - 1 === filteredSuggestions.length
+    return state.count - 1 === state.filteredSuggestions.length
       ? null
-      : setActiveSuggestion((prevSuggestion) => prevSuggestion + 1);
+      : dispatch({ type: 'NEXT_ACTIVE_SUGGESTION', payload: 1 });
   }
 
   function onBackspace() {
-    setActiveSuggestion(0);
+    dispatch({ type: 'RESET_SUGGESTIONS' });
     setUndefinedSuggestionError('');
   }
 
   let suggestionListItems;
 
-  suggestionListItems = filteredSuggestions.map((suggestion, index) => (
-    <li
-      className={classNames(classes.suggestionListItem, {
-        [classes.activeSuggestion]: index === activeSuggestion,
-      })}
-      key={suggestion}
-      onClick={handleSuggestionClick}
-    >
-      <div className={classes.suggestionListItemWrapper}>
-        {placeholder === 'Currency' && (
-          <div
-            className={`currency-flag currency-flag-${suggestion.toLowerCase()}`}
-          ></div>
-        )}
-        <span className={classes.listItemSpan}>{`${suggestion}`}</span>
-      </div>
-    </li>
-  ));
+  if (state.filteredSuggestions) {
+    suggestionListItems = state.filteredSuggestions.map((suggestion, index) => (
+      <li
+        className={classNames(classes.suggestionListItem, {
+          [classes.activeSuggestion]: index === state.count,
+        })}
+        key={suggestion}
+        onClick={handleSuggestionClick}
+      >
+        <div className={classes.suggestionListItemWrapper}>
+          {placeholder === 'Currency' && (
+            <div
+              className={`currency-flag currency-flag-${suggestion.toLowerCase()}`}
+            ></div>
+          )}
+          <span className={classes.listItemSpan}>{`${suggestion}`}</span>
+        </div>
+      </li>
+    ));
+  }
 
   useEffect(() => {
     setActiveSuggestionIntoView();
-  }, [activeSuggestion]);
+  }, [state.count]);
 
   useEffect(() => {
-    if (suggestions) {
-      const newFilteredSuggestions = suggestions.filter((suggestion: string) =>
-        suggestion.toUpperCase().includes(searchQuery.toUpperCase())
-      );
-      if (newFilteredSuggestions !== undefined)
-        setFilteredSuggestions(newFilteredSuggestions);
-    }
+    dispatch({ type: 'FILTER_SUGGESTIONS', payload: { suggestions, searchQuery } });
 
     if (searchQuery === '') {
-      setFilteredSuggestions([]);
+      dispatch({ type: 'RESET_SUGGESTIONS' });
       setIsShowSuggestions(false);
     }
   }, [searchQuery]);
@@ -156,14 +151,12 @@ export default function SearchInput({
           onChange={handleChange}
           ref={ref}
         />
-
         <FontAwesomeIcon
           icon={['fas', 'magnifying-glass']}
           className={classes.searchIcon}
           onClick={onSearch}
         />
-
-        {isShowSuggestions && filteredSuggestions.length > 0 && (
+        {isShowSuggestions && state.filteredSuggestions.length > 0 && (
           <ul className={classes.suggestionList} ref={selectedSuggestionRef}>
             {suggestionListItems}
           </ul>
