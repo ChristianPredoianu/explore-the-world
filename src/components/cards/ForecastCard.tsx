@@ -19,6 +19,7 @@ export default function ForecastCard({ data }: ForecastCardProps) {
   function getDayOfWeek() {
     const dayNum = new Date(data.dt * 1000).getDay();
     const dayOfWeek = days[dayNum];
+
     return dayOfWeek;
   }
 
