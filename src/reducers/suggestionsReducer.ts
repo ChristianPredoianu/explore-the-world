@@ -7,13 +7,16 @@ interface Increment {
   type: 'NEXT_ACTIVE_SUGGESTION';
   payload: number;
 }
+
 interface Decrement {
   type: 'PREVIOUS_ACTIVE_SUGGESTION';
   payload: number;
 }
+
 interface Reset {
   type: 'RESET_SUGGESTIONS';
 }
+
 interface Filter {
   type: 'FILTER_SUGGESTIONS';
   payload: { suggestions: string[]; searchQuery: string };
