@@ -9,7 +9,7 @@ interface CountryMapProps {
 }
 
 export default function CountryMap({ coords }: CountryMapProps) {
-  const position: LatLngExpression = [coords[0], coords[1]]; // [latitude, longitude]
+  const position: LatLngExpression = [coords[0], coords[1]];
   const zoomLevel = 7;
 
   return (
