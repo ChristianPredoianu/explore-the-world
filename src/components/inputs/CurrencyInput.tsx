@@ -7,7 +7,6 @@ interface CurrencyInputProps {
     flag: string;
     currency: string;
   };
-
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
