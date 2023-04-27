@@ -42,7 +42,8 @@
   max-height: 20rem;
   background-color: var(--clr-gray-200);
   overflow-y: scroll;
-  padding: 1.2rem;
+  overflow-x: hidden;
+  padding: 2rem;
   border-radius: 1.8rem;
   z-index: 10;
 }
@@ -65,8 +66,9 @@
 .activeSuggestion {
   background-color: var(--clr-blue-400);
   font-weight: var(--fw-bold);
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   border-radius: 1rem;
+  transform: scale(1.1);
 }
 
 .listItemSpan {
