@@ -23,7 +23,7 @@
 .img-overlay {
   position: absolute;
   inset: 0;
-  background-color: hsla(0, 0%, 0%, 0.3);
+  background-color: hsla(242, 80%, 14%, 0.3);
 }
 
 .swiper-slide {
@@ -38,6 +38,8 @@
   text-transform: uppercase;
   font-weight: var(--fw-bold);
   z-index: 100;
+  text-align: start;
+  letter-spacing: 0.3rem;
 }
 
 .custom-swiper-button-prev,
