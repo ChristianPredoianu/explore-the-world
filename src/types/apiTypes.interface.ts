@@ -12,6 +12,7 @@ export interface ICountryName {
   name: {
     common: string;
   };
+  cca2: string;
 }
 
 export interface ICountryDetails {
