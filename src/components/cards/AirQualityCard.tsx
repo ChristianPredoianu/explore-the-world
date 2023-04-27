@@ -74,6 +74,7 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
   }
 
   let airQualityError;
+
   if (error)
     airQualityError = (
       <p className={classes.error}>
