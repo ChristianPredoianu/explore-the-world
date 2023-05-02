@@ -25,8 +25,6 @@ export default function CountryDetails() {
   const countryDetail = countryDetails[0];
   const countryCode = countryDetails[0].cca2;
 
-  console.log(countryDetail);
-
   const sectionMapRef = useRef<HTMLElement>(null);
 
   const currency = Object.keys(countryDetail.currencies);
@@ -148,10 +146,10 @@ export default function CountryDetails() {
           {sectionPhotos}
         </main>
         <div className='container'>
-          {/*    {sectionWeather}
+          {sectionWeather}
           {sectionAirQuality}
           {sectionMap}
-          {sectionCalendar} */}
+          {sectionCalendar}
           {sectionCurrencyExchange}
           {sectionMap}
         </div>
