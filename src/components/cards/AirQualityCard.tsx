@@ -100,13 +100,15 @@ export default function AirQualityCard({ coords, country }: AirQualityCardProps)
         <div className={classes.cardMain}>
           <h6 className={classes.cardMainHeading}>Air Quality</h6>
           <div className={classes.valuesWrapper}>
-            <span
-              style={{ backgroundColor: pollutionInfo.color }}
-              className={classes.dot}
-            ></span>
-            <p className={classes.qualityValue}>
-              {airQualityData.data.current.pollution.aqius}
-            </p>
+            <div className={classes.value}>
+              <span
+                style={{ backgroundColor: pollutionInfo.color }}
+                className={classes.dot}
+              ></span>
+              <p className={classes.qualityValue}>
+                {airQualityData.data.current.pollution.aqius}
+              </p>
+            </div>
             <p className={classes.qualityDescription}>{pollutionInfo.desc}</p>
           </div>
         </div>
