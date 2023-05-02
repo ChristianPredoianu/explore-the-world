@@ -17,7 +17,7 @@
   &::after {
     content: '';
     @include position($pos: absolute, $bottom: -1rem, $left: 0);
-    width: 50%;
+    width: 100%;
     border-top: 2px solid hsl(0, 0%, 0%);
   }
 }
