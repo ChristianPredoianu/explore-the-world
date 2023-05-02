@@ -95,6 +95,7 @@ export interface IOpenWeatherForecast {
 
   weather: {
     icon: string;
+    main: string;
   }[];
 }
 [];
