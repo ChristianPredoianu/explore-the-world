@@ -30,14 +30,21 @@
 }
 
 .react-calendar {
-  width: 350px;
-  /* check this!!!!! */
-  max-width: 100%;
+  width: 32rem;
+  max-width: 80%;
   background: hsl(0, 0%, 100%);
   font-family: inherit;
-  padding: 4rem;
+  padding: 2rem;
   line-height: 1.125em;
   box-shadow: var(--box-shadow);
+  margin: 0 auto;
+
+  @include mq(sm) {
+    width: 35rem;
+    max-width: 100%;
+    padding: 4rem;
+    margin: auto;
+  }
 }
 
 .react-calendar--doubleView {
