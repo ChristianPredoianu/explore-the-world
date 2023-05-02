@@ -17,6 +17,11 @@ interface WeatherProps {
   latlng: number[];
 }
 
+const weatherBtns = [
+  { id: 1, label: 'Todays Weather' },
+  { id: 2, label: '5-days Forecast' },
+];
+
 export function Weather({ latlng }: WeatherProps) {
   const [activeWeatherComponent, setActiveWeatherComponent] = useState(1);
   const [showWeatherComponent, setShowWeatherComponent] = useState(true);
@@ -61,11 +66,6 @@ export function Weather({ latlng }: WeatherProps) {
       weatherComponent = <WeeksWeather data={fiveDaysForecast} />;
     }
   }
-
-  const weatherBtns = [
-    { id: 1, label: 'Todays Weather' },
-    { id: 2, label: '5-days Forecast' },
-  ];
 
   const weatherCta = weatherBtns.map((weatherBtn) => (
     <button
