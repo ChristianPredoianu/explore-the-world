@@ -1,6 +1,6 @@
 import classes from '@/components/cards/TodaysWeatherCard.module.scss';
 
-interface CardProps {
+interface TodaysWeatherCardProps {
   cardHeading: string;
   descriptionOne: string;
   valueOne: string | number;
@@ -10,7 +10,7 @@ interface CardProps {
   children?: React.ReactNode;
 }
 
-export default function Card({
+export default function TodaysWeatherCard({
   cardHeading,
   descriptionOne,
   valueOne,
@@ -18,7 +18,7 @@ export default function Card({
   descriptionTwo,
   valueTwo,
   children,
-}: CardProps) {
+}: TodaysWeatherCardProps) {
   return (
     <article className={classes.card}>
       <h5 className={classes.cardHeading}>{cardHeading}</h5>
