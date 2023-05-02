@@ -23,6 +23,8 @@ export default function ForecastCard({ data }: ForecastCardProps) {
     return dayOfWeek;
   }
 
+  if (data) console.log(data);
+
   return (
     <>
       <article className={classes.card}>
@@ -33,7 +35,9 @@ export default function ForecastCard({ data }: ForecastCardProps) {
         />
         <div className={classes.temperature}>
           <p className={classes.tempMax}>{`${data.main.temp_max.toFixed()} \xBAC`}</p>
-          <p className={classes.tempMin}>{`${data.main.temp_min.toFixed()} \xBAC`}</p>
+          <p className={classes.tempMin}>
+            {data.weather[0].main /* `${data.main.temp_min.toFixed()} \xBAC` */}
+          </p>
         </div>
       </article>
     </>
