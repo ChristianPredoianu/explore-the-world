@@ -1,5 +1,5 @@
 import { IOpenWeatherToday } from '@/types/apiTypes.interface';
-import Card from '@/components/cards/TodaysWeatherCard';
+import TodaysWeatherCard from '@/components/cards/TodaysWeatherCard';
 import classes from '@/components/weather/TodaysWeather.module.scss';
 
 interface TodaysWeatherProps {
@@ -16,7 +16,7 @@ function toTimeString(totalSeconds: number) {
 export default function TodaysWeather({ data }: TodaysWeatherProps) {
   return (
     <>
-      <Card
+      <TodaysWeatherCard
         cardHeading='Weather'
         descriptionOne='Temperature'
         valueOne={`${data.main.temp.toFixed()} \xBAC`}
@@ -25,9 +25,9 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
         valueTwo={`${data.main.feels_like.toFixed()} \xBAC`}
       >
         <p className={classes.cardChild}>{data.weather[0].main}</p>
-      </Card>
+      </TodaysWeatherCard>
 
-      <Card
+      <TodaysWeatherCard
         cardHeading='Sunrise - Sunset'
         descriptionOne='Sunrise'
         valueOne={toTimeString(data.sys.sunrise)}
@@ -35,7 +35,7 @@ export default function TodaysWeather({ data }: TodaysWeatherProps) {
         descriptionTwo='Sunset'
         valueTwo={toTimeString(data.sys.sunset)}
       />
-      <Card
+      <TodaysWeatherCard
         cardHeading='Wind'
         descriptionOne='Wind speed'
         valueOne={`${data.wind.speed.toFixed()} m/s`}
