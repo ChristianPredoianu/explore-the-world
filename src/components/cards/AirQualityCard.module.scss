@@ -6,10 +6,6 @@
 
 .card {
   box-shadow: var(--box-shadow);
-
-  @include mq(md) {
-    width: 50%;
-  }
 }
 
 .cardHeadingsWrapper {
@@ -43,7 +39,7 @@
 }
 
 .cardMain {
-  padding: 3rem;
+  padding: 6rem 3rem;
 
   @include mq(md) {
     padding: 10rem 6rem;
@@ -64,6 +60,16 @@
   @include mq(sm) {
     flex-direction: row;
   }
+
+  @include mq(md) {
+    width: 80%;
+    gap: 0;
+  }
+}
+
+.value {
+  @include flex-config($align: center);
+  gap: 3rem;
 }
 
 .dot {
@@ -81,7 +87,7 @@
   @include mq(sm) {
     &::after {
       content: '';
-      @include position($pos: absolute, $right: -4rem);
+      @include position($pos: absolute, $left: 14rem);
       border-right: 2px solid hsl(0, 0%, 0%);
       height: 100%;
     }
