@@ -6,8 +6,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+
 import App from '@/App';
-import Home, { fetchData } from '@/pages/Home';
+import { fetchData } from '@/pages/Home';
 import ErrorPage from '@/pages/error-page/ErrorPage';
 import CountryDetails, { fetchCountryDetails } from '@/pages/CountryDetails';
 import { library } from '@fortawesome/fontawesome-svg-core';
