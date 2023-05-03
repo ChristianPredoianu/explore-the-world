@@ -3,7 +3,7 @@ import { useCountryNames } from '@/hooks/useCountryNames';
 import { getApiData } from '@/utils/api';
 import MainNav from '@/components/nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
-import SearchInput from '@/components/inputs/SearchInput';
+import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { baseCountryImagesUrl } from '@/utils/urls';
 import { ICountriesImages } from '@/types/apiTypes.interface';
 import backgroundVideo from '@/assets/bg-video-beach.mp4';
