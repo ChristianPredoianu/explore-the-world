@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import CurrencyInput from '@/components/inputs/CurrencyInput';
-import SearchInput from '@/components/inputs/SearchInput';
+import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { currencyCountryCodes } from '@/utils/currencies';
 import { IExchangeRates } from '@/types/apiTypes.interface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
