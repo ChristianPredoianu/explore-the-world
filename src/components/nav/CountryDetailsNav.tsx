@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import SearchInput from '@/components/inputs/SearchInput';
+import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { useCountryNames } from '@/hooks/useCountryNames';
 import classes from '@/components/nav/CountryDetailsNav.module.scss';
 
