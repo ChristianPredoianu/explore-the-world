@@ -28,7 +28,7 @@ export default function SearchInput({
   const [undefinedSuggestionError, setUndefinedSuggestionError] = useState('');
 
   const selectedSuggestionRef = useRef<HTMLUListElement>(null);
-  const location = useLocation();
+  /*   const location = useLocation(); */
   const ref = useClickOutside(onClose);
 
   useKeyPress(() => onSearch(), ['Enter']);
@@ -144,6 +144,7 @@ export default function SearchInput({
         <input
           value={searchQuery}
           type='text'
+          name='search-countries'
           placeholder={placeholder}
           className={classNames(classes.searchInput, {
             [classes.searchInputBgDark]: location.pathname !== '/',
