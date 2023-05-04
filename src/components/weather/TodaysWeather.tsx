@@ -1,5 +1,5 @@
 import { IOpenWeatherToday } from '@/types/apiTypes.interface';
-import TodaysWeatherCard from '@/components/cards/TodaysWeatherCard';
+import TodaysWeatherCard from '@/components/cards/todays-weather/TodaysWeatherCard';
 import classes from '@/components/weather/TodaysWeather.module.scss';
 
 interface TodaysWeatherProps {
