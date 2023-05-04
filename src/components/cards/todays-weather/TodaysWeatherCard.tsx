@@ -1,4 +1,4 @@
-import classes from '@/components/cards/TodaysWeatherCard.module.scss';
+import classes from '@/components/cards/todays-weather/TodaysWeatherCard.module.scss';
 
 interface TodaysWeatherCardProps {
   cardHeading: string;
