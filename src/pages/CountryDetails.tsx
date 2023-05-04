@@ -4,7 +4,7 @@ import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
-import AirQualityCard from '@/components/cards/AirQualityCard';
+import AirQualityCard from '@/components/cards/air-quality/AirQualityCard';
 import CountryMap from '@/components/map/CountryMap';
 import ReactCalendar from '@/components/calendar/ReactCalendar';
 import CurrencyExchange from '@/components/currency-exchange/CurrencyExchange';
