@@ -1,0 +1,31 @@
+@use '@/sass/abstracts' as *;
+
+.card {
+  @include flex-config($direction: column, $align: center, $justify: space-between);
+  width: 20rem;
+  padding: 8rem 3rem;
+  text-align: center;
+  border-radius: 2rem;
+  box-shadow: var(--box-shadow);
+}
+
+.cardHeading {
+  font-size: 1.6rem;
+  color: var(--clr-gray-700);
+}
+
+.temperature {
+  @include flex-config($justify: center, $align: center);
+  gap: 1rem;
+}
+
+.tempMax {
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+}
+
+.tempMin {
+  color: var(--clr-gray-700);
+  font-size: 1.3rem;
+  font-weight: var(--fw-bold);
+}
