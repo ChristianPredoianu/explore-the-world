@@ -1,4 +1,4 @@
-import ForecastCard from '@/components/cards/ForecastCard';
+import ForecastCard from '@/components/cards/forecast/ForecastCard';
 import { IOpenWeatherForecast } from '@/types/apiTypes.interface';
 
 interface WeeksWeatherProps {
