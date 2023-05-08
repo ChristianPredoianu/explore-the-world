@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { getApiData } from '@/utils/api';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
-import CountryDetailsNav from '@/components/nav/CountryDetailsNav';
+import CountryDetailsNav from '@/components/nav/country-details-nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
 import AirQualityCard from '@/components/cards/air-quality/AirQualityCard';
