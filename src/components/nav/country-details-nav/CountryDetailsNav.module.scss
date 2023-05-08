@@ -1,0 +1,28 @@
+@use '@/sass/abstracts' as *;
+
+.nav {
+  @include flex-config($align: center, $justify: center);
+  padding: 2rem 0;
+}
+
+.country {
+  @include flex-config($align: center);
+  flex: 1;
+}
+
+.countryName {
+  font-size: 2.5rem;
+  margin-left: 2rem;
+}
+
+.navFlag {
+  width: 5rem;
+}
+
+.searchInputWrapper {
+  margin-top: 2rem;
+
+  @include mq(md) {
+    margin-top: 5rem;
+  }
+}
