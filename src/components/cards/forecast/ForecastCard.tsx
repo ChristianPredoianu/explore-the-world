@@ -23,8 +23,6 @@ export default function ForecastCard({ data }: ForecastCardProps) {
     return dayOfWeek;
   }
 
-  if (data) console.log(data);
-
   return (
     <>
       <article className={classes.card}>
