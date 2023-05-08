@@ -143,15 +143,15 @@ export default function CountryDetails() {
       <>
         <main className={classNames('container', classes.main)}>
           {sectionCountryInfo}
-          {sectionPhotos}
+          {/*    {sectionPhotos} */}
         </main>
         <div className='container'>
-          {sectionWeather}
+          {/*  {sectionWeather}
           {sectionAirQuality}
           {sectionMap}
           {sectionCalendar}
           {sectionCurrencyExchange}
-          {sectionMap}
+          {sectionMap} */}
         </div>
       </>
     </>
