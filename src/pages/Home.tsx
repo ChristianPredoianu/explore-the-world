@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useCountryNames } from '@/hooks/useCountryNames';
 import { getApiData } from '@/utils/api';
-import MainNav from '@/components/nav/MainNav';
+import MainNav from '@/components/nav/main-nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
 import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { baseCountryImagesUrl } from '@/utils/urls';
