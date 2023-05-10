@@ -4,6 +4,7 @@ import CurrencyInput from '@/components/inputs/currency-input/CurrencyInput';
 import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { currencyCountryCodes } from '@/utils/currencies';
 import { IExchangeRates } from '@/types/apiTypes.interface';
+import { baseCurrencyRatesUrl } from '@/utils/urls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
@@ -13,11 +14,8 @@ interface CurrencyExchangeProps {
 }
 
 export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
-  const baseCurrencyRatesUrl =
-    'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies';
-
-  const [currencyFromValue, setCurrencyFromValue] = useState(1);
-  const [currencyToValue, setCurrencyToValue] = useState(0);
+  const [currencyFromValue, setCurrencyFromValue] = useState('1');
+  const [currencyToValue, setCurrencyToValue] = useState('0');
   const [initialCurrency, setInitialCurrency] = useState(currency);
   const [selectedCurrency, setSelectedCurrency] = useState(
     Object.keys(currencyCountryCodes)[0].toLowerCase()
@@ -33,6 +31,11 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const currencyArray = Object.keys(currencyCountryCodes);
 
   function getExchangeRates(userSelectedCurrency: string) {
+    if (isFlipped) {
+      setIsFlipped(false);
+      setCurrencyFromValue('1');
+    }
+
     if (userSelectedCurrency !== undefined) {
       setCountryFlagTo(userSelectedCurrency);
       setSelectedCurrency(userSelectedCurrency.toLowerCase());
@@ -46,8 +49,11 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   function initialConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        initialCurrencyExchRates[currency.toLowerCase()][selectedCurrency.toLowerCase()] *
-          currencyFromValue
+        (
+          initialCurrencyExchRates[currency.toLowerCase()][
+            selectedCurrency.toLowerCase()
+          ] * +currencyFromValue
+        ).toString()
       );
     }
   }
@@ -55,8 +61,10 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   function flipConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        currencyFromValue /
+        (
+          +currencyFromValue /
           initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
+        ).toString()
       );
     }
   }
@@ -78,11 +86,20 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   }
 
   function handleCurrencyFromChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setCurrencyFromValue(+e.currentTarget.value);
+    const newValue = parseFloat(e.target.value.replace(',', '.'));
+    setCurrencyFromValue(newValue.toString());
   }
 
   function handleCurrencyToChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setCurrencyToValue(+e.currentTarget.value);
+    setCurrencyToValue(e.currentTarget.value);
+  }
+
+  function handleCurrencyFromBlur() {
+    setCurrencyFromValue(currencyFromValue.toLocaleString());
+  }
+
+  function handleCurrencyToBlur() {
+    setCurrencyFromValue(currencyToValue.toLocaleString());
   }
 
   useEffect(() => {
@@ -115,8 +132,9 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     <div className={classes.currencyFrom}>
       <CurrencyInput
         label={'Amount'}
-        value={+currencyFromValue.toFixed(4)}
+        value={currencyFromValue}
         handleChange={handleCurrencyFromChange}
+        handleBlur={handleCurrencyFromBlur}
         currencyDetails={{ flag: countryFlagFrom, currency: initialCurrency }}
       />
     </div>
@@ -130,8 +148,9 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
     <div className={classes.currencyTo}>
       <CurrencyInput
         label={'You get'}
-        value={+currencyToValue.toFixed(4)}
+        value={currencyToValue}
         handleChange={handleCurrencyToChange}
+        handleBlur={handleCurrencyToBlur}
         currencyDetails={{
           flag: countryFlagTo.toLowerCase(),
           currency: selectedCurrency,
