@@ -141,7 +141,14 @@
 }
 
 .airQualityWrapper {
-  @include flex-config($justify: space-between);
+  @include flex-config($direction: column);
+  gap: 2rem;
+
+  @include mq(lg) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5rem;
+  }
 }
 
 .sectionMap {
