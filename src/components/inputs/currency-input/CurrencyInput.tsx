@@ -23,7 +23,7 @@ export default function CurrencyInput({
       <label className={classes.label}>{label}</label>
       <input
         type='number'
-        value={isNaN(+value) ? '' : parseFloat(value).toFixed(4)}
+        value={isNaN(+value) ? '' : value}
         step='0.01'
         className={classes.currencyInput}
         disabled={label === 'You get'}
