@@ -49,11 +49,13 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   function initialConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        (
-          initialCurrencyExchRates[currency.toLowerCase()][
-            selectedCurrency.toLowerCase()
-          ] * +currencyFromValue
-        ).toString()
+        parseFloat(
+          (
+            initialCurrencyExchRates[currency.toLowerCase()][
+              selectedCurrency.toLowerCase()
+            ] * +currencyFromValue
+          ).toString()
+        ).toFixed(4)
       );
     }
   }
@@ -61,10 +63,14 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   function flipConversion() {
     if (initialCurrencyExchRates) {
       setCurrencyToValue(
-        (
-          +currencyFromValue /
-          initialCurrencyExchRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
-        ).toString()
+        parseFloat(
+          (
+            +currencyFromValue /
+            initialCurrencyExchRates[currency.toLowerCase()][
+              initialCurrency.toLowerCase()
+            ]
+          ).toString()
+        ).toFixed(4)
       );
     }
   }
