@@ -64,6 +64,7 @@ export default function SearchInput({
     setIsShowSuggestions(false);
     setSearchQuery(e.currentTarget.innerText);
     callback(e.currentTarget.innerText);
+    setSearchQuery('');
   }
 
   function onSearch() {
@@ -78,6 +79,7 @@ export default function SearchInput({
         setUndefinedSuggestionError('Invalid search');
       }
       callback(state.filteredSuggestions[state.count]);
+      setSearchQuery('');
     }
   }
 
