@@ -5,15 +5,20 @@
 }
 
 .card {
+  width: 100%;
   box-shadow: var(--box-shadow);
+
+  @include mq(lg) {
+    width: 40%;
+  }
 }
 
 .cardHeadingsWrapper {
   @include flex-config($align: center);
   padding: 4rem 2rem;
 
-  @include mq(sm) {
-    padding: 6rem;
+  @include mq(lg) {
+    padding: 6rem 2rem;
   }
 }
 
@@ -39,11 +44,8 @@
 }
 
 .cardMain {
+  @include flex-config($direction: column, $align: center);
   padding: 6rem 3rem;
-
-  @include mq(md) {
-    padding: 10rem 6rem;
-  }
 }
 
 .cardMainHeading {
@@ -52,18 +54,21 @@
 
 .valuesWrapper {
   @include flex-config($direction: column, $justify: space-between, $align: center);
+  width: 100%;
   gap: 3rem;
   margin-top: 5rem;
   font-size: 1.5rem;
   line-height: 1.5;
+  padding: 2rem;
 
   @include mq(sm) {
     flex-direction: row;
+    justify-content: center;
+    gap: 10rem;
   }
 
   @include mq(md) {
-    width: 80%;
-    gap: 0;
+    padding: 2rem;
   }
 }
 
@@ -90,13 +95,20 @@
       @include position($pos: absolute, $left: 14rem);
       border-right: 2px solid hsl(0, 0%, 0%);
       height: 100%;
+
+      @include mq(lg) {
+        left: 12rem;
+      }
     }
   }
 }
 
 .qualityDescription {
+  text-align: center;
+
   @include mq(sm) {
     width: 50%;
+    text-align: left;
   }
 }
 
