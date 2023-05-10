@@ -1,0 +1,13 @@
+@use '@/sass/abstracts' as *;
+
+.socialMediaIcons {
+  @include flex-config();
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 1px solid var(--clr-gray-200);
+  padding: 0.5rem;
+}
