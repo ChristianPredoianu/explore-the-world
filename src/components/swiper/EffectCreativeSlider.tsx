@@ -2,19 +2,32 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative } from 'swiper';
 import { ICountriesImages } from '@/types/apiTypes.interface';
 import { Autoplay } from 'swiper';
+import FlyingImg from '@/assets/images/flying.jpg';
 
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import '@/components/swiper/EffectCreativeSlider.scss';
+import { useEffect } from 'react';
 
 interface EffectCreativeSliderProps {
   images: ICountriesImages;
 }
 
 export default function EffectCreativeSlider({ images }: EffectCreativeSliderProps) {
-  images.photos.shift();
+  /*   images.photos.shift(); */
 
-  const imgSlides = images.photos.map((image) => (
+  let imgSlides;
+
+  /*   if (images.photos.length === 0) {
+    imgSlides = (
+      <SwiperSlide
+        style={{
+          backgroundImage: `url('${FlyingImg}')`,
+        }}
+      ></SwiperSlide>
+    );
+  }  */
+  imgSlides = images.photos.map((image) => (
     <SwiperSlide
       key={image.id}
       style={{
@@ -22,6 +35,17 @@ export default function EffectCreativeSlider({ images }: EffectCreativeSliderPro
       }}
     ></SwiperSlide>
   ));
+
+  /*   useEffect(() => {
+    imgSlides = images.photos.map((image) => (
+      <SwiperSlide
+        key={image.id}
+        style={{
+          backgroundImage: `url('${image.src.large2x}')`,
+        }}
+      ></SwiperSlide>
+    ));
+  }, []); */
 
   return (
     <>
