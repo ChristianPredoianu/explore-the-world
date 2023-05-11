@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useKeyPress } from '@/hooks/useKeyPress';
 import { suggestionsReducer } from '@/reducers/suggestionsReducer';
+import SearchSuggestionList from '@/components/inputs//search-input/SearchSuggestionList';
 import { IInitialState } from '@/reducers/suggestionsReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -104,29 +105,6 @@ export default function SearchInput({
     setUndefinedSuggestionError('');
   }
 
-  let suggestionListItems;
-
-  if (state.filteredSuggestions) {
-    suggestionListItems = state.filteredSuggestions.map((suggestion, index) => (
-      <li
-        className={classNames(classes.suggestionListItem, {
-          [classes.activeSuggestion]: index === state.count,
-        })}
-        key={suggestion}
-        onClick={handleSuggestionClick}
-      >
-        <div className={classes.suggestionListItemWrapper}>
-          {placeholder === 'Currency' && (
-            <div
-              className={`currency-flag currency-flag-${suggestion.toLowerCase()}`}
-            ></div>
-          )}
-          <span className={classes.listItemSpan}>{`${suggestion}`}</span>
-        </div>
-      </li>
-    ));
-  }
-
   useEffect(() => {
     setActiveSuggestionIntoView();
   }, [state.count]);
@@ -160,9 +138,13 @@ export default function SearchInput({
           onClick={onSearch}
         />
         {isShowSuggestions && state.filteredSuggestions.length > 0 && (
-          <ul className={classes.suggestionList} ref={selectedSuggestionRef}>
-            {suggestionListItems}
-          </ul>
+          <SearchSuggestionList
+            filteredSuggestions={state.filteredSuggestions}
+            handleSuggestionClick={handleSuggestionClick}
+            count={state.count}
+            placeholder={placeholder}
+            ref={selectedSuggestionRef}
+          />
         )}
         <p className={classes.error}>{undefinedSuggestionError}</p>
       </div>
