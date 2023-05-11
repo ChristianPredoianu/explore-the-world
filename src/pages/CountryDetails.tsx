@@ -5,6 +5,7 @@ import CountryDetailsNav from '@/components/nav/country-details-nav/CountryDetai
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
 import AirQualityCard from '@/components/cards/air-quality/AirQualityCard';
+import AirQualityTable from '@/components/ui/air-quality-table/AirQualityTable';
 import CountryMap from '@/components/map/CountryMap';
 import ReactCalendar from '@/components/calendar/ReactCalendar';
 import CurrencyExchange from '@/components/currency-exchange/CurrencyExchange';
@@ -30,17 +31,17 @@ export default function CountryDetails() {
   const currency = Object.keys(countryDetail.currencies);
 
   const translations = [
-    countryDetails[0].translations.deu,
-    countryDetails[0].translations.jpn,
-    countryDetails[0].translations.ara,
-    countryDetails[0].translations.fra,
-    countryDetails[0].translations.rus,
-    countryDetails[0].translations.spa,
+    { id: 1, language: countryDetails[0].translations.deu },
+    { id: 2, language: countryDetails[0].translations.jpn },
+    { id: 3, language: countryDetails[0].translations.ara },
+    { id: 4, language: countryDetails[0].translations.fra },
+    { id: 5, language: countryDetails[0].translations.rus },
+    { id: 6, language: countryDetails[0].translations.spa },
   ];
 
   const translationsParagraphs = translations.map((language) => (
-    <p key={language.official} className={classes.language}>
-      {language.common}
+    <p key={language.id} className={classes.language}>
+      {language.language.common}
     </p>
   ));
 
@@ -80,11 +81,13 @@ export default function CountryDetails() {
       </div>
       <section className={classes.sectionTranslations}>
         <div>{translationsParagraphs}</div>
-        <img
-          src={countryImages.photos[0].src.small}
-          alt={countryImages.photos[0].alt}
-          className={classes.translationsImg}
-        />
+        {countryImages.photos[0] && (
+          <img
+            src={countryImages.photos[0].src.medium}
+            alt={countryImages.photos[0].alt}
+            className={classes.translationsImg}
+          />
+        )}
       </section>
     </section>
   );
@@ -109,6 +112,7 @@ export default function CountryDetails() {
           coords={countryDetail.latlng}
           country={countryDetail.name.common}
         />
+        <AirQualityTable />
       </div>
     </section>
   );
@@ -143,15 +147,14 @@ export default function CountryDetails() {
       <>
         <main className={classNames('container', classes.main)}>
           {sectionCountryInfo}
-          {/*    {sectionPhotos} */}
+          {sectionPhotos}
         </main>
         <div className='container'>
-          {/*  {sectionWeather}
+          {sectionWeather}
           {sectionAirQuality}
           {sectionMap}
-          {sectionCalendar}
+          {/*  {sectionCalendar} */}
           {sectionCurrencyExchange}
-          {sectionMap} */}
         </div>
       </>
     </>
