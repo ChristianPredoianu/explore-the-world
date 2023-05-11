@@ -1,0 +1,13 @@
+@use '@/sass/abstracts' as *;
+
+.suggestionList {
+  @include position($pos: absolute, $top: 5rem);
+  width: 100%;
+  max-height: 20rem;
+  background-color: var(--clr-gray-200);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 2rem;
+  border-radius: 1.8rem;
+  z-index: 10;
+}
