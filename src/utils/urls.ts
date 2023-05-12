@@ -16,5 +16,3 @@ export const baseCalendarificUrl = 'https://calendarific.com/api/v2/holidays?';
 
 export const baseCurrencyRatesUrl =
   'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies';
-
-export const baseExchangeRateUrl = 'https://v6.exchangerate-api.com/v6/';
