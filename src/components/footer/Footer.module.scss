@@ -1,6 +1,35 @@
 @use '@/sass/abstracts' as *;
 
 .footer {
-  background-color: red;
+  background-color: rgb(34, 34, 42);
   padding: 5rem;
+  color: var(--clr-gray-200);
+  margin-top: 20rem;
+}
+
+.footerWrapper {
+  @include flex-config($justify: center, $align: flex-end);
+  gap: 4rem;
+}
+
+.credits {
+  @include flex-config($direction: column);
+  gap: 2rem;
+}
+
+.description {
+  font-size: 1.4rem;
+}
+
+.credit {
+  @include flex-config($align: center);
+  gap: 2rem;
+}
+
+.creditImg {
+  width: 6rem;
+}
+
+.creditLink {
+  color: var(--clr-gray-200);
 }
