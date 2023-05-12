@@ -2,6 +2,12 @@
 
 .tableWrapper {
   width: 100%;
+  overflow-x: scroll;
+  box-shadow: var(--box-shadow);
+
+  @include mq(sm) {
+    overflow-x: hidden;
+  }
 
   @include mq(md) {
     flex: 1;
@@ -9,15 +15,12 @@
 }
 
 .table {
-  width: 30%;
   border-collapse: collapse;
   width: 100%;
   color: hsl(0, 0%, 20%);
-  margin: 2rem 0;
   border: 1px solid hsl(0, 0%, 80%);
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: var(--box-shadow);
 }
 
 .tableHeader {
