@@ -29,13 +29,17 @@ export default function SearchInput({
   const [undefinedSuggestionError, setUndefinedSuggestionError] = useState('');
 
   const selectedSuggestionRef = useRef<HTMLUListElement>(null);
-  /*   const location = useLocation(); */
+  const location = useLocation();
   const ref = useClickOutside(onClose);
-
+  console.log('dsa');
   useKeyPress(() => onSearch(), ['Enter']);
   useKeyPress(() => onArrowDown(), ['ArrowDown']);
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
   useKeyPress(() => onBackspace(), ['Backspace']);
+
+  /*  useEffect(() => {
+    console.log('dsa');
+  }, []); */
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.currentTarget.value);
