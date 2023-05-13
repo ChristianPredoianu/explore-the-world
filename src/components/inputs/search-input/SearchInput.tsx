@@ -37,10 +37,6 @@ export default function SearchInput({
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
   useKeyPress(() => onBackspace(), ['Backspace']);
 
-  /*  useEffect(() => {
-    console.log('dsa');
-  }, []); */
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.currentTarget.value);
     dispatch({ type: 'RESET_SUGGESTIONS' });
