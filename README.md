@@ -1,6 +1,6 @@
 # Explore the world - React + Vite + Typescript 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
  
  <!-- PROJECT LOGO -->   
 <br />
