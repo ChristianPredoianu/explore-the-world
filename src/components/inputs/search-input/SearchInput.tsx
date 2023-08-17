@@ -31,7 +31,7 @@ export default function SearchInput({
   const selectedSuggestionRef = useRef<HTMLUListElement>(null);
   const location = useLocation();
   const ref = useClickOutside(onClose);
-  console.log('dsa');
+
   useKeyPress(() => onSearch(), ['Enter']);
   useKeyPress(() => onArrowDown(), ['ArrowDown']);
   useKeyPress(() => onArrowUp(), ['ArrowUp']);
