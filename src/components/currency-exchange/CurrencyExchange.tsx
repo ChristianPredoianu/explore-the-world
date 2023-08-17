@@ -18,11 +18,11 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const [currencyToValue, setCurrencyToValue] = useState('0');
   const [initialCurrency, setInitialCurrency] = useState(currency);
   const [selectedCurrency, setSelectedCurrency] = useState(
-    Object.keys(currencyCountryCodes)[0].toLowerCase()
+    Object.keys(currencyCountryCodes)[47]
   );
   const [isFlipped, setIsFlipped] = useState(false);
   const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
-  const [countryFlagTo, setCountryFlagTo] = useState('aed');
+  const [countryFlagTo, setCountryFlagTo] = useState('eur');
 
   const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
 
@@ -38,7 +38,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
 
     if (userSelectedCurrency !== undefined) {
       setCountryFlagTo(userSelectedCurrency);
-      setSelectedCurrency(userSelectedCurrency.toLowerCase());
+      setSelectedCurrency(userSelectedCurrency);
     }
   }
 
