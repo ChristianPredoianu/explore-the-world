@@ -64,6 +64,8 @@ A website where you can explore different countries.
 * [Css3](https://developer.mozilla.org/en-US/docs/Web/CSS)
 * [Sass](https://sass-lang.com/)
 * [Swiper.js](https://swiperjs.com/)
+* [React-leaflet](https://react-leaflet.js.org/)
+* [React-calendar](https://www.npmjs.com/package/react-calendar)
 * [Classnames](https://www.npmjs.com/package/classnames)
 
 
@@ -126,4 +128,5 @@ Project Link: [https://github.com/ChristianPredoianu/explore-the-world](https://
 ## Acknowledgements
 * [Google Fonts](https://fonts.google.com/)
 * [Font-Awesome](https://fontawesome.com/)
+* [Currency-flags](https://www.npmjs.com/package/currency-flags)
 
