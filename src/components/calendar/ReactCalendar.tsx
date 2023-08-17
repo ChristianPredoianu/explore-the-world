@@ -22,10 +22,6 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
 
   const [holidaysData] = useFetch<IHolidaysData>(calendarificUrl);
 
-  function onChange(date: Date | Date[]) {
-    if (date instanceof Date) setDate(date);
-  }
-
   function handleHolidayItemClick(date: string, description: string) {
     setCalendarDate(date);
     setHolidayDescription(description);
@@ -47,7 +43,7 @@ export default function ReactCalendar({ countryCode }: CalendarProps) {
             value={date}
             activeStartDate={date}
             onActiveStartDateChange={onActiveStartDateChange}
-            onChange={onChange}
+            onChange={() => setDate(date)}
           />
         </div>
         <div className='holidays-list-wrapper'>

@@ -1,7 +1,7 @@
 @use '@/sass/abstracts' as *;
 
 .holidayListItem {
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   transition: font-weight 0.2s ease;
   cursor: pointer;
 

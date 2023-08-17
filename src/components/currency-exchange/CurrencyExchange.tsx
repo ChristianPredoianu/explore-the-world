@@ -55,7 +55,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
               selectedCurrency.toLowerCase()
             ] * +currencyFromValue
           ).toString()
-        ).toFixed(4)
+        ).toFixed(2)
       );
     }
   }
@@ -70,7 +70,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
               initialCurrency.toLowerCase()
             ]
           ).toString()
-        ).toFixed(4)
+        ).toFixed(2)
       );
     }
   }
