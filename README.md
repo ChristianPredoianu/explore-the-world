@@ -104,7 +104,7 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 Search for a country, see todays forecast or 5-days forecast, see the air quality, choose a countrys holiday
-to see the date via calendar and see currency exchange. 
+to see the date via calendar and see also a currency converter is avaliable. 
 
 
 <!-- LICENSE -->
