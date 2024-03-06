@@ -15,4 +15,4 @@ export const baseAirVisualUrl = 'https://api.airvisual.com/v2/nearest_city?';
 export const baseCalendarificUrl = 'https://calendarific.com/api/v2/holidays?';
 
 export const baseCurrencyRatesUrl =
-  'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies';
+  'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies';
