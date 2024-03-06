@@ -23,7 +23,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
   const [countryFlagTo, setCountryFlagTo] = useState('eur');
-
+  console.log(currency);
   const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
 
   const [initialCurrencyExchRates] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
