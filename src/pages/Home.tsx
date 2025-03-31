@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useCountryNames } from '@/hooks/useCountryNames';
 import { getApiData } from '@/utils/api';
@@ -12,14 +13,10 @@ import videoFallbackImg from '@/assets/images/explore.jpg';
 import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
 
-const mostPopularCountries = [
-  'United Kingdom',
-  'Italy',
-  'Spain',
-  'Japan',
-  'Greece',
-  'Argentina',
-];
+const MOST_POPULAR_COUNTRIES = useMemo(
+  () => ['United Kingdom', 'Italy', 'Spain', 'Japan', 'Greece', 'Argentina'],
+  []
+);
 
 export default function Home() {
   const countriesData = useLoaderData() as ICountriesImages[];
@@ -28,8 +25,9 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  function goToCountryDetails(country: string) {
-    if (country !== undefined) navigate(`/country/${country}`);
+  function goToCountryDetails(country: string | undefined) {
+    if (!country) return;
+    navigate(`/country/${encodeURIComponent(country)}`);
   }
 
   const heroContent = (
@@ -54,7 +52,7 @@ export default function Home() {
       <section className={classes.sectionSwiper}>
         <SlidesAutoSwiper
           swiperData={countriesData}
-          mostPopularCountries={mostPopularCountries}
+          mostPopularCountries={MOST_POPULAR_COUNTRIES}
         />
       </section>
     </div>
@@ -71,6 +69,7 @@ export default function Home() {
           playsInline
           poster={videoFallbackImg}
           className={classes.bgVideo}
+          preload='metadata'
         >
           <source src={backgroundVideo} type='video/mp4' />
         </video>
@@ -82,7 +81,7 @@ export default function Home() {
 }
 
 export async function fetchData() {
-  const countriesPromises = mostPopularCountries.map(
+  const countriesPromises = MOST_POPULAR_COUNTRIES.map(
     (country) =>
       getApiData(`${baseCountryImagesUrl}${country}&per_page=1`, {
         headers: {
