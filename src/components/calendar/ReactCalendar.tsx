@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 export default function ReactCalendar({ countryCode }: CalendarProps) {
-  const holidayYear = '2023';
+  const holidayYear = new Date().getFullYear().toString();
 
   const calendarificUrl = `${baseCalendarificUrl}&api_key=${
     import.meta.env.VITE_CALENDARIFIC_API_KEY
