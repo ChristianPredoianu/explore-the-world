@@ -13,12 +13,12 @@ interface HolidaysListProps {
     }[];
   };
 
-  handleHolidayItemClick: (date: string, description: string) => void;
+  onHolidayClick: (date: string, description: string) => void;
 }
 
 export default function HolidaysList({
   holidaysData,
-  handleHolidayItemClick,
+  onHolidayClick,
 }: HolidaysListProps) {
   function addIdToHolidaysData() {
     const holidaysDataWithIds = holidaysData.holidays.map((holiday, i) => {
@@ -35,7 +35,7 @@ export default function HolidaysList({
     <HolidaysListItem
       key={holiday.id}
       holiday={holiday}
-      handleHolidayItemClick={handleHolidayItemClick}
+      handleHolidayItemClick={onHolidayClick}
     />
   ));
   return <ul className={classses.holidaysList}>{holidaysListItems}</ul>;
