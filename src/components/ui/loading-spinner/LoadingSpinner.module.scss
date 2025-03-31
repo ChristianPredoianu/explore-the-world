@@ -3,6 +3,18 @@ $loader-width: 1em;
 $loader-height: 4em;
 $animation-duration: 1s;
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .loader {
   color: $loader-color;
   text-indent: -9999em;
