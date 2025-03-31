@@ -13,7 +13,7 @@ interface CalendarProps {
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function ReactCalendar({ countryCode }: CalendarProps) {
+export default function HolidayCalendar({ countryCode }: CalendarProps) {
   const holidayYear = new Date().getFullYear().toString();
 
   const calendarificUrl = `${baseCalendarificUrl}&api_key=${
