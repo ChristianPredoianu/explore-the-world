@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { getApiData } from '@/utils/api';
-import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import CountryDetailsNav from '@/components/nav/country-details-nav/CountryDetailsNav';
 import EffectCreativeSlider from '@/components/swiper/EffectCreativeSlider';
 import { Weather } from '@/components/weather/Weather';
@@ -161,23 +161,38 @@ export default function CountryDetails() {
   );
 }
 
-export async function fetchCountryDetails(countryId: string) {
-  let countryDetailsUrl = `${baseCountryDetailsUrl}${countryId}`;
-  const countryImagesUrl = `${baseCountryImagesUrl}${countryId}&per_page=15`;
+interface CountryDetailsResponse {
+  data: [ICountryDetails[], ICountriesImages];
+}
 
-  if (countryId === 'India')
-    countryDetailsUrl = `${baseCountryDetailsUrl}Republic%20of%20India`;
+export async function fetchCountryDetails(
+  countryId: string
+): Promise<CountryDetailsResponse | null> {
+  try {
+    let countryDetailsUrl = `${baseCountryDetailsUrl}${countryId}`;
+    const countryImagesUrl = `${baseCountryImagesUrl}${countryId}&per_page=15`;
 
-  const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
-    ICountryDetails[]
-  >;
-  const countryImagesPromise = getApiData(countryImagesUrl, {
-    headers: {
-      Authorization: import.meta.env.VITE_PEXELS_API_KEY,
-    },
-  }) as Promise<ICountriesImages>;
+    if (countryId === 'India') {
+      countryDetailsUrl = `${baseCountryDetailsUrl}Republic%20of%20India`;
+    }
 
-  const data = await Promise.all([countryDetailsPromise, countryImagesPromise]);
+    const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
+      ICountryDetails[]
+    >;
+    const countryImagesPromise = getApiData(countryImagesUrl, {
+      headers: {
+        Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+      },
+    }) as Promise<ICountriesImages>;
 
-  return { data };
+    const [countryDetails, countryImages] = await Promise.all([
+      countryDetailsPromise,
+      countryImagesPromise,
+    ]);
+
+    return { data: [countryDetails, countryImages] };
+  } catch (error) {
+    console.error('Error fetching country details:', error);
+    return null;
+  }
 }
