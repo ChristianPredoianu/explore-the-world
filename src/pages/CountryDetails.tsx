@@ -161,11 +161,11 @@ export default function CountryDetails() {
   );
 }
 
-export async function fetchCountryDetails({ params }: LoaderFunctionArgs) {
-  let countryDetailsUrl = `${baseCountryDetailsUrl}${params.countryId}`;
-  const countryImagesUrl = `${baseCountryImagesUrl}${params.countryId}&per_page=15`;
+export async function fetchCountryDetails(countryId: string) {
+  let countryDetailsUrl = `${baseCountryDetailsUrl}${countryId}`;
+  const countryImagesUrl = `${baseCountryImagesUrl}${countryId}&per_page=15`;
 
-  if (params.countryId === 'India')
+  if (countryId === 'India')
     countryDetailsUrl = `${baseCountryDetailsUrl}Republic%20of%20India`;
 
   const countryDetailsPromise = getApiData(countryDetailsUrl) as Promise<
