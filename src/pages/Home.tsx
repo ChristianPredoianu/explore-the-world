@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useCountryNames } from '@/hooks/useCountryNames';
 import { getApiData } from '@/utils/api';
@@ -6,17 +5,12 @@ import MainNav from '@/components/nav/main-nav/MainNav';
 import SlidesAutoSwiper from '@/components/swiper/SlidesAutoSwiper';
 import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { baseCountryImagesUrl } from '@/utils/urls';
+import { MOST_POPULAR_COUNTRIES } from '@/config/countries';
 import { ICountriesImages } from '@/types/apiTypes.interface';
 import backgroundVideo from '@/assets/bg-video-beach.mp4';
 import videoFallbackImg from '@/assets/images/explore.jpg';
-
 import classNames from 'classnames';
 import classes from '@/pages/Home.module.scss';
-
-const MOST_POPULAR_COUNTRIES = useMemo(
-  () => ['United Kingdom', 'Italy', 'Spain', 'Japan', 'Greece', 'Argentina'],
-  []
-);
 
 export default function Home() {
   const countriesData = useLoaderData() as ICountriesImages[];
