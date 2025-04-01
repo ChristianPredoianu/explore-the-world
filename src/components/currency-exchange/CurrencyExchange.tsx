@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
-import { useExchangeRates } from '@/hooks/useExchangeRates';
-import { useCurrencyConversion } from '@/hooks/useCurrencyConversion';
+import { useState, useEffect } from 'react';
+import { useFetch } from '@/hooks/useFetch';
 import CurrencyInput from '@/components/inputs/currency-input/CurrencyInput';
 import SearchInput from '@/components/inputs/search-input/SearchInput';
+import { currencyCountryCodes } from '@/utils/currencies';
+import { IExchangeRates } from '@/types/apiTypes.interface';
+import { baseCurrencyRatesUrl } from '@/utils/urls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
@@ -12,38 +14,115 @@ interface CurrencyExchangeProps {
 }
 
 export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
-  const initialCurrencyExchRates = useExchangeRates(currency);
+  const [currencyFromValue, setCurrencyFromValue] = useState('1');
+  const [currencyToValue, setCurrencyToValue] = useState('0');
+  const [initialCurrency, setInitialCurrency] = useState(currency);
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    Object.keys(currencyCountryCodes)[47]
+  );
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
+  const [countryFlagTo, setCountryFlagTo] = useState('eur');
 
-  const {
-    currencyFromValue,
-    currencyToValue,
-    selectedCurrency,
-    countryFlagFrom,
-    countryFlagTo,
-    currencyArray,
-    isFlipped,
-    getExchangeRates,
-    flip,
-    handleCurrencyFromChange,
-    handleCurrencyToChange,
-    handleCurrencyFromBlur,
-    handleCurrencyToBlur,
-    initialConversion,
-    flipConversion,
-    setInitialCurrency,
-  } = useCurrencyConversion(currency);
+  const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
+
+  const [initialCurrencyExchRates] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
+
+  const currencyArray = Object.keys(currencyCountryCodes);
+
+  function getExchangeRates(userSelectedCurrency: string) {
+    if (isFlipped) {
+      setIsFlipped(false);
+      setCurrencyFromValue('1');
+    }
+
+    if (userSelectedCurrency !== undefined) {
+      setCountryFlagTo(userSelectedCurrency);
+      setSelectedCurrency(userSelectedCurrency);
+    }
+  }
+
+  function toggleIsFlipped() {
+    setIsFlipped(!isFlipped);
+  }
+
+  function initialConversion() {
+    if (initialCurrencyExchRates) {
+      setCurrencyToValue(
+        parseFloat(
+          (
+            initialCurrencyExchRates[currency.toLowerCase()][
+              selectedCurrency.toLowerCase()
+            ] * +currencyFromValue
+          ).toString()
+        ).toFixed(2)
+      );
+    }
+  }
+
+  function flipConversion() {
+    if (initialCurrencyExchRates) {
+      setCurrencyToValue(
+        parseFloat(
+          (
+            +currencyFromValue /
+            initialCurrencyExchRates[currency.toLowerCase()][
+              initialCurrency.toLowerCase()
+            ]
+          ).toString()
+        ).toFixed(2)
+      );
+    }
+  }
+
+  function flip() {
+    toggleIsFlipped();
+
+    let tempValue = currencyFromValue;
+    setCurrencyFromValue(currencyToValue);
+    setCurrencyToValue(tempValue);
+
+    let tempFlag = countryFlagTo;
+    setCountryFlagTo(countryFlagFrom);
+    setCountryFlagFrom(tempFlag);
+
+    let tempCurrency = initialCurrency;
+    setInitialCurrency(selectedCurrency.toUpperCase());
+    setSelectedCurrency(tempCurrency);
+  }
+
+  function handleCurrencyFromChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = parseFloat(e.target.value.replace(',', '.'));
+    setCurrencyFromValue(newValue.toString());
+  }
+
+  function handleCurrencyToChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setCurrencyToValue(e.currentTarget.value);
+  }
+
+  function handleCurrencyFromBlur() {
+    setCurrencyFromValue(currencyFromValue.toLocaleString());
+  }
+
+  function handleCurrencyToBlur() {
+    setCurrencyFromValue(currencyToValue.toLocaleString());
+  }
 
   useEffect(() => {
     setInitialCurrency(currency);
-  }, [currency, setInitialCurrency]);
+    setCountryFlagFrom(currency.toLowerCase());
+  }, [currency]);
 
   useEffect(() => {
-    if (initialCurrencyExchRates) {
-      isFlipped
-        ? flipConversion(initialCurrencyExchRates)
-        : initialConversion(initialCurrencyExchRates);
+    if (!isFlipped) {
+      setInitialCurrency(currency);
+      setCountryFlagFrom(currency.toLowerCase());
     }
-  }, [currencyFromValue, selectedCurrency, initialCurrencyExchRates, isFlipped]);
+  }, [isFlipped]);
+
+  useEffect(() => {
+    isFlipped ? flipConversion() : initialConversion();
+  }, [currencyFromValue, selectedCurrency, initialCurrencyExchRates]);
 
   const searchInput = (
     <div className={classes.searchInputWrapper}>
@@ -62,7 +141,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
         value={currencyFromValue}
         handleChange={handleCurrencyFromChange}
         handleBlur={handleCurrencyFromBlur}
-        currencyDetails={{ flag: countryFlagFrom, currency: currency }}
+        currencyDetails={{ flag: countryFlagFrom, currency: initialCurrency }}
       />
     </div>
   );
@@ -87,13 +166,15 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   );
 
   return (
-    <article className={classes.currencyCard}>
-      {searchInput}
-      <div className={classes.currencyWrapper}>
-        {currencyFrom}
-        {flipIcon}
-        {currencyTo}
-      </div>
-    </article>
+    <>
+      <article className={classes.currencyCard}>
+        {searchInput}
+        <div className={classes.currencyWrapper}>
+          {currencyFrom}
+          {flipIcon}
+          {currencyTo}
+        </div>
+      </article>
+    </>
   );
 }
