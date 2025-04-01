@@ -4,12 +4,6 @@ import classes from '@/components/inputs/search-input/SearchInput.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
 import useDebounce from '@/hooks/useDebounce';
 
-interface SearchInputProps {
-  suggestions: string[];
-  placeholder: string;
-  callback: (param: string) => void;
-}
-
 const initialState: IInitialState = {
   count: 0,
   filteredSuggestions: [],
