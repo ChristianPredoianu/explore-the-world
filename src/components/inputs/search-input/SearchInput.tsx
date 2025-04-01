@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef, useReducer, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useKeyPress } from '@/hooks/useKeyPress';
-import { suggestionsReducer, IInitialState } from '@/reducers/suggestionsReducer';
 import SearchSuggestionList from '@/components/inputs/search-input/SearchSuggestionList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import classes from '@/components/inputs/search-input/SearchInput.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
-import useDebounce from '@/hooks/useDebounce';
 import { useSearchInput } from '@/hooks/useSearchInput';
 
 interface SearchInputProps {
@@ -38,7 +35,6 @@ export default function SearchInput({
     handleArrowUp,
     handleArrowDown,
     handleTabNavigation,
-
     resetSuggestions,
     setIsShowSuggestions,
   } = useSearchInput(suggestions, callback);
