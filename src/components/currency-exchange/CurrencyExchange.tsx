@@ -3,8 +3,9 @@ import { useFetch } from '@/hooks/useFetch';
 import CurrencyInput from '@/components/inputs/currency-input/CurrencyInput';
 import SearchInput from '@/components/inputs/search-input/SearchInput';
 import { currencyCountryCodes } from '@/utils/currencies';
+import { useExchangeRates } from '@/hooks/useExchangeRates';
 import { IExchangeRates } from '@/types/apiTypes.interface';
-import { baseCurrencyRatesUrl } from '@/utils/urls';
+/* import { baseCurrencyRatesUrl } from '@/utils/urls'; */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from '@/components/currency-exchange/CurrencyExchange.module.scss';
 import '@/components/inputs/CurrencyFlags.scss';
@@ -24,9 +25,10 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   const [countryFlagFrom, setCountryFlagFrom] = useState(currency.toLowerCase());
   const [countryFlagTo, setCountryFlagTo] = useState('eur');
   console.log(currency);
-  const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`;
+  /*   const supportedCurrenciesUrl = `${baseCurrencyRatesUrl}/${currency.toLowerCase()}.json`; */
 
-  const [initialCurrencyExchRates] = useFetch<IExchangeRates>(supportedCurrenciesUrl);
+  /*   const [initialCurrencyExchRates] = useFetch<IExchangeRates>(supportedCurrenciesUrl); */
+  const exchangeRates = useExchangeRates(currency);
 
   const currencyArray = Object.keys(currencyCountryCodes);
 
@@ -47,13 +49,12 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   }
 
   function initialConversion() {
-    if (initialCurrencyExchRates) {
+    if (exchangeRates) {
       setCurrencyToValue(
         parseFloat(
           (
-            initialCurrencyExchRates[currency.toLowerCase()][
-              selectedCurrency.toLowerCase()
-            ] * +currencyFromValue
+            exchangeRates[currency.toLowerCase()][selectedCurrency.toLowerCase()] *
+            +currencyFromValue
           ).toString()
         ).toFixed(2)
       );
@@ -61,14 +62,12 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
   }
 
   function flipConversion() {
-    if (initialCurrencyExchRates) {
+    if (exchangeRates) {
       setCurrencyToValue(
         parseFloat(
           (
             +currencyFromValue /
-            initialCurrencyExchRates[currency.toLowerCase()][
-              initialCurrency.toLowerCase()
-            ]
+            exchangeRates[currency.toLowerCase()][initialCurrency.toLowerCase()]
           ).toString()
         ).toFixed(2)
       );
@@ -122,7 +121,7 @@ export default function CurrencyExchange({ currency }: CurrencyExchangeProps) {
 
   useEffect(() => {
     isFlipped ? flipConversion() : initialConversion();
-  }, [currencyFromValue, selectedCurrency, initialCurrencyExchRates]);
+  }, [currencyFromValue, selectedCurrency, exchangeRates]);
 
   const searchInput = (
     <div className={classes.searchInputWrapper}>
