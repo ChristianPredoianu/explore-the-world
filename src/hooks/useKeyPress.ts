@@ -3,9 +3,7 @@ export function useKeyPress(callback: () => void, keys: string[]) {
   function onKeyDown(event: KeyboardEvent) {
     const isAnyKeyPressed = keys.some((key) => event.key === key);
 
-    if (isAnyKeyPressed) {
-      callback();
-    }
+    if (isAnyKeyPressed) callback();
   }
 
   useEffect(() => {
