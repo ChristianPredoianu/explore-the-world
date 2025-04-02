@@ -48,6 +48,9 @@ export default function SearchInput({
     setSearchQuery('');
   }, ['Escape']);
 
+  const shouldDisplaySuggestions =
+    isShowSuggestions && state.filteredSuggestions.length > 0;
+
   return (
     <div className={classes.inputWrapper}>
       <input
@@ -72,7 +75,7 @@ export default function SearchInput({
         aria-label='Search'
       />
 
-      {isShowSuggestions && state.filteredSuggestions.length > 0 && (
+      {shouldDisplaySuggestions && (
         <div role='listbox' aria-labelledby='search-suggestions' aria-live='polite'>
           <SearchSuggestionList
             filteredSuggestions={state.filteredSuggestions}
