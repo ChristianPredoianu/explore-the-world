@@ -21,8 +21,9 @@ export function useFetch<T>(initialUrl: string, settings?: {}) {
       setData(data);
     } catch (error: any) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   useEffect(() => {
