@@ -8,13 +8,14 @@ interface CountryMapProps {
   coords: number[];
 }
 
+const ZOOM_LEVEL = 7;
+
 export default function CountryMap({ coords }: CountryMapProps) {
   const position: LatLngExpression = [coords[0], coords[1]];
-  const zoomLevel = 7;
 
   return (
     <>
-      <MapContainer center={position} zoom={zoomLevel} scrollWheelZoom={false}>
+      <MapContainer center={position} zoom={ZOOM_LEVEL} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'

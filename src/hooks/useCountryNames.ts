@@ -7,9 +7,8 @@ export function useCountryNames() {
 
   let countryNames: string[] = [];
 
-  if (countryData) {
+  if (countryData)
     countryNames = countryData.map((countryName) => countryName.name.common);
-  }
 
   return {
     countryNames,
